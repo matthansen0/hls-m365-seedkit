@@ -1,0 +1,91 @@
+====================================================================
+NONCONFORMANCE REPORT — NCR-2026-{{ run_id[:6] }}
+====================================================================
+Run ID: {{ run_id }}
+Theme:  {{ theme }}
+Date:   2026-01-15 (synthetic)
+
+⚠ Demo content — synthetic, no patient data.
+====================================================================
+
+PRODUCT: Contoso Pulse Monitor v2.1 (synthetic)
+LOT:     LOT-2026-{{ run_id[:4] }}-015
+QTY AFFECTED: 12 units of 250-unit lot
+
+NCR DETAILS
+--------------
+  ┌─────────────────┬──────────────────────────────────────────────┐
+  │ NCR Number       │ NCR-2026-{{ run_id[:6] }}                                │
+  │ Date Identified  │ 2026-01-14                                   │
+  │ Identified By    │ [Synthetic QC Inspector — Line 3]            │
+  │ Stage            │ Final Visual Inspection                      │
+  │ Classification   │ Minor Nonconformance                         │
+  └─────────────────┴──────────────────────────────────────────────┘
+
+DESCRIPTION OF NONCONFORMANCE
+-------------------------------
+During final visual inspection of LOT-2026-{{ run_id[:4] }}-015,
+twelve (12) units were identified with cosmetic defects on the
+device enclosure. Defects consist of light surface scratches
+(0.5–1.2mm length) on the polycarbonate display cover, not
+affecting device functionality or patient safety.
+
+INVESTIGATION
+---------------
+  Root Cause Analysis:
+  • Scratches traced to handling during ultrasonic welding station
+  • Protective film was removed prior to welding (should remain
+    until post-weld inspection)
+  • Operator followed outdated work instruction WI-ASM-022 Rev B
+    (current is Rev C, which specifies film retention)
+
+  Contributing Factors:
+  • Work instruction revision not communicated during shift handover
+  • Old revision copies not removed from workstation
+
+DISPOSITION
+-------------
+  ┌──────────────────────┬────────────────────────────────────────┐
+  │ Disposition Decision  │ USE AS IS — cosmetic only, no impact   │
+  │                       │ on safety, performance, or labeling    │
+  │ Disposition Authority │ [Synthetic Quality Manager]            │
+  │ Justification         │ Scratches do not affect SpO₂ sensor   │
+  │                       │ window, are outside display area, and  │
+  │                       │ do not violate device specifications   │
+  │ Qty Accepted          │ 12 units — released to finished goods  │
+  │ Qty Rejected          │ 0                                      │
+  └──────────────────────┴────────────────────────────────────────┘
+
+CORRECTIVE ACTIONS
+--------------------
+  1. Retrain Line 3 operators on WI-ASM-022 Rev C (film retention)
+     Owner: [Synthetic Production Supervisor]
+     Due: 2026-01-20
+     Status: SCHEDULED
+
+  2. Remove all Rev B copies from workstations
+     Owner: [Synthetic Document Control]
+     Due: 2026-01-16
+     Status: COMPLETED
+
+  3. Add film-check verification step to weld station checklist
+     Owner: [Synthetic Process Engineer]
+     Due: 2026-01-25
+     Status: IN PROGRESS
+
+CAPA DETERMINATION
+--------------------
+  □ CAPA Required?  YES — linked to CAPA-2026-004 (to be opened)
+  □ Trend Analysis: 2nd cosmetic NCR in Q1 — trending review needed
+
+APPROVALS
+-----------
+  QC Inspector:      [Synthetic] — 2026-01-14
+  Quality Engineer:  [Synthetic] — 2026-01-15
+  Quality Manager:   [Synthetic] — 2026-01-15
+
+====================================================================
+END OF NONCONFORMANCE REPORT
+Demo content — synthetic, no patient data.
+RunId: {{ run_id }}
+====================================================================

@@ -1,0 +1,101 @@
+====================================================================
+PROVIDER DIRECTORY AUDIT REPORT — Q1 2026
+====================================================================
+Run ID: {{ run_id }}
+Theme:  {{ theme }}
+Date:   2026-01-15 (synthetic)
+
+⚠ Demo content — synthetic, no patient data.
+====================================================================
+
+ORGANIZATION: Contoso Health Plan (synthetic)
+AUDIT TYPE:   CMS Provider Directory Accuracy (§ 422.111(b))
+AUDIT PERIOD: January 1–15, 2026
+SAMPLE SIZE:  500 provider listings (of 3,200 total)
+METHODOLOGY:  Phone verification + online directory comparison
+
+ACCURACY RESULTS BY DATA ELEMENT
+-----------------------------------
+  ┌────────────────────────────┬──────────┬──────────┬──────────┐
+  │ Data Element                │ Verified  │ Accurate │ Rate (%) │
+  ├────────────────────────────┼──────────┼──────────┼──────────┤
+  │ Provider Name               │ 500       │ 498      │ 99.6%    │
+  │ Practice Address            │ 500       │ 475      │ 95.0%    │
+  │ Phone Number                │ 500       │ 482      │ 96.4%    │
+  │ Specialty / Taxonomy        │ 500       │ 490      │ 98.0%    │
+  │ Accepting New Patients      │ 500       │ 460      │ 92.0%    │
+  │ Network Tier / Status       │ 500       │ 495      │ 99.0%    │
+  │ Languages Spoken            │ 500       │ 468      │ 93.6%    │
+  │ Office Hours                │ 500       │ 455      │ 91.0%    │
+  │ Board Certification         │ 500       │ 488      │ 97.6%    │
+  │ Gender                      │ 500       │ 497      │ 99.4%    │
+  │ Wheelchair Accessible       │ 500       │ 465      │ 93.0%    │
+  │ Telehealth Available        │ 500       │ 470      │ 94.0%    │
+  ├────────────────────────────┼──────────┼──────────┼──────────┤
+  │ OVERALL ACCURACY            │ 6,000     │ 5,743    │ 95.7%    │
+  └────────────────────────────┴──────────┴──────────┴──────────┘
+
+  CMS Target: ≥ 95% accuracy (No Surprises Act / Transparency)
+  Result: 95.7% — MEETS STANDARD (marginally)
+
+INACCURACY BREAKDOWN
+-----------------------
+  ┌──────────────────────────────┬──────────┬──────────┐
+  │ Issue                         │ Count    │ %        │
+  ├──────────────────────────────┼──────────┼──────────┤
+  │ Office hours outdated         │ 45       │ 17.5%    │
+  │ Accepting new patients wrong  │ 40       │ 15.6%    │
+  │ Languages not updated         │ 32       │ 12.5%    │
+  │ Wheelchair access unknown     │ 35       │ 13.6%    │
+  │ Telehealth status wrong       │ 30       │ 11.7%    │
+  │ Address change not reflected  │ 25       │ 9.7%     │
+  │ Phone number changed          │ 18       │ 7.0%     │
+  │ Specialty change              │ 10       │ 3.9%     │
+  │ Board cert not updated        │ 12       │ 4.7%     │
+  │ Name / credential error       │ 2        │ 0.8%     │
+  │ Network tier error            │ 5        │ 1.9%     │
+  │ Other                         │ 3        │ 1.2%     │
+  ├──────────────────────────────┼──────────┼──────────┤
+  │ TOTAL INACCURACIES            │ 257      │ 100%     │
+  └──────────────────────────────┴──────────┴──────────┘
+
+PROVIDER ATTESTATION STATUS
+------------------------------
+  ┌───────────────────────────┬──────────┬──────────┐
+  │ Attestation Cycle          │ Count    │ Rate     │
+  ├───────────────────────────┼──────────┼──────────┤
+  │ Attested (≤ 90 days)      │ 2,680    │ 83.8%    │
+  │ Attested (91–180 days)    │ 380      │ 11.9%    │
+  │ Overdue (> 180 days)      │ 140      │ 4.4%     │
+  ├───────────────────────────┼──────────┼──────────┤
+  │ TOTAL IN DIRECTORY         │ 3,200    │ 100%     │
+  └───────────────────────────┴──────────┴──────────┘
+
+  CMS Requirement: Attestation ≤ 90 days for all data elements
+  ⚠ 16.3% of providers have stale attestation data
+
+CORRECTIVE ACTION PLAN
+-------------------------
+  1. Outreach campaign to 140 overdue providers — attestation
+     reminder via fax, email, and portal notification
+     Owner: Provider Data Mgmt | Due: 2026-02-15
+
+  2. Update online directory for 257 identified inaccuracies
+     Owner: IT/Directory Services | Due: 2026-01-31
+
+  3. Implement automated quarterly attestation reminder system
+     Owner: IT/Provider Relations | Due: 2026-Q2
+
+  4. Add real-time "accepting new patients" verification via
+     provider portal self-service
+     Owner: IT/Digital | Due: 2026-Q2
+
+  5. Train provider relations staff on CMS directory accuracy
+     requirements (annual refresher)
+     Owner: Compliance | Due: 2026-02-28
+
+====================================================================
+END OF AUDIT REPORT
+Demo content — synthetic, no patient data.
+RunId: {{ run_id }}
+====================================================================

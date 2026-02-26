@@ -1,0 +1,78 @@
+<!-- Healthcare email body template -->
+<div style="font-family: Calibri, Arial, sans-serif; font-size: 14px; color: #333;">
+
+<p>Hello,</p>
+
+{% if message_index == 0 %}
+<p>I'm writing to initiate the discussion on <strong>{{ subject }}</strong>.</p>
+
+<p>As part of our ongoing clinical operations, we need to coordinate on the following items:</p>
+<ul>
+    <li>Review of current patient discharge protocols</li>
+    <li>Staff scheduling adjustments for the upcoming quarter</li>
+    <li>Follow-up on quality metrics and compliance requirements</li>
+</ul>
+
+<p>Please review the attached materials (if any) and share your input so we can
+align next steps before our scheduled review meeting.</p>
+
+{% elif message_index == 1 %}
+<p>Thank you for bringing this up. I've reviewed the latest metrics and have a
+few observations:</p>
+<ul>
+    <li>Our discharge turnaround has improved by 12% over the past month</li>
+    <li>We should consider additional care coordinator coverage on weekends</li>
+    <li>The compliance training completion rate is at 94% — let's target 100%</li>
+</ul>
+
+<p>I'll prepare a summary document for the team by end of week.</p>
+
+{% elif message_index == 2 %}
+<p>Great progress on the discharge metrics. A few follow-up items from my end:</p>
+<ul>
+    <li>I've updated the staffing roster to reflect the new shift patterns</li>
+    <li>The care coordination worksheet has been revised — please review v2</li>
+    <li>We need sign-off from compliance before implementing the new protocol</li>
+</ul>
+
+{% elif message_index == 3 %}
+<p>I've completed my review and have the following recommendations:</p>
+<ol>
+    <li>Implement the revised discharge checklist starting next Monday</li>
+    <li>Schedule a joint review session with the quality improvement team</li>
+    <li>Update the SOP documentation to reflect current best practices</li>
+</ol>
+
+<p>Let me know if you have any questions or concerns.</p>
+
+{% elif message_index == 4 %}
+<p>All good from my side. I'll coordinate with the nursing team to ensure
+everyone is briefed on the updated procedures.</p>
+
+<p>Key action items:</p>
+<ul>
+    <li>Staff briefing scheduled for Thursday at 2 PM</li>
+    <li>Updated SOPs will be available on the shared drive by Wednesday</li>
+    <li>Compliance sign-off expected by Friday</li>
+</ul>
+
+{% else %}
+<p>Thank you all for the productive discussion. To summarize our agreed-upon
+next steps:</p>
+<ol>
+    <li>Revised protocols go live next week</li>
+    <li>Follow-up meeting scheduled in two weeks to review outcomes</li>
+    <li>All documentation updates to be completed by end of this sprint</li>
+</ol>
+
+<p>Please don't hesitate to reach out if anything comes up in the meantime.</p>
+{% endif %}
+
+<p>Best regards</p>
+
+<hr style="border: none; border-top: 1px solid #ccc; margin-top: 20px;" />
+<p style="font-size: 11px; color: #999;">
+    <em>Demo content — synthetic, no patient data.</em><br/>
+    Thread: {{ thread_id }} | Message: {{ message_index + 1 }} | RunId: {{ run_id }}
+</p>
+</div>

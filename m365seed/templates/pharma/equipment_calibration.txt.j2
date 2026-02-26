@@ -1,0 +1,90 @@
+====================================================================
+EQUIPMENT CALIBRATION & MAINTENANCE LOG — Q1 2026
+====================================================================
+Run ID: {{ run_id }}
+Theme:  {{ theme }}
+Date:   2026-01-15 (synthetic)
+
+⚠ Demo content — synthetic, no patient data.
+====================================================================
+
+FACILITY:   Contoso Pharmaceuticals Research Center (synthetic)
+DEPARTMENT: Quality Control / Analytical Chemistry
+PREPARED BY: [Synthetic Metrology Coordinator]
+
+INSTRUMENT INVENTORY & CALIBRATION STATUS
+--------------------------------------------
+
+1. HIGH-PERFORMANCE LIQUID CHROMATOGRAPHY (HPLC)
+   ┌───────────┬──────────────┬──────────────┬─────────────┬────────┐
+   │ Asset ID   │ Model         │ Last Calib.   │ Next Calib.  │ Status │
+   ├───────────┼──────────────┼──────────────┼─────────────┼────────┤
+   │ HPLC-001  │ Agilent 1260  │ 2025-12-01   │ 2026-06-01  │ ✓ OK   │
+   │ HPLC-002  │ Agilent 1260  │ 2025-12-01   │ 2026-06-01  │ ✓ OK   │
+   │ HPLC-003  │ Waters ACQUITY│ 2025-11-15   │ 2026-05-15  │ ✓ OK   │
+   │ HPLC-004  │ Shimadzu LC-40│ 2025-10-20   │ 2026-04-20  │ ✓ OK   │
+   └───────────┴──────────────┴──────────────┴─────────────┴────────┘
+
+2. BALANCES & SCALES
+   ┌───────────┬──────────────┬──────────────┬─────────────┬────────┐
+   │ Asset ID   │ Model         │ Last Calib.   │ Next Calib.  │ Status │
+   ├───────────┼──────────────┼──────────────┼─────────────┼────────┤
+   │ BAL-101   │ Mettler XPR   │ 2025-12-15   │ 2026-03-15  │ ✓ OK   │
+   │ BAL-102   │ Mettler XPR   │ 2025-12-15   │ 2026-03-15  │ ✓ OK   │
+   │ BAL-103   │ Sartorius Cub │ 2025-11-01   │ 2026-02-01  │ ⚠ DUE  │
+   │ BAL-104   │ Mettler XSR   │ 2025-12-20   │ 2026-03-20  │ ✓ OK   │
+   └───────────┴──────────────┴──────────────┴─────────────┴────────┘
+
+3. SPECTROPHOTOMETERS
+   ┌───────────┬──────────────┬──────────────┬─────────────┬────────┐
+   │ Asset ID   │ Model         │ Last Calib.   │ Next Calib.  │ Status │
+   ├───────────┼──────────────┼──────────────┼─────────────┼────────┤
+   │ UV-201    │ Agilent Cary  │ 2025-11-01   │ 2026-05-01  │ ✓ OK   │
+   │ UV-202    │ PerkinElmer   │ 2025-12-10   │ 2026-06-10  │ ✓ OK   │
+   └───────────┴──────────────┴──────────────┴─────────────┴────────┘
+
+4. pH METERS
+   ┌───────────┬──────────────┬──────────────┬─────────────┬────────┐
+   │ Asset ID   │ Model         │ Last Calib.   │ Next Calib.  │ Status │
+   ├───────────┼──────────────┼──────────────┼─────────────┼────────┤
+   │ PM-203    │ Mettler Seven │ daily         │ N/A         │ ✓ OK   │
+   │ PM-204    │ Mettler Seven │ daily         │ N/A         │ ⚠ GAP  │
+   └───────────┴──────────────┴──────────────┴─────────────┴────────┘
+
+PREVENTIVE MAINTENANCE SCHEDULE
+----------------------------------
+  ┌───────────────────────────┬───────────────┬────────────────────┐
+  │ Equipment                  │ PM Frequency   │ Next PM Due        │
+  ├───────────────────────────┼───────────────┼────────────────────┤
+  │ HPLC systems (all)        │ Semi-annual    │ 2026-03-01         │
+  │ Dissolution apparatus     │ Annual         │ 2026-06-15         │
+  │ Stability chambers        │ Quarterly      │ 2026-02-01         │
+  │ Fume hoods                │ Annual         │ 2026-04-01         │
+  │ Biosafety cabinets        │ Annual         │ 2026-05-01         │
+  │ Autoclaves                │ Semi-annual    │ 2026-03-15         │
+  │ Ultra-cold freezers (-80°C)│ Semi-annual   │ 2026-02-15         │
+  └───────────────────────────┴───────────────┴────────────────────┘
+
+CALIBRATION DEVIATIONS
+------------------------
+  1. BAL-103: Calibration due Feb 01 — service vendor scheduled.
+  2. PM-204: Daily verification gap during holiday period (Dec 25-26).
+     CAPA issued — holiday coverage protocol implemented.
+
+TEMPERATURE-CONTROLLED STORAGE MONITORING
+--------------------------------------------
+  ┌────────────────────────┬──────────┬──────────┬──────────────┐
+  │ Unit                    │ Set Point │ Range     │ Status       │
+  ├────────────────────────┼──────────┼──────────┼──────────────┤
+  │ Stability Chamber SC-1 │ 25°C/60% │ 24.8-25.2│ ✓ In Spec    │
+  │ Stability Chamber SC-2 │ 40°C/75% │ 39.9-40.1│ ✓ In Spec    │
+  │ Refrigerator REF-01    │ 2-8°C    │ 4.1-5.3  │ ✓ In Spec    │
+  │ Freezer FRZ-01         │ -20°C    │ -21 to -19│ ✓ In Spec   │
+  │ Ultra-Cold UFC-01      │ -80°C    │ -81 to -79│ ✓ In Spec   │
+  └────────────────────────┴──────────┴──────────┴──────────────┘
+
+====================================================================
+END OF LOG
+Demo content — synthetic, no patient data.
+RunId: {{ run_id }}
+====================================================================

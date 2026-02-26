@@ -1,0 +1,284 @@
+# ─────────────────────────────────────────────────────────────
+# M365 Seed — Example Configuration
+# Copy to seed-config.yaml and fill in real values.
+# DO NOT commit seed-config.yaml — it is in .gitignore.
+# ─────────────────────────────────────────────────────────────
+
+tenant:
+  tenant_id: "<YOUR-TENANT-GUID>"
+  authority: "https://login.microsoftonline.com/<YOUR-TENANT-GUID>"
+
+auth:
+  mode: "client_secret"          # "client_secret" | "device_code"
+  client_id: "<YOUR-APP-CLIENT-ID>"
+  client_secret_env: "M365SEED_CLIENT_SECRET"   # name of env var holding the secret
+
+targets:
+  users:
+    - upn: "allande@m365x123456.onmicrosoft.com"
+      role: "Clinical Ops Manager"
+    - upn: "dr.patel@m365x123456.onmicrosoft.com"
+      role: "Physician Lead"
+    - upn: "care.coord@m365x123456.onmicrosoft.com"
+      role: "Care Coordinator"
+    - upn: "nurse.jones@m365x123456.onmicrosoft.com"
+      role: "Nurse Manager"
+    - upn: "compliance@m365x123456.onmicrosoft.com"
+      role: "Compliance Officer"
+
+content:
+  # Theme controls which template set and content library to use.
+  # Each theme provides contextually rich, industry-specific content for
+  # ALL seeded artifacts (files, emails, calendar, Teams, SharePoint, Planner).
+  # Content comes from m365seed/data/themes.json and m365seed/templates/{theme}/.
+  #   healthcare  — Health Provider (default)
+  #   pharma      — Pharma / Life Science
+  #   medtech     — MedTech / Manufacturing
+  #   payor       — Health Payor / Insurance
+  theme: "healthcare"
+  run_id: "hls-demo-001"
+
+mail:
+  # Thread IDs matching entries in themes.json get theme-specific
+  # attachment names and content automatically.
+  threads:
+    - thread_id: "care-coordination-001"
+      subject: "Care Coordination: Discharge planning follow-up"
+      participants:
+        - "dr.patel@m365x123456.onmicrosoft.com"
+        - "care.coord@m365x123456.onmicrosoft.com"
+        - "nurse.jones@m365x123456.onmicrosoft.com"
+      messages: 6
+      include_attachments: true
+
+    - thread_id: "clinical-ops-review-001"
+      subject: "Clinical Ops: Weekly quality metrics review"
+      participants:
+        - "allande@m365x123456.onmicrosoft.com"
+        - "dr.patel@m365x123456.onmicrosoft.com"
+        - "compliance@m365x123456.onmicrosoft.com"
+      messages: 4
+      include_attachments: false
+
+    - thread_id: "compliance-audit-001"
+      subject: "Compliance: Quarterly audit preparation"
+      participants:
+        - "compliance@m365x123456.onmicrosoft.com"
+        - "allande@m365x123456.onmicrosoft.com"
+      messages: 3
+      include_attachments: true
+
+files:
+  # File manifests (folder, filename, template, description) are loaded
+  # from themes.json per theme.  Folders listed here filter which files
+  # from the manifest are uploaded.
+  oneDrive:
+    enabled: true
+    target_user: "allande@m365x123456.onmicrosoft.com"
+    folders:
+      - "Clinical Ops"
+      - "Care Coordination"
+      - "Compliance"
+      - "Quality Improvement"
+  sharePoint:
+    enabled: false
+    site_id: ""
+    drive_id: ""
+
+calendar:
+  # Event IDs matching entries in themes.json get theme-specific
+  # body text injected automatically.  Only organizer and attendees
+  # (tenant-specific) must be specified here.
+  enabled: true
+  events:
+    - event_id: "clinical-ops-standup-001"
+      subject: "Clinical Ops Daily Standup"
+      organizer: "allande@m365x123456.onmicrosoft.com"
+      attendees:
+        - "dr.patel@m365x123456.onmicrosoft.com"
+        - "nurse.jones@m365x123456.onmicrosoft.com"
+      recurrence: "daily"
+      duration_minutes: 15
+      is_online_meeting: true       # Creates a Teams meeting with join link
+
+    - event_id: "care-coord-review-001"
+      subject: "Care Coordination Review"
+      organizer: "care.coord@m365x123456.onmicrosoft.com"
+      attendees:
+        - "dr.patel@m365x123456.onmicrosoft.com"
+        - "nurse.jones@m365x123456.onmicrosoft.com"
+      recurrence: "weekly"
+      duration_minutes: 30
+      is_online_meeting: true
+
+    - event_id: "compliance-review-001"
+      subject: "Monthly Compliance Review"
+      organizer: "compliance@m365x123456.onmicrosoft.com"
+      attendees:
+        - "allande@m365x123456.onmicrosoft.com"
+        - "dr.patel@m365x123456.onmicrosoft.com"
+      recurrence: "monthly"
+      duration_minutes: 60
+      is_online_meeting: false      # Calendar-only, no Teams link
+
+teams:
+  # Channel IDs matching entries in themes.json get theme-specific
+  # descriptions and post content automatically.
+  enabled: false
+  # Requires --enable-beta-teams flag; uses Graph /beta endpoints.
+  team_id: ""
+  channels:
+    - channel_id: "care-updates-001"
+      display_name: "Care Updates"
+      description: "Channel for care coordination updates"
+      posts:
+        - message: "Welcome to the Care Updates channel. All discharge planning discussions go here."
+        - message: "Reminder: Please review updated discharge protocols before Friday."
+
+    - channel_id: "quality-improvement-001"
+      display_name: "Quality Improvement"
+      description: "Channel for quality metrics and improvement initiatives"
+      posts:
+        - message: "Q1 quality metrics are now posted. Please review and comment."
+
+# ─────────────────────────────────────────────────────────────
+# Teams Chats (1:1 and group) — beta, off by default
+# Requires --enable-beta-teams flag.
+# ─────────────────────────────────────────────────────────────
+chats:
+  # Conversation IDs matching entries in themes.json get
+  # theme-specific messages and topics automatically.
+  enabled: false
+  conversations:
+    - conversation_id: "care-handoff-chat-001"
+      type: "group"
+      topic: "Care Handoff — Night Shift"
+      members:
+        - "nurse.jones@m365x123456.onmicrosoft.com"
+        - "dr.patel@m365x123456.onmicrosoft.com"
+        - "care.coord@m365x123456.onmicrosoft.com"
+      messages:
+        - sender: "nurse.jones@m365x123456.onmicrosoft.com"
+          text: "Night shift handoff: Patient in room 302 needs vitals check at 06:00."
+        - sender: "dr.patel@m365x123456.onmicrosoft.com"
+          text: "Acknowledged. I'll review the chart before rounds."
+        - sender: "care.coord@m365x123456.onmicrosoft.com"
+          text: "Discharge paperwork for room 310 is ready for physician sign-off."
+
+    - conversation_id: "compliance-quick-chat-001"
+      type: "oneOnOne"
+      members:
+        - "compliance@m365x123456.onmicrosoft.com"
+        - "allande@m365x123456.onmicrosoft.com"
+      messages:
+        - sender: "compliance@m365x123456.onmicrosoft.com"
+          text: "Quick reminder: HIPAA training renewals are due by end of month."
+        - sender: "allande@m365x123456.onmicrosoft.com"
+          text: "Thanks — I'll send out the team reminder today."
+
+# ─────────────────────────────────────────────────────────────
+# SharePoint Sites, Pages & Documents (v1.0)
+# Creates sites via M365 Groups for full Work IQ signal coverage.
+# ─────────────────────────────────────────────────────────────
+sharepoint:
+  # Site display_names matching entries in themes.json get
+  # theme-specific pages and documents automatically.
+  enabled: false
+  owner: "allande@m365x123456.onmicrosoft.com"
+  sites:
+    - display_name: "Clinical Operations Hub"
+      description: "Central hub for clinical operations documentation and dashboards"
+      pages:
+        - title: "Welcome to Clinical Operations"
+          content: >
+            <h2>Clinical Operations Hub</h2>
+            <p>This site houses all clinical operations documentation, SOPs,
+            staffing rosters, and quality metrics dashboards.</p>
+            <ul>
+              <li>Standard Operating Procedures</li>
+              <li>Staffing Rosters</li>
+              <li>Quality Improvement Dashboards</li>
+            </ul>
+        - title: "Discharge Planning Process"
+          content: >
+            <h2>Discharge Planning Process</h2>
+            <p>Step-by-step guide for patient discharge coordination
+            across clinical teams.</p>
+      documents:
+        - filename: "Clinical_SOP_2026.txt"
+          folder: "Standard Operating Procedures"
+          content: "Standard Operating Procedures — Clinical Operations 2026\n\nThis document outlines synthetic demo SOPs.\nDemo content — no patient data."
+        - filename: "Staffing_Roster_Q1.txt"
+          folder: "Staffing"
+          content: "Staffing Roster Q1 2026\n\nSynthetic staffing data for demo purposes only."
+
+    - display_name: "Compliance Portal"
+      description: "Compliance documentation, audit checklists, and training records"
+      pages:
+        - title: "Compliance Overview"
+          content: >
+            <h2>Compliance Portal</h2>
+            <p>Central repository for HIPAA compliance, audit checklists,
+            and training completion records.</p>
+      documents:
+        - filename: "HIPAA_Checklist_2026.txt"
+          folder: "Audit Checklists"
+          content: "HIPAA Compliance Checklist 2026\n\nSynthetic checklist for demo purposes."
+
+# ─────────────────────────────────────────────────────────────
+# Planner Tasks (v1.0)
+# Requires a pre-existing M365 Group ID. Tasks are organized
+# into plans → buckets → tasks.
+# ─────────────────────────────────────────────────────────────
+planner:
+  # Plan titles matching entries in themes.json get theme-specific
+  # buckets and tasks automatically.
+  enabled: false
+  group_id: ""       # M365 Group ID that owns the Planner plans
+  plans:
+    - title: "Clinical Operations Sprint"
+      buckets:
+        - name: "To Do"
+          tasks:
+            - title: "Review updated SOP for medication administration"
+              priority: 3          # 1=Urgent, 3=Important, 5=Medium, 9=Low
+              percent_complete: 0
+              assignees:
+                - "nurse.jones@m365x123456.onmicrosoft.com"
+            - title: "Prepare Q1 quality metrics summary"
+              priority: 5
+              percent_complete: 0
+              assignees:
+                - "allande@m365x123456.onmicrosoft.com"
+        - name: "In Progress"
+          tasks:
+            - title: "Update discharge planning worksheet template"
+              priority: 3
+              percent_complete: 50
+              assignees:
+                - "care.coord@m365x123456.onmicrosoft.com"
+            - title: "Schedule HIPAA training refresher sessions"
+              priority: 5
+              percent_complete: 50
+              assignees:
+                - "compliance@m365x123456.onmicrosoft.com"
+        - name: "Completed"
+          tasks:
+            - title: "Complete monthly compliance audit checklist"
+              priority: 3
+              percent_complete: 100
+              assignees:
+                - "compliance@m365x123456.onmicrosoft.com"
+
+    - title: "Care Coordination Backlog"
+      buckets:
+        - name: "Triage"
+          tasks:
+            - title: "Review patient handoff protocol effectiveness"
+              priority: 3
+              assignees:
+                - "dr.patel@m365x123456.onmicrosoft.com"
+            - title: "Document interdepartmental escalation procedures"
+              priority: 5
+              assignees:
+                - "care.coord@m365x123456.onmicrosoft.com"

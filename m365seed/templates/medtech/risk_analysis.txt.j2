@@ -1,0 +1,90 @@
+====================================================================
+RISK ANALYSIS — ISO 14971 / Contoso Pulse Monitor v2.1
+====================================================================
+Run ID: {{ run_id }}
+Theme:  {{ theme }}
+Date:   2026-01-15 (synthetic)
+
+⚠ Demo content — synthetic, no patient data.
+====================================================================
+
+DEVICE:       Contoso Pulse Monitor v2.1 (synthetic)
+STANDARD:     ISO 14971:2019 — Medical devices — Application of
+              risk management to medical devices
+PREPARED BY:  [Synthetic Risk Management Engineer]
+APPROVED BY:  [Synthetic VP Quality & Regulatory]
+
+HAZARD IDENTIFICATION & RISK ESTIMATION
+------------------------------------------
+
+  ┌────┬─────────────────────────┬──────────┬───────┬───────┬───────────────────┐
+  │ ID │ Hazard                   │ Severity │ Prob. │ Risk  │ Mitigation        │
+  │    │                          │ (1-5)    │ (1-5) │ Level │                   │
+  ├────┼─────────────────────────┼──────────┼───────┼───────┼───────────────────┤
+  │ H01│ Inaccurate SpO₂ reading │ 5        │ 2     │ HIGH  │ Dual-sensor       │
+  │    │ leading to missed hypoxia│          │       │       │ validation, alarms│
+  ├────┼─────────────────────────┼──────────┼───────┼───────┼───────────────────┤
+  │ H02│ Battery depletion during│ 4        │ 2     │ MED   │ Low-battery alert │
+  │    │ critical monitoring     │          │       │       │ at 20%, 10%, 5%   │
+  ├────┼─────────────────────────┼──────────┼───────┼───────┼───────────────────┤
+  │ H03│ Skin irritation from    │ 2        │ 3     │ LOW   │ Biocompatible     │
+  │    │ prolonged wear          │          │       │       │ materials, IFU    │
+  ├────┼─────────────────────────┼──────────┼───────┼───────┼───────────────────┤
+  │ H04│ Data breach — BLE       │ 4        │ 2     │ MED   │ AES-128 encrypt,  │
+  │    │ interception of PHI     │          │       │       │ pairing required  │
+  ├────┼─────────────────────────┼──────────┼───────┼───────┼───────────────────┤
+  │ H05│ Electrical shock from   │ 5        │ 1     │ MED   │ IEC 60601-1       │
+  │    │ charging circuit fault  │          │       │       │ isolation, fuse   │
+  ├────┼─────────────────────────┼──────────┼───────┼───────┼───────────────────┤
+  │ H06│ Firmware crash during   │ 4        │ 2     │ MED   │ Watchdog timer,   │
+  │    │ monitoring session      │          │       │       │ fail-safe alarm   │
+  ├────┼─────────────────────────┼──────────┼───────┼───────┼───────────────────┤
+  │ H07│ User misinterprets      │ 3        │ 3     │ MED   │ Usability testing,│
+  │    │ display readings        │          │       │       │ clear labeling    │
+  ├────┼─────────────────────────┼──────────┼───────┼───────┼───────────────────┤
+  │ H08│ Electromagnetic         │ 3        │ 2     │ LOW   │ EMC testing per   │
+  │    │ interference (EMI)      │          │       │       │ IEC 60601-1-2     │
+  ├────┼─────────────────────────┼──────────┼───────┼───────┼───────────────────┤
+  │ H09│ Drop damage compromises │ 3        │ 3     │ MED   │ Impact-resistant  │
+  │    │ sensor accuracy         │          │       │       │ enclosure, IFU    │
+  ├────┼─────────────────────────┼──────────┼───────┼───────┼───────────────────┤
+  │ H10│ Allergic reaction to    │ 3        │ 1     │ LOW   │ Material disclosure│
+  │    │ device materials        │          │       │       │ in labeling       │
+  └────┴─────────────────────────┴──────────┴───────┴───────┴───────────────────┘
+
+RISK EVALUATION MATRIX
+-------------------------
+  ┌───────────────┬─────────┬────────┬────────┬────────┬────────┐
+  │ Severity →     │ 1 (Neg) │ 2 (Min)│ 3 (Mod)│ 4 (Maj)│ 5 (Cat)│
+  │ Probability ↓ │         │        │        │        │        │
+  ├───────────────┼─────────┼────────┼────────┼────────┼────────┤
+  │ 5 (Frequent)  │ LOW     │ MED    │ HIGH   │ HIGH   │ UNACCP │
+  │ 4 (Probable)  │ LOW     │ MED    │ MED    │ HIGH   │ HIGH   │
+  │ 3 (Occasional)│ LOW     │ LOW    │ MED    │ MED    │ HIGH   │
+  │ 2 (Remote)    │ LOW     │ LOW    │ LOW    │ MED    │ HIGH   │
+  │ 1 (Improbable)│ LOW     │ LOW    │ LOW    │ LOW    │ MED    │
+  └───────────────┴─────────┴────────┴────────┴────────┴────────┘
+
+RESIDUAL RISK SUMMARY
+------------------------
+  Total Hazards Identified:   10
+  Unacceptable (pre-mitigation):  1 (H01)
+  High (pre-mitigation):     1 (H01)
+  After Mitigation:
+    - All risks reduced to MED or LOW
+    - No unacceptable residual risks remain
+    - Overall residual risk: ACCEPTABLE
+
+BENEFIT-RISK ANALYSIS
+------------------------
+The Contoso Pulse Monitor v2.1 provides continuous, non-invasive
+SpO₂ and heart rate monitoring for home and clinical use. The
+clinical benefits of early detection of hypoxemia and arrhythmias
+outweigh the identified residual risks, all of which are mitigated
+to acceptable levels.
+
+====================================================================
+END OF RISK ANALYSIS
+Demo content — synthetic, no patient data.
+RunId: {{ run_id }}
+====================================================================

@@ -1,0 +1,85 @@
+====================================================================
+DESIGN HISTORY FILE — Contoso Pulse Monitor v2.1
+====================================================================
+Run ID: {{ run_id }}
+Theme:  {{ theme }}
+Date:   2026-01-15 (synthetic)
+
+⚠ Demo content — synthetic, no patient data.
+====================================================================
+
+DEVICE:           Contoso Pulse Monitor v2.1 (synthetic)
+CLASSIFICATION:   FDA Class II / EU Class IIa
+PRODUCT CODE:     DQA (synthetic)
+PROJECT CODE:     CPM-{{ run_id[:6] }}
+
+DESIGN & DEVELOPMENT PLANNING
+--------------------------------
+  ┌──────┬───────────────────────────────────┬──────────────┬────────┐
+  │ Rev  │ Milestone                          │ Target Date   │ Status │
+  ├──────┼───────────────────────────────────┼──────────────┼────────┤
+  │ 1.0  │ Design Input Requirements          │ 2025-03-01   │ ✓ Done │
+  │ 1.1  │ Risk Management Plan               │ 2025-03-15   │ ✓ Done │
+  │ 2.0  │ Design Output — Prototype A        │ 2025-06-01   │ ✓ Done │
+  │ 2.1  │ Verification Testing (V&V)         │ 2025-09-15   │ ✓ Done │
+  │ 2.1  │ Validation — Usability Study       │ 2025-11-01   │ ✓ Done │
+  │ 2.1  │ Design Review — Pre-Submission     │ 2025-12-15   │ ✓ Done │
+  │ 2.1  │ Design Transfer to Manufacturing   │ 2026-01-10   │ Active │
+  │ 2.1  │ 510(k) Submission                  │ 2026-02-15   │ Planned│
+  └──────┴───────────────────────────────────┴──────────────┴────────┘
+
+DESIGN INPUTS (Key Requirements)
+-----------------------------------
+  1. Accuracy: SpO₂ ± 2% (70-100% range), HR ± 3 bpm
+  2. Connectivity: BLE 5.0, Wi-Fi 802.11ac
+  3. Battery Life: ≥ 72 hours continuous monitoring
+  4. Biocompatibility: ISO 10993-5, 10993-10 compliant
+  5. Water Resistance: IPX7 rating
+  6. Display: 1.5" OLED, daylight readable
+  7. Alert Thresholds: Configurable SpO₂ and HR limits
+  8. Data Storage: 7 days local, cloud sync via API
+  9. Cybersecurity: NIST SP 800-171 aligned
+
+DESIGN OUTPUTS
+----------------
+  • Hardware: PCB v2.1 schematic and layout
+  • Firmware: v2.1.0-rc3 (BLE stack + sensor fusion)
+  • Enclosure: Medical-grade silicone + polycarbonate
+  • Labeling: IFU, Quick Start Guide, Device Label
+  • Software: Companion app v3.0 (iOS/Android)
+
+DESIGN VERIFICATION RESULTS
+------------------------------
+  ┌─────────────────────────────────┬──────────────┬──────────┐
+  │ Test                             │ Requirement   │ Result   │
+  ├─────────────────────────────────┼──────────────┼──────────┤
+  │ SpO₂ accuracy (bench)           │ ± 2%          │ ± 1.6%   │
+  │ Heart rate accuracy             │ ± 3 bpm       │ ± 2.1 bpm│
+  │ Battery endurance               │ ≥ 72 hrs      │ 78 hrs   │
+  │ BLE range                       │ ≥ 10m         │ 14m      │
+  │ Drop test (1.5m, 6 faces)       │ No damage     │ PASS     │
+  │ Water immersion (IPX7)          │ 30 min @ 1m   │ PASS     │
+  │ EMC / IEC 61000-4               │ Class B       │ PASS     │
+  │ Electrical safety / IEC 60601-1 │ Compliant     │ PASS     │
+  │ Biocompatibility (cytotoxicity) │ Grade 0       │ Grade 0  │
+  │ Software IEC 62304 Class B      │ Documented    │ PASS     │
+  └─────────────────────────────────┴──────────────┴──────────┘
+
+DESIGN VALIDATION
+-------------------
+  Usability Study: 30 participants (synthetic), simulated home use
+  Task Success Rate: 96.7%
+  SUS Score: 82/100 (above average)
+  Critical use errors: 0
+
+DESIGN CHANGES SINCE v2.0
+----------------------------
+  DCR-2025-041: Updated BLE antenna design for improved range
+  DCR-2025-058: Modified sensor window geometry (SpO₂ accuracy)
+  DCR-2025-062: Firmware update for battery optimization algorithm
+
+====================================================================
+END OF DESIGN HISTORY FILE
+Demo content — synthetic, no patient data.
+RunId: {{ run_id }}
+====================================================================

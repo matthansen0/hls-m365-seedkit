@@ -1,0 +1,102 @@
+====================================================================
+NETWORK ADEQUACY ASSESSMENT — Q1 2026
+====================================================================
+Run ID: {{ run_id }}
+Theme:  {{ theme }}
+Date:   2026-01-15 (synthetic)
+
+⚠ Demo content — synthetic, no patient data.
+====================================================================
+
+ORGANIZATION: Contoso Health Plan (synthetic)
+SERVICE AREA: Tri-County Metro Area (synthetic)
+MEMBERSHIP:   245,000 covered lives
+REGULATORY:   CMS Network Adequacy Standards / State DOI
+
+PROVIDER NETWORK SUMMARY
+---------------------------
+  ┌───────────────────────────┬──────────┬──────────┬──────────┐
+  │ Provider Type              │ Required  │ Actual   │ Status   │
+  ├───────────────────────────┼──────────┼──────────┼──────────┤
+  │ Primary Care Physicians   │ 180       │ 245      │ ✓ Meets  │
+  │ OB/GYN                    │ 45        │ 52       │ ✓ Meets  │
+  │ Pediatrics                │ 60        │ 68       │ ✓ Meets  │
+  │ General Surgery           │ 25        │ 28       │ ✓ Meets  │
+  │ Cardiology                │ 30        │ 34       │ ✓ Meets  │
+  │ Orthopedics               │ 22        │ 24       │ ✓ Meets  │
+  │ Dermatology               │ 18        │ 16       │ ⚠ Gap    │
+  │ Psychiatry / Behavioral   │ 35        │ 28       │ ⚠ Gap    │
+  │ Oncology                  │ 12        │ 14       │ ✓ Meets  │
+  │ Endocrinology             │ 10        │ 11       │ ✓ Meets  │
+  │ Rheumatology              │ 8         │ 6        │ ⚠ Gap    │
+  │ Neurology                 │ 15        │ 16       │ ✓ Meets  │
+  ├───────────────────────────┼──────────┼──────────┼──────────┤
+  │ TOTAL PROVIDERS            │ 460       │ 542      │          │
+  └───────────────────────────┴──────────┴──────────┴──────────┘
+
+  Network Adequacy Score: 92% (target: ≥ 95%)
+
+GEO-ACCESS STANDARDS (Time/Distance)
+----------------------------------------
+  ┌───────────────────────────┬──────────────┬──────────────┬────────┐
+  │ Provider Type              │ Standard      │ Actual (avg)  │ Status │
+  ├───────────────────────────┼──────────────┼──────────────┼────────┤
+  │ PCP — Urban                │ ≤ 10 miles   │ 4.2 miles    │ ✓ Pass │
+  │ PCP — Suburban             │ ≤ 15 miles   │ 8.1 miles    │ ✓ Pass │
+  │ PCP — Rural                │ ≤ 30 miles   │ 22.5 miles   │ ✓ Pass │
+  │ Specialist — Urban         │ ≤ 15 miles   │ 6.8 miles    │ ✓ Pass │
+  │ Specialist — Suburban      │ ≤ 30 miles   │ 14.2 miles   │ ✓ Pass │
+  │ Hospital (Acute)           │ ≤ 15 miles   │ 8.5 miles    │ ✓ Pass │
+  │ Pharmacy                  │ ≤ 5 miles    │ 2.1 miles    │ ✓ Pass │
+  │ Behavioral Health          │ ≤ 15 miles   │ 12.8 miles   │ ⚠ Near │
+  └───────────────────────────┴──────────────┴──────────────┴────────┘
+
+APPOINTMENT WAIT TIME ANALYSIS
+----------------------------------
+  ┌───────────────────────────┬──────────────┬──────────────┬────────┐
+  │ Service                    │ Standard      │ Actual (avg)  │ Status │
+  ├───────────────────────────┼──────────────┼──────────────┼────────┤
+  │ PCP — Routine              │ ≤ 10 days    │ 7 days       │ ✓ Pass │
+  │ PCP — Urgent              │ ≤ 48 hours   │ 36 hours     │ ✓ Pass │
+  │ Specialist — Routine      │ ≤ 15 days    │ 12 days      │ ✓ Pass │
+  │ Behavioral Health — Init. │ ≤ 10 days    │ 14 days      │ ✗ Fail │
+  │ Behavioral Health — F/U   │ ≤ 14 days    │ 12 days      │ ✓ Pass │
+  │ Preventive / Wellness     │ ≤ 21 days    │ 14 days      │ ✓ Pass │
+  └───────────────────────────┴──────────────┴──────────────┴────────┘
+
+IDENTIFIED GAPS & REMEDIATION PLAN
+--------------------------------------
+  Gap 1: Dermatology — 16 of 18 required providers
+    Remediation: 3 LOIs pending with new dermatology practices
+    Target Resolution: Q2 2026
+
+  Gap 2: Psychiatry / Behavioral Health — 28 of 35 required
+    Remediation: Telehealth partnership with behavioral health
+    platform (adds virtual capacity for 5,000+ members);
+    recruiting 4 additional in-network psychiatrists
+    Target Resolution: Q1 2026
+
+  Gap 3: Rheumatology — 6 of 8 required providers
+    Remediation: LOI with regional rheumatology group (3 providers)
+    Target Resolution: Q2 2026
+
+  Gap 4: Behavioral Health Wait Time — 14 vs 10 day standard
+    Remediation: Telehealth behavioral health to provide same-week
+    initial appointments
+    Target Resolution: Q1 2026
+
+PROVIDER TERMINATION / ADDITION TRACKING
+-------------------------------------------
+  ┌───────────────────────────┬──────────┬──────────┐
+  │ Activity (Q1 2026 MTD)     │ Count    │ Net +/-  │
+  ├───────────────────────────┼──────────┼──────────┤
+  │ Providers Added            │ 12       │          │
+  │ Providers Terminated       │ 5        │          │
+  │ NET CHANGE                 │          │ +7       │
+  └───────────────────────────┴──────────┴──────────┘
+
+====================================================================
+END OF ASSESSMENT
+Demo content — synthetic, no patient data.
+RunId: {{ run_id }}
+====================================================================

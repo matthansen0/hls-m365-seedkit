@@ -1,0 +1,92 @@
+====================================================================
+MANUFACTURING PROCESS VALIDATION — IQ/OQ/PQ SUMMARY
+====================================================================
+Run ID: {{ run_id }}
+Theme:  {{ theme }}
+Date:   2026-01-15 (synthetic)
+
+⚠ Demo content — synthetic, no patient data.
+====================================================================
+
+DEVICE:           Contoso Pulse Monitor v2.1 (synthetic)
+MANUFACTURING SITE: Contoso MedTech Manufacturing (synthetic)
+VALIDATION TYPE:  Process Validation (IQ/OQ/PQ)
+PROTOCOL:         PV-CPM-{{ run_id[:6] }}-001
+
+VALIDATION SCOPE
+------------------
+This document summarizes the Installation Qualification (IQ),
+Operational Qualification (OQ), and Performance Qualification (PQ)
+for the Contoso Pulse Monitor v2.1 assembly and test processes.
+
+INSTALLATION QUALIFICATION (IQ)
+----------------------------------
+  ┌────┬──────────────────────────────────┬────────────┬──────────┐
+  │ #  │ Equipment / System                │ IQ Status   │ Date     │
+  ├────┼──────────────────────────────────┼────────────┼──────────┤
+  │  1 │ SMT Pick-and-Place (Line 3)      │ QUALIFIED  │ 2025-10-05│
+  │  2 │ Reflow Oven (Lead-free profile)  │ QUALIFIED  │ 2025-10-08│
+  │  3 │ AOI System (Automated Optical)   │ QUALIFIED  │ 2025-10-10│
+  │  4 │ Ultrasonic Welder (enclosure)    │ QUALIFIED  │ 2025-10-12│
+  │  5 │ Functional Test Station (ATE)    │ QUALIFIED  │ 2025-10-15│
+  │  6 │ Final Inspection Station         │ QUALIFIED  │ 2025-10-18│
+  │  7 │ Packaging & Labeling Line        │ QUALIFIED  │ 2025-10-20│
+  └────┴──────────────────────────────────┴────────────┴──────────┘
+
+OPERATIONAL QUALIFICATION (OQ)
+----------------------------------
+  ┌────┬──────────────────────────────────┬───────────┬───────────┐
+  │ #  │ Process Parameter                 │ OQ Range   │ Result    │
+  ├────┼──────────────────────────────────┼───────────┼───────────┤
+  │  1 │ Reflow peak temperature          │ 245±5°C   │ 244-248°C │
+  │  2 │ Reflow time above liquidus       │ 60-90 sec │ 68-82 sec │
+  │  3 │ Ultrasonic weld energy           │ 350±20 J  │ 342-358 J │
+  │  4 │ Ultrasonic weld amplitude        │ 40±5 μm   │ 38-42 μm  │
+  │  5 │ ATE SpO₂ calibration tolerance   │ ± 0.5%    │ ± 0.3%    │
+  │  6 │ ATE HR calibration tolerance     │ ± 1 bpm   │ ± 0.8 bpm │
+  │  7 │ Label placement accuracy         │ ± 1mm     │ ± 0.5mm   │
+  └────┴──────────────────────────────────┴───────────┴───────────┘
+
+PERFORMANCE QUALIFICATION (PQ)
+----------------------------------
+  Three consecutive production lots evaluated:
+
+  ┌──────────┬───────────┬──────────────┬───────────┬──────────┐
+  │ Lot       │ Qty Built │ First Pass   │ Yield (%) │ Defects  │
+  │           │           │ Yield (%)    │ Final     │ (DPMO)   │
+  ├──────────┼───────────┼──────────────┼───────────┼──────────┤
+  │ PQ-001   │ 500       │ 97.2%        │ 99.4%     │ 2,800    │
+  │ PQ-002   │ 500       │ 97.8%        │ 99.6%     │ 2,200    │
+  │ PQ-003   │ 500       │ 97.5%        │ 99.5%     │ 2,500    │
+  ├──────────┼───────────┼──────────────┼───────────┼──────────┤
+  │ AVERAGE  │ 500       │ 97.5%        │ 99.5%     │ 2,500    │
+  └──────────┴───────────┴──────────────┴───────────┴──────────┘
+
+  Acceptance Criteria: First pass yield ≥ 95%, Final yield ≥ 99%
+  Result: ALL LOTS PASSED
+
+DEFECT PARETO (PQ Lots Combined)
+-----------------------------------
+  ┌─────────────────────────────────┬──────┬──────────┐
+  │ Defect Category                  │ Count │ %        │
+  ├─────────────────────────────────┼──────┼──────────┤
+  │ Solder bridge (SMT)             │ 14    │ 37.8%    │
+  │ Component misalignment          │ 9     │ 24.3%    │
+  │ Cosmetic (scratch/mark)         │ 7     │ 18.9%    │
+  │ Functional test fail            │ 4     │ 10.8%    │
+  │ Label defect                    │ 3     │ 8.1%     │
+  ├─────────────────────────────────┼──────┼──────────┤
+  │ TOTAL                           │ 37    │ 100%     │
+  └─────────────────────────────────┴──────┴──────────┘
+
+VALIDATION CONCLUSION
+-----------------------
+The manufacturing process for Contoso Pulse Monitor v2.1 has been
+validated. All IQ, OQ, and PQ acceptance criteria were met. The
+process is approved for routine production.
+
+====================================================================
+END OF VALIDATION REPORT
+Demo content — synthetic, no patient data.
+RunId: {{ run_id }}
+====================================================================

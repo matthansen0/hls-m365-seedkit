@@ -1,0 +1,97 @@
+====================================================================
+GLP COMPLIANCE AUDIT REPORT — Q1 2026
+====================================================================
+Run ID: {{ run_id }}
+Theme:  {{ theme }}
+Date:   2026-01-15 (synthetic)
+
+⚠ Demo content — synthetic, no patient data.
+====================================================================
+
+AUDIT TYPE:       Routine GLP Compliance Inspection
+FACILITY:         Contoso Pharmaceuticals Research Center (synthetic)
+AUDIT PERIOD:     January 1 — January 15, 2026
+LEAD AUDITOR:     [Synthetic QA Director]
+REGULATION:       21 CFR Part 58 (FDA GLP) / OECD GLP Principles
+
+EXECUTIVE SUMMARY
+-------------------
+This report documents the routine GLP compliance audit of the
+Contoso Pharmaceuticals preclinical research facility. The audit
+covered ongoing nonclinical studies for compounds DEM-042, DEM-078,
+and DEM-115. Overall compliance rating: SATISFACTORY.
+
+AUDIT SCOPE
+-------------
+  ┌────────────────────────────────┬──────────────────────┐
+  │ Area                           │ Studies Reviewed      │
+  ├────────────────────────────────┼──────────────────────┤
+  │ Toxicology Lab (Building A)    │ DEM-042 (carci), DEM-115 (28-day) │
+  │ Pharmacology Lab (Building B)  │ DEM-078 (in vivo PD) │
+  │ Bioanalytical Lab (Building C) │ DEM-042, DEM-078     │
+  │ Archives & Specimen Storage    │ All compounds        │
+  │ Test Article Accountability    │ All compounds        │
+  └────────────────────────────────┴──────────────────────┘
+
+FINDINGS SUMMARY
+------------------
+  ┌──────────┬──────┬───────────────────────────────────────────┐
+  │ Severity  │ Count│ Category                                  │
+  ├──────────┼──────┼───────────────────────────────────────────┤
+  │ Critical  │ 0    │ —                                         │
+  │ Major     │ 1    │ Protocol deviation documentation          │
+  │ Minor     │ 3    │ Equipment calibration records (2),        │
+  │           │      │ Training log update (1)                   │
+  │ Advisory  │ 2    │ SOP formatting (1), Archive indexing (1)  │
+  ├──────────┼──────┼───────────────────────────────────────────┤
+  │ TOTAL     │ 6    │                                           │
+  └──────────┴──────┴───────────────────────────────────────────┘
+
+DETAILED FINDINGS
+-------------------
+
+Finding #1 (Major):
+  Area: Toxicology Lab — DEM-115 28-day study
+  Observation: Protocol deviation (dose preparation error on Day 14)
+               documented 72 hours after occurrence; GLP requires
+               immediate documentation.
+  CAPA: Implement real-time deviation logging system. Due: Feb 28.
+  Status: OPEN
+
+Finding #2 (Minor):
+  Area: Bioanalytical Lab — HPLC system #3
+  Observation: Calibration certificate expired by 5 days before renewal.
+  CAPA: Update calibration scheduling to provide 30-day advance notice.
+  Status: CLOSED (recalibrated Jan 10)
+
+Finding #3 (Minor):
+  Area: Bioanalytical Lab — pH meter PM-204
+  Observation: Daily verification log gap (2 days over holiday period).
+  CAPA: Designate holiday coverage for critical instrument checks.
+  Status: OPEN (due Feb 15)
+
+Finding #4 (Minor):
+  Area: Study Director training records
+  Observation: One Study Director's GLP refresher training overdue by
+               2 weeks (annual requirement).
+  CAPA: Complete training and update tracking system.
+  Status: CLOSED (training completed Jan 12)
+
+COMPLIANT AREAS (No Findings)
+-------------------------------
+  ✓ Test article receipt, storage, and accountability
+  ✓ Specimen collection and chain of custody
+  ✓ Raw data integrity and notebook practices
+  ✓ SOPs current and accessible
+  ✓ QAU inspection schedule and reports
+  ✓ Study plan and amendments properly approved
+  ✓ Environmental monitoring records
+
+OVERALL COMPLIANCE SCORE: 94/100 (synthetic)
+RATING: SATISFACTORY
+
+====================================================================
+END OF AUDIT REPORT
+Demo content — synthetic, no patient data.
+RunId: {{ run_id }}
+====================================================================

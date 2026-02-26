@@ -1,0 +1,71 @@
+<!-- Health Payor email body template -->
+<div style="font-family: Calibri, Arial, sans-serif; font-size: 14px; color: #333;">
+
+<p>Hello team,</p>
+
+{% if message_index == 0 %}
+<p>I'm following up on <strong>{{ subject }}</strong>.</p>
+<p>Our claims processing and member services operations have updates across:</p>
+<ul>
+    <li>Claims adjudication backlog — current status and projected clearance</li>
+    <li>Prior authorization turnaround metrics</li>
+    <li>Member satisfaction survey results (Q4)</li>
+    <li>Network adequacy compliance review</li>
+</ul>
+<p>Please compile your team's metrics for the weekly operations review.</p>
+
+{% elif message_index == 1 %}
+<p>Claims operations update:</p>
+<ul>
+    <li>Auto-adjudication rate: 78% (target: 80%)</li>
+    <li>Average turnaround: 3.2 days (target: ≤5 days)</li>
+    <li>Denial rate: 8.5% — top reasons: missing info (40%), out of network (25%)</li>
+    <li>Appeals volume: down 12% from prior quarter</li>
+</ul>
+
+{% elif message_index == 2 %}
+<p>Member services highlights:</p>
+<ul>
+    <li>Call center wait time: 2.1 minutes (target: ≤3 min)</li>
+    <li>First call resolution: 82%</li>
+    <li>Member portal adoption: 64% of active members</li>
+    <li>Grievance rate: 0.3% of membership — within threshold</li>
+</ul>
+
+{% elif message_index == 3 %}
+<p>I've reviewed the compliance reports and have recommendations:</p>
+<ol>
+    <li>Update the provider directory before the DOI market conduct exam</li>
+    <li>Complete network adequacy gap remediation for behavioral health</li>
+    <li>Finalize the HEDIS data submission package for NCQA</li>
+</ol>
+<p>Let me know if you need additional data from the analytics team.</p>
+
+{% elif message_index == 4 %}
+<p>Good progress across all fronts. Pharmacy team update:</p>
+<ul>
+    <li>Formulary exception processing time reduced to 48 hours</li>
+    <li>PBM contract renegotiation — preliminary savings estimate: 8%</li>
+    <li>Specialty pharmacy prior auth automation pilot — 60% reduction in manual reviews</li>
+    <li>Generic substitution rate: 89% (target: ≥ 85%)</li>
+</ul>
+
+{% else %}
+<p>Thank you all for the comprehensive updates. Agreed-upon next steps:</p>
+<ol>
+    <li>Claims AI routing pilot kicks off next Monday — Phase 1</li>
+    <li>Provider directory accuracy audit results by February 15</li>
+    <li>DOI market conduct exam preparation checklist — due February 1</li>
+    <li>Follow-up operations review in two weeks</li>
+</ol>
+<p>Please escalate any blockers to the operations leadership team.</p>
+{% endif %}
+
+<p>Best regards</p>
+
+<hr style="border: none; border-top: 1px solid #ccc; margin-top: 20px;" />
+<p style="font-size: 11px; color: #999;">
+    <em>Demo content — synthetic, no patient data. Health Payor theme.</em><br/>
+    Thread: {{ thread_id }} | Message: {{ message_index + 1 }} | RunId: {{ run_id }}
+</p>
+</div>

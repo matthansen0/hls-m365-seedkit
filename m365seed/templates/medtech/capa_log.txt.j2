@@ -1,0 +1,98 @@
+====================================================================
+CORRECTIVE AND PREVENTIVE ACTION (CAPA) LOG — Q1 2026
+====================================================================
+Run ID: {{ run_id }}
+Theme:  {{ theme }}
+Date:   2026-01-15 (synthetic)
+
+⚠ Demo content — synthetic, no patient data.
+====================================================================
+
+PRODUCT:  Contoso Pulse Monitor v2.1 (synthetic)
+QMS REF:  21 CFR 820.90 / ISO 13485:2016 § 8.5.2–8.5.3
+OWNER:    [Synthetic Quality Manager]
+
+OPEN CAPA RECORDS
+-------------------
+
+CAPA-2025-042
+  ┌─────────────────┬──────────────────────────────────────────────┐
+  │ Title            │ Intermittent BLE connectivity loss            │
+  │ Source           │ Field complaint (CC-2025-318)                │
+  │ Date Opened      │ 2025-11-15                                   │
+  │ Severity         │ Major                                        │
+  │ Root Cause       │ BLE stack firmware regression in v2.1.0-rc1  │
+  │ Corrective Action│ Firmware patch v2.1.0-rc3 — BLE reconnect   │
+  │                  │ logic improved, watchdog timer added         │
+  │ Preventive Action│ Automated BLE stress test added to CI/CD    │
+  │ Effectiveness    │ Pending — monitoring field data post-update  │
+  │ Target Close     │ 2026-02-28                                   │
+  │ Status           │ IN PROGRESS — firmware released, monitoring  │
+  └─────────────────┴──────────────────────────────────────────────┘
+
+CAPA-2025-051
+  ┌─────────────────┬──────────────────────────────────────────────┐
+  │ Title            │ Sensor window adhesive delamination            │
+  │ Source           │ Production NCR (NCR-2025-089)                │
+  │ Date Opened      │ 2025-12-10                                   │
+  │ Severity         │ Moderate                                     │
+  │ Root Cause       │ Adhesive cure time insufficient at ambient   │
+  │                  │ temperatures below 18°C                      │
+  │ Corrective Action│ Increase cure time from 30s to 45s; add      │
+  │                  │ temperature verification step                │
+  │ Preventive Action│ Update work instruction WI-ASM-024;           │
+  │                  │ add incoming temperature check for adhesive  │
+  │ Effectiveness    │ Pending — 3 lots completed with zero defects │
+  │ Target Close     │ 2026-02-15                                   │
+  │ Status           │ VERIFICATION — collecting effectiveness data  │
+  └─────────────────┴──────────────────────────────────────────────┘
+
+CAPA-2026-003
+  ┌─────────────────┬──────────────────────────────────────────────┐
+  │ Title            │ Labeling error — incorrect UDI barcode format │
+  │ Source           │ Internal audit (IA-2026-Q1-004)              │
+  │ Date Opened      │ 2026-01-08                                   │
+  │ Severity         │ Minor                                        │
+  │ Root Cause       │ Label template not updated after UDI database│
+  │                  │ format change (GUDID)                        │
+  │ Corrective Action│ Update label template and verify against     │
+  │                  │ GUDID specifications                         │
+  │ Preventive Action│ Quarterly label template review process      │
+  │                  │ added to QMS calendar                        │
+  │ Effectiveness    │ Not yet assessed                             │
+  │ Target Close     │ 2026-03-15                                   │
+  │ Status           │ OPEN — corrective action in progress         │
+  └─────────────────┴──────────────────────────────────────────────┘
+
+RECENTLY CLOSED CAPA RECORDS
+-------------------------------
+
+CAPA-2025-038 — CLOSED 2025-12-20
+  Title: SpO₂ sensor accuracy drift at low perfusion
+  Root Cause: Signal processing algorithm sensitivity threshold
+  Resolution: Algorithm update in v2.1.0-rc2, validated per DVP
+  Effectiveness: Verified — zero field complaints post-update
+
+CAPA-2025-039 — CLOSED 2025-12-22
+  Title: Packaging foam insufficient for drop protection
+  Root Cause: Foam density below specification from supplier B
+  Resolution: Supplier corrective action + incoming inspection added
+  Effectiveness: Verified — zero transit damage in 500-unit shipment
+
+CAPA METRICS SUMMARY
+-----------------------
+  ┌───────────────────────────┬──────────┐
+  │ Metric                     │ Value    │
+  ├───────────────────────────┼──────────┤
+  │ Open CAPAs                │ 3        │
+  │ Overdue CAPAs             │ 0        │
+  │ Avg Days to Close (2025)  │ 45       │
+  │ Effectiveness Rate        │ 92%      │
+  │ Recurring Issues          │ 0        │
+  └───────────────────────────┴──────────┘
+
+====================================================================
+END OF CAPA LOG
+Demo content — synthetic, no patient data.
+RunId: {{ run_id }}
+====================================================================

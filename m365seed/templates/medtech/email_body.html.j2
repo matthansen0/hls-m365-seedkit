@@ -1,0 +1,70 @@
+<!-- MedTech email body template -->
+<div style="font-family: Calibri, Arial, sans-serif; font-size: 14px; color: #333;">
+
+<p>Hello team,</p>
+
+{% if message_index == 0 %}
+<p>I'm reaching out about <strong>{{ subject }}</strong>.</p>
+<p>Our product development and manufacturing operations have the following updates:</p>
+<ul>
+    <li>Device prototype DEM-{{ run_id }}-MED review — design freeze approaching</li>
+    <li>Manufacturing line validation status</li>
+    <li>510(k) submission preparation progress</li>
+    <li>Post-market surveillance data review</li>
+</ul>
+<p>Please prepare your departmental updates for the cross-functional sync.</p>
+
+{% elif message_index == 1 %}
+<p>Manufacturing update:</p>
+<ul>
+    <li>Production yield: 98.2% (target: ≥97%)</li>
+    <li>Non-conformance rate: 0.8% — root cause analysis underway</li>
+    <li>IQ/OQ/PQ validation: Phase 2 complete, Phase 3 starting next week</li>
+    <li>Supplier audit for critical component: scheduled Feb 2026</li>
+</ul>
+
+{% elif message_index == 2 %}
+<p>Quality and regulatory notes:</p>
+<ul>
+    <li>Design history file (DHF) updated with latest V&V results</li>
+    <li>Risk analysis (per ISO 14971) — revised hazard assessment attached</li>
+    <li>Biocompatibility testing: all endpoints met</li>
+</ul>
+
+{% elif message_index == 3 %}
+<p>I've reviewed the V&V results and have the following recommendations:</p>
+<ol>
+    <li>Proceed with design transfer — all verification criteria passed</li>
+    <li>Schedule the usability validation study for next month</li>
+    <li>Update the risk management file with residual risk assessment</li>
+</ol>
+<p>Let me know if you have any questions on the test reports.</p>
+
+{% elif message_index == 4 %}
+<p>Good news from the manufacturing side:</p>
+<ul>
+    <li>IQ/OQ/PQ Phase 3 completed — all acceptance criteria met</li>
+    <li>First article inspection: 100% pass rate</li>
+    <li>Supplier qualification audit for sensor module — no major findings</li>
+    <li>Production yield trending at 98.5% (above 97% target)</li>
+</ul>
+
+{% else %}
+<p>Thank you all for the productive discussion. Summary of next steps:</p>
+<ol>
+    <li>Design transfer package finalized by end of month</li>
+    <li>510(k) submission target: February 15</li>
+    <li>Pre-submission meeting with FDA confirmed for January 28</li>
+    <li>Follow-up cross-functional review in two weeks</li>
+</ol>
+<p>Please flag any blockers to the project lead immediately.</p>
+{% endif %}
+
+<p>Best regards</p>
+
+<hr style="border: none; border-top: 1px solid #ccc; margin-top: 20px;" />
+<p style="font-size: 11px; color: #999;">
+    <em>Demo content — synthetic, no patient data. MedTech theme.</em><br/>
+    Thread: {{ thread_id }} | Message: {{ message_index + 1 }} | RunId: {{ run_id }}
+</p>
+</div>

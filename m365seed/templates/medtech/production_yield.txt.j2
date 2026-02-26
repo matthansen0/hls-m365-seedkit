@@ -1,0 +1,78 @@
+====================================================================
+PRODUCTION YIELD & QUALITY DASHBOARD — January 2026
+====================================================================
+Run ID: {{ run_id }}
+Theme:  {{ theme }}
+Date:   2026-01-15 (synthetic)
+
+⚠ Demo content — synthetic, no patient data.
+====================================================================
+
+PRODUCT: Contoso Pulse Monitor v2.1 (synthetic)
+LINE:    Assembly Line 3 — Contoso MedTech Manufacturing
+PERIOD:  January 1–15, 2026 (synthetic)
+
+DAILY PRODUCTION SUMMARY
+---------------------------
+  ┌──────────┬──────────┬───────────┬──────────┬───────────┬────────┐
+  │ Date      │ Planned  │ Built     │ Passed   │ Yield (%) │ OEE (%)│
+  ├──────────┼──────────┼───────────┼──────────┼───────────┼────────┤
+  │ Jan 02    │ 200      │ 198       │ 195      │ 98.5%     │ 86.2%  │
+  │ Jan 03    │ 200      │ 201       │ 199      │ 99.0%     │ 87.5%  │
+  │ Jan 06    │ 200      │ 195       │ 192      │ 98.5%     │ 84.1%  │
+  │ Jan 07    │ 200      │ 200       │ 198      │ 99.0%     │ 87.0%  │
+  │ Jan 08    │ 200      │ 202       │ 200      │ 99.0%     │ 87.8%  │
+  │ Jan 09    │ 200      │ 197       │ 195      │ 99.0%     │ 85.7%  │
+  │ Jan 10    │ 200      │ 200       │ 197      │ 98.5%     │ 86.5%  │
+  │ Jan 13    │ 250      │ 248       │ 245      │ 98.8%     │ 85.9%  │
+  │ Jan 14    │ 250      │ 252       │ 249      │ 98.8%     │ 87.2%  │
+  │ Jan 15    │ 250      │ 250       │ 248      │ 99.2%     │ 87.8%  │
+  ├──────────┼──────────┼───────────┼──────────┼───────────┼────────┤
+  │ TOTAL     │ 2,150    │ 2,143     │ 2,118    │ 98.8%     │ 86.6%  │
+  └──────────┴──────────┴───────────┴──────────┴───────────┴────────┘
+
+KEY METRICS
+-------------
+  ┌──────────────────────────────┬──────────┬──────────┬──────────┐
+  │ Metric                        │ Target   │ Actual   │ Status   │
+  ├──────────────────────────────┼──────────┼──────────┼──────────┤
+  │ First Pass Yield              │ ≥ 97.0%  │ 98.8%    │ ✓ On Tgt │
+  │ Overall Equipment Eff. (OEE) │ ≥ 85.0%  │ 86.6%    │ ✓ On Tgt │
+  │ Scrap Rate                    │ ≤ 2.0%   │ 1.2%     │ ✓ On Tgt │
+  │ DPMO                          │ ≤ 3,500  │ 2,800    │ ✓ On Tgt │
+  │ On-Time Delivery              │ ≥ 95.0%  │ 96.5%    │ ✓ On Tgt │
+  │ Customer Complaints (MTD)    │ ≤ 3      │ 1        │ ✓ On Tgt │
+  │ Unplanned Downtime (hrs)     │ ≤ 8      │ 5.2      │ ✓ On Tgt │
+  └──────────────────────────────┴──────────┴──────────┴──────────┘
+
+DEFECT TREND (Last 4 Weeks)
+------------------------------
+  Week 50 (Dec):  ██████████████████ 3,200 DPMO
+  Week 51 (Dec):  ████████████████   3,000 DPMO
+  Week 52 (Dec):  ██████████████     2,800 DPMO
+  Week 01 (Jan):  ██████████████     2,800 DPMO
+  Trend: STABLE — approaching Six Sigma target
+
+TOP 3 DEFECT CATEGORIES (MTD)
+-------------------------------
+  1. Solder bridge / cold joint   — 8 units (32%)
+  2. Cosmetic damage (handling)   — 6 units (24%)
+  3. BLE pairing test failure     — 4 units (16%)
+
+CORRECTIVE ACTIONS IN PROGRESS
+---------------------------------
+  □ SMT stencil aperture optimization for solder bridging
+  □ Anti-static glove protocol update for cosmetic handling
+  □ BLE antenna test fixture recalibration (scheduled Jan 20)
+
+INVENTORY STATUS
+------------------
+  Finished Goods: 1,840 units (target: 2,000 for Feb shipment)
+  Raw Materials: 15 days supply on hand
+  Critical Component: Sensor module — 3 weeks lead time, on order
+
+====================================================================
+END OF DASHBOARD
+Demo content — synthetic, no patient data.
+RunId: {{ run_id }}
+====================================================================

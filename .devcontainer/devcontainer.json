@@ -1,0 +1,46 @@
+{
+  "name": "HLS-M365-Seed",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".."
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+  },
+  "postCreateCommand": "bash .devcontainer/post-create.sh",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "charliermarsh.ruff",
+        "ms-azuretools.vscode-azureresourcegroups",
+        "redhat.vscode-yaml",
+        "ms-vscode.live-server",
+        "GitHub.copilot"
+      ],
+      "settings": {
+        "python.defaultInterpreterPath": "/usr/local/bin/python",
+        "python.testing.pytestEnabled": true,
+        "python.testing.pytestArgs": ["tests"],
+        "[python]": {
+          "editor.defaultFormatter": "charliermarsh.ruff"
+        },
+        "yaml.schemas": {
+          "seed-config.example.yaml": "seed-config*.yaml"
+        },
+        "terminal.integrated.defaultProfile.linux": "bash"
+      }
+    }
+  },
+  "containerEnv": {
+    "M365SEED_CLIENT_SECRET": "${localEnv:M365SEED_CLIENT_SECRET}",
+    "M365SEED_TENANT_ID": "${localEnv:M365SEED_TENANT_ID}",
+    "M365SEED_CLIENT_ID": "${localEnv:M365SEED_CLIENT_ID}"
+  },
+  "mounts": [
+    "source=${localEnv:HOME}${localEnv:USERPROFILE}/.azure,target=/home/vscode/.azure,type=bind,consistency=cached"
+  ],
+  "remoteUser": "vscode"
+}

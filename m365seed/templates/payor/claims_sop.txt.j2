@@ -1,0 +1,90 @@
+====================================================================
+CLAIMS PROCESSING — STANDARD OPERATING PROCEDURES
+====================================================================
+Run ID: {{ run_id }}
+Theme:  {{ theme }}
+Date:   2026-01-15 (synthetic)
+
+⚠ Demo content — synthetic, no patient data.
+====================================================================
+
+ORGANIZATION: Contoso Health Plan (synthetic)
+DEPARTMENT:   Claims Operations
+DOCUMENT:     SOP-CLM-001 Rev 3
+EFFECTIVE:    January 1, 2026
+
+1. PURPOSE
+----------
+This document defines the standard operating procedures for
+processing medical, pharmacy, and dental claims submitted to
+Contoso Health Plan (synthetic). These procedures ensure
+compliance with CMS regulations, state mandates, and NCQA
+accreditation standards.
+
+2. SCOPE
+--------
+Applies to all claims analysts, supervisors, and quality reviewers
+within the Claims Operations department.
+
+3. CLAIMS INTAKE PROCEDURES
+------------------------------
+  □ Verify claim receipt via EDI 837 (Professional/Institutional)
+  □ Validate member eligibility at date of service
+  □ Check provider network status (in-network vs. OON)
+  □ Apply coordination of benefits (COB) rules if applicable
+  □ Route to auto-adjudication engine or manual queue
+
+4. AUTO-ADJUDICATION RULES
+-----------------------------
+  ┌──────────────────────────┬─────────────────────────────────────┐
+  │ Rule Category             │ Description                         │
+  ├──────────────────────────┼─────────────────────────────────────┤
+  │ Duplicate Detection       │ Match by member + DOS + CPT + NPI  │
+  │ Benefit Verification      │ Validate against plan benefit grid │
+  │ Fee Schedule Application  │ Apply contracted or UCR rates      │
+  │ Prior Authorization       │ Check auth requirements by CPT     │
+  │ Bundling / Unbundling     │ Apply CCI/MUE edits               │
+  │ Medical Necessity         │ Route to UM if criteria not met    │
+  │ Timely Filing             │ 90-day clean claim window          │
+  └──────────────────────────┴─────────────────────────────────────┘
+
+5. MANUAL REVIEW TRIGGERS
+-----------------------------
+  • Claims > $10,000 (threshold review)
+  • Out-of-network emergency claims
+  • Claims with medical policy exceptions
+  • Coordination of benefits conflicts
+  • Provider dispute / resubmission
+  • State mandate-specific services
+
+6. PAYMENT PROCESSING
+------------------------
+  6.1 Generate Explanation of Benefits (EOB) per claim
+  6.2 Process provider payment via EFT / check (835 remittance)
+  6.3 Apply member cost-sharing (copay, coinsurance, deductible)
+  6.4 Post payment to claims system within 3 business days
+  6.5 Transmit 835 to clearinghouse for provider delivery
+
+7. CLEAN CLAIM TURNAROUND STANDARDS
+--------------------------------------
+  ┌─────────────────────────────┬──────────────┐
+  │ Claim Type                   │ Target (days) │
+  ├─────────────────────────────┼──────────────┤
+  │ Electronic clean claims      │ ≤ 14          │
+  │ Paper clean claims           │ ≤ 30          │
+  │ Non-clean claims (pended)    │ ≤ 45          │
+  │ Appeals / grievances         │ ≤ 30          │
+  └─────────────────────────────┴──────────────┘
+
+8. QUALITY ASSURANCE
+-----------------------
+  • Random audit: 5% of auto-adjudicated claims monthly
+  • Financial accuracy target: ≥ 99.0%
+  • Procedural accuracy target: ≥ 97.0%
+  • NCQA audit readiness documentation maintained
+
+====================================================================
+END OF DOCUMENT
+Demo content — synthetic, no patient data.
+RunId: {{ run_id }}
+====================================================================

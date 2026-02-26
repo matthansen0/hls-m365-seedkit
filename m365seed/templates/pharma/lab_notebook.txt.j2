@@ -1,0 +1,72 @@
+====================================================================
+LABORATORY NOTEBOOK — Compound DEM-042 Analytics
+====================================================================
+Run ID: {{ run_id }}
+Theme:  {{ theme }}
+Date:   2026-01-15 (synthetic)
+
+⚠ Demo content — synthetic, no patient data.
+====================================================================
+
+STUDY: DEM-042 Phase II — Stability & Bioanalytical Methods
+ANALYST: [Synthetic Analyst — Research Associate II]
+NOTEBOOK REF: LNB-2026-{{ run_id[:8] }}-042
+
+EXPERIMENT 1: FORCED DEGRADATION STUDY
+----------------------------------------
+Objective: Evaluate DEM-042 stability under stress conditions
+
+Conditions Tested:
+  ┌──────────────────┬──────────────┬──────────────┬───────────┐
+  │ Condition         │ Duration     │ % Degradation │ Pass/Fail │
+  ├──────────────────┼──────────────┼──────────────┼───────────┤
+  │ Acid (0.1N HCl)  │ 24 hours     │ 3.2%          │ PASS      │
+  │ Base (0.1N NaOH) │ 24 hours     │ 5.8%          │ PASS      │
+  │ Oxidative (3% H₂O₂)│ 24 hours  │ 8.1%          │ PASS      │
+  │ Thermal (60°C)   │ 7 days       │ 2.4%          │ PASS      │
+  │ Photolytic (ICH) │ 1.2M lux-hr  │ 1.1%          │ PASS      │
+  │ Humidity (75% RH)│ 7 days       │ 0.9%          │ PASS      │
+  └──────────────────┴──────────────┴──────────────┴───────────┘
+
+Conclusion: DEM-042 demonstrates acceptable stability under all
+ICH-mandated stress conditions. Mass balance ≥ 95% in all cases.
+
+EXPERIMENT 2: HPLC METHOD VALIDATION
+--------------------------------------
+Method: Reversed-phase HPLC (C18, 250mm × 4.6mm, 5μm)
+Mobile Phase: ACN/Water gradient (0.1% TFA)
+
+Validation Parameters:
+  ┌───────────────────────┬────────────────────┬──────────┐
+  │ Parameter              │ Acceptance Criteria │ Result   │
+  ├───────────────────────┼────────────────────┼──────────┤
+  │ Specificity            │ No interference    │ PASS     │
+  │ Linearity (r²)         │ ≥ 0.999            │ 0.9998   │
+  │ Range                  │ 50–150% nominal    │ Verified │
+  │ Accuracy (recovery)    │ 98.0–102.0%        │ 99.7%    │
+  │ Precision (RSD)        │ ≤ 2.0%             │ 0.8%     │
+  │ LOD                    │ Report value       │ 0.05 μg/mL │
+  │ LOQ                    │ Report value       │ 0.15 μg/mL │
+  │ Robustness             │ No significant Δ   │ PASS     │
+  └───────────────────────┴────────────────────┴──────────┘
+
+EXPERIMENT 3: FORMULATION COMPATIBILITY
+-----------------------------------------
+  • Excipient compatibility screen: 12/12 excipients compatible
+  • Tablet press feasibility: Suitable for direct compression
+  • Dissolution profile (USP Apparatus II): 85% release in 30 min
+
+OBSERVATIONS & NEXT STEPS
+---------------------------
+  1. Initiate 6-month ICH stability study (25°C/60% RH, 40°C/75% RH)
+  2. Transfer validated HPLC method to CRO for clinical sample analysis
+  3. Prepare analytical section for IND/CTD Module 3.2.S.4
+
+REVIEWED BY: [Synthetic Lab Director]
+DATE: 2026-01-16 (synthetic)
+
+====================================================================
+END OF NOTEBOOK ENTRY
+Demo content — synthetic, no patient data.
+RunId: {{ run_id }}
+====================================================================
