@@ -14,7 +14,7 @@ from __future__ import annotations
 import logging
 from typing import Any
 
-from m365seed.graph import GraphClient, GRAPH_BETA
+from m365seed.graph import GraphClient, GRAPH_BETA, build_delegated_client
 from m365seed.theme_content import get_chat_conversations
 
 logger = logging.getLogger("m365seed.chats")
@@ -60,7 +60,9 @@ def _create_chat(
         "members": member_payload,
     }
     if topic and chat_type == "group":
-        payload["topic"] = f"[DEMO-SEED:{run_id}] {topic}"
+        # Teams chat topics cannot contain ':' characters
+        safe_topic = topic.replace(":", "-")
+        payload["topic"] = f"[DEMO-SEED-{run_id}] {safe_topic}"
 
     resp = client.post("/chats", json_body=payload, base=GRAPH_BETA)
     return resp.json()
@@ -112,6 +114,9 @@ def seed_chats(
         logger.info("Teams chat seeding is disabled — skipping.")
         return []
 
+    auth_mode = cfg.get("auth", {}).get("mode", "")
+    chat_client = client
+
     conversations = chats_cfg.get("conversations", [])
     if not conversations:
         logger.info("No chat conversations configured — skipping.")
@@ -134,7 +139,8 @@ def seed_chats(
 
     actions: list[dict[str, Any]] = []
 
-    # Pre-resolve user IDs (needed for member binding)
+    # Pre-resolve user IDs using the *app* client (which has User.Read.All).
+    # The delegated chat_client may not have that permission.
     all_upns: set[str] = set()
     for conv in conversations:
         all_upns.update(conv["members"])
@@ -147,8 +153,51 @@ def seed_chats(
             logger.warning("Could not resolve user id for %s: %s", upn, exc)
             user_ids[upn] = upn  # fallback to UPN
 
+    # For delegated flows, Graph requires the signed-in caller to be a member
+    # of chats they create.
+    if auth_mode == "device_code":
+        try:
+            me_resp = chat_client.get("/me", params={"$select": "id,userPrincipalName"})
+            me_data = me_resp.json()
+            me_id = me_data.get("id", "")
+            me_upn = me_data.get("userPrincipalName", "")
+            if me_id and me_upn:
+                user_ids[me_upn] = me_id
+                for conv in conversations:
+                    conv_type = conv.get("type", "group")
+                    if conv_type == "oneOnOne":
+                        continue
+                    if me_upn not in conv["members"]:
+                        conv["members"].append(me_upn)
+        except Exception as exc:
+            logger.warning("Could not resolve signed-in delegated user: %s", exc)
+
     for conv in conversations:
         conv_id = conv.get("conversation_id", conv.get("topic", "unnamed"))
+        conv_type = conv.get("type", "group")
+
+        if auth_mode == "device_code" and conv_type == "oneOnOne":
+            try:
+                me_resp = chat_client.get("/me", params={"$select": "userPrincipalName"})
+                me_upn = (me_resp.json().get("userPrincipalName") or "").lower()
+            except Exception:
+                me_upn = ""
+
+            members = [m.lower() for m in conv.get("members", [])]
+            if me_upn and me_upn not in members:
+                logger.info(
+                    "Skipping oneOnOne chat '%s': delegated caller is not one of the configured members.",
+                    conv_id,
+                )
+                actions.append(
+                    {
+                        "action": "skip_chat",
+                        "conversation_id": conv_id,
+                        "reason": "caller_not_member_for_oneOnOne",
+                    }
+                )
+                continue
+
         logger.info(
             "[BETA] Creating chat '%s' with %d members",
             conv_id,
@@ -156,7 +205,41 @@ def seed_chats(
         )
 
         try:
-            chat_data = _create_chat(client, conv, run_id, user_ids)
+            try:
+                chat_data = _create_chat(chat_client, conv, run_id, user_ids)
+            except Exception as exc:
+                # If app-only call is forbidden/unauthorized, try delegated once.
+                exc_str = str(exc)
+                authz_failure = (
+                    "403" in exc_str
+                    or "401" in exc_str
+                    or "Forbidden" in exc_str
+                    or "Unauthorized" in exc_str
+                )
+                if auth_mode == "client_secret" and authz_failure:
+                    logger.info(
+                        "Chat create hit auth boundary — attempting delegated auth …"
+                    )
+                    try:
+                        chat_client = build_delegated_client(cfg, dry_run=client.dry_run)
+                        chat_data = _create_chat(chat_client, conv, run_id, user_ids)
+                    except Exception as delegated_exc:
+                        logger.warning(
+                            "Could not obtain delegated credentials for chat seeding — "
+                            "skipping conversation '%s': %s",
+                            conv_id,
+                            delegated_exc,
+                        )
+                        actions.append(
+                            {
+                                "action": "skip_chat",
+                                "conversation_id": conv_id,
+                                "reason": "delegated_auth_failed",
+                            }
+                        )
+                        continue
+                else:
+                    raise
             chat_id = chat_data.get("id", "dry-run-id")
 
             actions.append(
@@ -170,13 +253,50 @@ def seed_chats(
             )
 
             # Send messages
+            message_send_blocked = False
             for msg_cfg in conv.get("messages", []):
-                message = msg_cfg["text"]
+                # Accept both dict {"text": "..."} and plain string formats
+                message = (
+                    msg_cfg["text"] if isinstance(msg_cfg, dict) else str(msg_cfg)
+                )
                 logger.info(
                     "[BETA] Sending chat message in '%s'",
                     conv_id,
                 )
-                _send_chat_message(client, chat_id, message, run_id)
+                try:
+                    _send_chat_message(chat_client, chat_id, message, run_id)
+                except Exception as exc:
+                    exc_str = str(exc)
+                    detail = ""
+                    if hasattr(exc, "response") and exc.response is not None:
+                        try:
+                            detail = (
+                                exc.response.json().get("error", {}).get("message", "")
+                            )
+                        except Exception:
+                            detail = exc.response.text or ""
+                    app_only_message_block = (
+                        auth_mode == "client_secret"
+                        and ("401" in exc_str or "Unauthorized" in exc_str)
+                        and "import purposes" in detail
+                    )
+                    if app_only_message_block:
+                        logger.info(
+                            "Skipping messages for chat '%s' in app-only mode: %s",
+                            conv_id,
+                            exc,
+                        )
+                        actions.append(
+                            {
+                                "action": "skip_chat_messages",
+                                "conversation_id": conv_id,
+                                "chat_id": chat_id,
+                                "reason": "app_only_import_only",
+                            }
+                        )
+                        message_send_blocked = True
+                        break
+                    raise
                 actions.append(
                     {
                         "action": "send_chat_message",
@@ -185,6 +305,8 @@ def seed_chats(
                         "api": "beta",
                     }
                 )
+            if message_send_blocked:
+                continue
         except Exception as exc:
             logger.error("Failed to create chat '%s': %s", conv_id, exc)
             actions.append(

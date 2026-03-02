@@ -1,6 +1,9 @@
 # Environment & secrets
 .env
 seed-config.yaml
+seed-config.device.yaml
+seed-config.yaml.bak
+*.bak
 *.secret
 *.key
 

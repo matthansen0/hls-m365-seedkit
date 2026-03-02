@@ -200,23 +200,29 @@ def _cleanup_teams(
         return actions
 
     channels = teams_cfg.get("channels", [])
+    if not channels:
+        return actions
+
+    # List all channels once and filter client-side
+    # (Graph /teams/{id}/channels does not support $filter on displayName)
+    try:
+        resp = client.get(
+            f"/teams/{team_id}/channels",
+            params={"$select": "id,displayName"},
+        )
+        all_channels = resp.json().get("value", [])
+    except Exception as exc:
+        logger.warning("Failed to list channels for team %s: %s", team_id, exc)
+        return actions
+
+    # Build a lookup: lowercase display_name -> channel data
+    channel_map: dict[str, dict[str, Any]] = {
+        ch["displayName"].lower(): ch for ch in all_channels if ch.get("displayName")
+    }
+
     for ch_cfg in channels:
         display_name = ch_cfg["display_name"]
-        try:
-            resp = client.get(
-                f"/teams/{team_id}/channels",
-                params={
-                    "$filter": f"displayName eq '{display_name}'",
-                    "$select": "id,displayName",
-                    "$top": "1",
-                },
-            )
-            matches = resp.json().get("value", [])
-        except Exception as exc:
-            logger.warning(
-                "Failed to look up channel '%s': %s", display_name, exc
-            )
-            continue
+        matches = [channel_map[display_name.lower()]] if display_name.lower() in channel_map else []
 
         for ch in matches:
             ch_id = ch["id"]
@@ -273,7 +279,16 @@ def _cleanup_chats(
         )
         all_chats = resp.json().get("value", [])
     except Exception as exc:
-        logger.warning("Failed to list chats: %s", exc)
+        exc_str = str(exc)
+        if "403" in exc_str or "Forbidden" in exc_str:
+            logger.warning(
+                "Cannot list chats (403 Forbidden). "
+                "Chat cleanup requires delegated (user) auth — "
+                "it is not supported with app-only client_credentials. "
+                "Skipping chat cleanup."
+            )
+        else:
+            logger.warning("Failed to list chats: %s", exc)
         return actions
 
     for chat in all_chats:
@@ -351,6 +366,11 @@ def _cleanup_sharepoint(
         logger.info("Deleting group/site '%s' …", display_name)
         try:
             client.delete(f"/groups/{group_id}")
+            # Permanently delete from recycle bin to free the mailNickname
+            try:
+                client.delete(f"/directory/deletedItems/{group_id}")
+            except Exception:
+                pass  # may fail if not yet in deleted items; non-critical
             actions.append(
                 {
                     "action": "delete_group_site",
@@ -468,6 +488,82 @@ def _cleanup_site_documents(
 
 
 # ---------------------------------------------------------------------------
+# Teams / Planner group cleanup
+# ---------------------------------------------------------------------------
+
+
+def _cleanup_team_group(
+    client: GraphClient,
+    cfg: dict[str, Any],
+    run_id: str,
+) -> list[dict[str, Any]]:
+    """Delete the M365 Group backing Teams and/or Planner if it was created
+    by the seeding tool.
+
+    The group is identified from ``teams.team_id`` or ``planner.group_id``
+    in the config.  We only delete groups whose description starts with
+    ``"Demo team for"`` (the marker set by ``_create_team_group`` in setup)
+    to avoid accidentally deleting pre-existing tenant groups.
+    """
+    actions: list[dict[str, Any]] = []
+
+    # Collect candidate group IDs from config
+    group_ids: set[str] = set()
+    teams_cfg = cfg.get("teams", {})
+    planner_cfg = cfg.get("planner", {})
+    if teams_cfg.get("enabled") and teams_cfg.get("team_id"):
+        group_ids.add(teams_cfg["team_id"])
+    if planner_cfg.get("enabled") and planner_cfg.get("group_id"):
+        group_ids.add(planner_cfg["group_id"])
+
+    if not group_ids:
+        return actions
+
+    for gid in group_ids:
+        # Fetch group details to verify it's one we created
+        try:
+            resp = client.get(
+                f"/groups/{gid}",
+                params={"$select": "id,displayName,description"},
+            )
+            group = resp.json()
+        except Exception as exc:
+            logger.warning("Failed to fetch group %s: %s", gid, exc)
+            continue
+
+        description = group.get("description", "") or ""
+        display_name = group.get("displayName", gid)
+
+        if not description.startswith("Demo team for"):
+            logger.info(
+                "Skipping group '%s' (%s) — not created by seeding tool.",
+                display_name,
+                gid[:8],
+            )
+            continue
+
+        logger.info("Deleting group '%s' (%s) …", display_name, gid[:8])
+        try:
+            client.delete(f"/groups/{gid}")
+            # Permanently delete from recycle bin to free the mailNickname
+            try:
+                client.delete(f"/directory/deletedItems/{gid}")
+            except Exception:
+                pass  # non-critical
+            actions.append(
+                {
+                    "action": "delete_team_group",
+                    "group_id": gid,
+                    "display_name": display_name,
+                }
+            )
+        except Exception as exc:
+            logger.error("Failed to delete group %s: %s", gid, exc)
+
+    return actions
+
+
+# ---------------------------------------------------------------------------
 # Planner cleanup
 # ---------------------------------------------------------------------------
 
@@ -548,6 +644,7 @@ def cleanup(
     chats: bool = True,
     sharepoint: bool = True,
     planner: bool = True,
+    team_group: bool = True,
 ) -> list[dict[str, Any]]:
     """Remove all seeded content tagged with *run_id*.
 
@@ -583,6 +680,10 @@ def cleanup(
     if planner:
         logger.info("Cleaning up seeded Planner plans for run_id=%s …", run_id)
         actions.extend(_cleanup_planner(client, cfg, run_id))
+
+    if team_group:
+        logger.info("Cleaning up Teams/Planner group for run_id=%s …", run_id)
+        actions.extend(_cleanup_team_group(client, cfg, run_id))
 
     logger.info("Cleanup complete: %d actions performed.", len(actions))
     return actions

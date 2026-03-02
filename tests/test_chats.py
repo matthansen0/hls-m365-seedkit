@@ -116,3 +116,15 @@ class TestSeedChatsDryRun:
         create_actions = [a for a in actions if a["action"] == "create_chat"]
         assert len(create_actions) == 1
         assert create_actions[0]["type"] == "oneOnOne"
+
+    def test_plain_string_messages(self):
+        """Messages as plain strings (from theme enrichment) should not crash."""
+        client = _dry_client()
+        cfg = _base_cfg()
+        cfg["chats"]["conversations"][0]["messages"] = [
+            "Plain string message one",
+            "Plain string message two",
+        ]
+        actions = seed_chats(client, cfg, "healthcare", "run001")
+        msg_actions = [a for a in actions if a["action"] == "send_chat_message"]
+        assert len(msg_actions) == 2

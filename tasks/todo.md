@@ -61,3 +61,12 @@
 - [x] Update `README.md` — dev container quick start, setup wizard
 - [x] Update `SKILL.md` — theme system, dev container steps
 - [x] Update `spec.md` — architecture, automation
+
+## Phase 9: Autonomous Repair Loop (2026-02-27)
+- [x] Identify non-interactive auth blocker (`M365SEED_CLIENT_SECRET` missing in shell)
+- [x] Validate + run `seed-all --enable-beta-teams` + cleanup + reseed loop
+- [x] Repair config drift: update `teams.team_id` and `planner.group_id` after team deletion
+- [x] Patch delegated token handling for Azure CLI single-scope behavior (`m365seed/graph.py`)
+- [x] Patch Teams channel existence to handle pagination (`m365seed/teams.py`)
+- [x] Patch chat seeding to app-only first, delegated fallback on auth boundary (`m365seed/chats.py`)
+- [ ] Remaining tenant-side blocker: Teams/Chats posting authorization still not fully clean in app-only runs

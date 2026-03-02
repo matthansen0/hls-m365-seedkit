@@ -6,6 +6,7 @@ import logging
 from pathlib import Path
 from typing import Any
 
+import httpx
 from jinja2 import Environment, FileSystemLoader
 
 from m365seed.graph import GraphClient
@@ -105,6 +106,9 @@ def _upload_file(
         headers={
             "Content-Type": "text/plain",
         },
+        params={
+            "@microsoft.graph.conflictBehavior": "replace",
+        },
     )
     return resp.json()
 
@@ -199,7 +203,21 @@ def seed_files(
             _ensure_folder(client, user_upn, folder)
 
             content = _render_file(theme, template_name, run_id)
-            _upload_file(client, user_upn, folder, det_filename, content, run_id)
+            try:
+                _upload_file(client, user_upn, folder, det_filename, content, run_id)
+            except httpx.HTTPStatusError as exc:
+                logger.warning(
+                    "Failed to upload '%s/%s' to %s: %s",
+                    folder, det_filename, user_upn, exc,
+                )
+                actions.append({
+                    "action": "error",
+                    "target": "onedrive",
+                    "user": user_upn,
+                    "path": f"{folder}/{det_filename}",
+                    "error": str(exc),
+                })
+                continue
 
             logger.info("Uploaded '%s/%s' to %s OneDrive", folder, det_filename, user_upn)
             actions.append(
@@ -241,7 +259,20 @@ def seed_files(
                 continue
 
             content = _render_file(theme, template_name, run_id)
-            _upload_sp_file(client, site_id, drive_id, folder, det_filename, content)
+            try:
+                _upload_sp_file(client, site_id, drive_id, folder, det_filename, content)
+            except httpx.HTTPStatusError as exc:
+                logger.warning(
+                    "Failed to upload SP file '%s/%s': %s",
+                    folder, det_filename, exc,
+                )
+                actions.append({
+                    "action": "error",
+                    "target": "sharepoint",
+                    "path": f"{folder}/{det_filename}",
+                    "error": str(exc),
+                })
+                continue
 
             logger.info(
                 "Uploaded '%s/%s' to SharePoint site %s",

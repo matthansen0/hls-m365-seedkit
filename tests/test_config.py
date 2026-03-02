@@ -216,3 +216,8 @@ class TestHelpers:
         cfg = _cfg(**{"auth.client_secret_env": "CUSTOM_SECRET_VAR"})
         monkeypatch.setenv("CUSTOM_SECRET_VAR", "custom-secret")
         assert resolve_secret(cfg) == "custom-secret"
+
+    def test_resolve_secret_invalid_env_name(self):
+        cfg = _cfg(**{"auth.client_secret_env": "not-an-env-var-value"})
+        with pytest.raises(RuntimeError, match="must be an environment variable name"):
+            resolve_secret(cfg)

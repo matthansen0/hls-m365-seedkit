@@ -154,3 +154,31 @@ class TestSeedMailDryRun:
         # Check sender alternation
         assert actions[0]["sender"] == "a@test.com"
         assert actions[1]["sender"] == "b@test.com"
+
+    def test_seed_mail_handles_404_gracefully(self):
+        """A 404 from sendMail should log an error action, not crash."""
+        request = httpx.Request("POST", "https://graph.microsoft.com/v1.0/users/gone@test.com/sendMail")
+        response = httpx.Response(404, request=request)
+        error = httpx.HTTPStatusError("Not Found", request=request, response=response)
+
+        client = MagicMock(spec=["post", "dry_run"])
+        client.dry_run = True
+        client.post.side_effect = error
+
+        cfg = {
+            "mail": {
+                "enabled": True,
+                "threads": [
+                    {
+                        "thread_id": "t-001",
+                        "subject": "Test Thread",
+                        "participants": ["gone@test.com"],
+                        "messages": 1,
+                    }
+                ]
+            }
+        }
+        actions = seed_mail(client, cfg, "healthcare", "run-err")
+        assert len(actions) == 1
+        assert actions[0]["action"] == "error"
+        assert "Not Found" in actions[0]["error"]

@@ -146,6 +146,19 @@ def seed_planner(
         logger.warning("No group_id configured for Planner — skipping.")
         return []
 
+    # Verify the group still exists before attempting plan creation
+    if not client.dry_run:
+        try:
+            client.get(f"/groups/{group_id}", params={"$select": "id"})
+        except Exception:
+            logger.error(
+                "Group '%s' not found — was it deleted during cleanup? "
+                "Re-run 'm365seed setup' to recreate the team/group, "
+                "then update planner.group_id in seed-config.yaml.",
+                group_id,
+            )
+            return []
+
     plans = planner_cfg.get("plans", [])
     if not plans:
         logger.info("No Planner plans configured — skipping.")

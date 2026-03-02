@@ -7,7 +7,10 @@ and uploads documents.  All content is tagged with the run_id for cleanup.
 from __future__ import annotations
 
 import logging
+import uuid
 from typing import Any
+
+import httpx
 
 from m365seed.graph import GraphClient
 from m365seed.theme_content import get_sharepoint_sites
@@ -24,14 +27,14 @@ DISCLAIMER = "Demo content — synthetic, no patient data."
 
 def _group_exists(
     client: GraphClient,
-    mail_nickname: str,
+    display_name: str,
 ) -> dict[str, Any] | None:
-    """Check if a group with the given mailNickname exists."""
+    """Check if a group with the given displayName exists."""
     try:
         resp = client.get(
             "/groups",
             params={
-                "$filter": f"mailNickname eq '{mail_nickname}'",
+                "$filter": f"displayName eq '{display_name}'",
                 "$select": "id,displayName,mailNickname",
                 "$top": "1",
             },
@@ -39,7 +42,7 @@ def _group_exists(
         groups = resp.json().get("value", [])
         return groups[0] if groups else None
     except Exception as exc:
-        logger.warning("Group existence check failed for '%s': %s", mail_nickname, exc)
+        logger.warning("Group existence check failed for '%s': %s", display_name, exc)
         return None
 
 
@@ -58,8 +61,10 @@ def _create_group_site(
         "mail_nickname",
         site_cfg["display_name"].replace(" ", "").lower()[:50],
     )
-    # Prefix mail_nickname with run_id fragment for uniqueness
-    mail_nickname = f"seed{run_id[:8]}{mail_nickname}"[:64]
+    # Prefix mail_nickname with run_id fragment + UUID for uniqueness
+    # (soft-deleted groups still reserve the mailNickname for ~30 days)
+    short_uuid = uuid.uuid4().hex[:6]
+    mail_nickname = f"seed{run_id[:8]}{mail_nickname}{short_uuid}"[:64]
 
     payload = {
         "displayName": display_name,
@@ -83,10 +88,44 @@ def _create_group_site(
     return resp.json()
 
 
-def _get_group_site_id(client: GraphClient, group_id: str) -> str:
-    """Get the SharePoint site ID associated with a group."""
-    resp = client.get(f"/groups/{group_id}/sites/root", params={"$select": "id"})
-    return resp.json().get("id", "")
+def _get_group_site_id(
+    client: GraphClient,
+    group_id: str,
+    max_retries: int = 5,
+    delay: float = 5.0,
+) -> str:
+    """Get the SharePoint site ID associated with a group.
+
+    Newly created M365 Groups need time for the SharePoint site to
+    provision.  This retries with exponential back-off.
+    """
+    import time
+
+    for attempt in range(max_retries):
+        try:
+            resp = client.get(
+                f"/groups/{group_id}/sites/root", params={"$select": "id"}
+            )
+            site_id = resp.json().get("id", "")
+            if site_id:
+                return site_id
+        except Exception:
+            pass
+        if attempt < max_retries - 1:
+            wait = delay * (1.5 ** attempt)
+            logger.info(
+                "Site not yet provisioned for group %s — "
+                "retrying in %.0fs (attempt %d/%d) …",
+                group_id[:8],
+                wait,
+                attempt + 2,
+                max_retries,
+            )
+            time.sleep(wait)
+    raise RuntimeError(
+        f"SharePoint site for group {group_id} not available after "
+        f"{max_retries} attempts"
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -125,6 +164,7 @@ def _create_site_page(
     content = page_cfg.get("content", f"<p>{DISCLAIMER}</p>")
 
     payload = {
+        "@odata.type": "#microsoft.graph.sitePage",
         "name": f"{page_cfg['title'].replace(' ', '_')}.aspx",
         "title": title,
         "pageLayout": "article",
@@ -138,12 +178,16 @@ def _create_site_page(
         "canvasLayout": {
             "horizontalSections": [
                 {
-                    "layout": "fullWidth",
+                    "layout": "oneColumn",
+                    "id": "1",
+                    "emphasis": "none",
                     "columns": [
                         {
+                            "id": "1",
                             "width": 12,
                             "webparts": [
                                 {
+                                    "id": str(uuid.uuid4()),
                                     "innerHtml": (
                                         f"{content}"
                                         f"<p><em>{DISCLAIMER} | RunId: {run_id}</em></p>"
@@ -243,15 +287,11 @@ def seed_sharepoint(
 
     for site_cfg in sites:
         site_name = site_cfg["display_name"]
-        mail_nickname = site_cfg.get(
-            "mail_nickname",
-            site_name.replace(" ", "").lower()[:50],
-        )
-        prefixed_nickname = f"seed{run_id[:8]}{mail_nickname}"[:64]
+        tagged_name = f"[DEMO-SEED:{run_id}] {site_name}"
 
-        # Idempotency — check if group already exists
+        # Idempotency — check if group already exists by displayName
         existing = (
-            None if client.dry_run else _group_exists(client, prefixed_nickname)
+            None if client.dry_run else _group_exists(client, tagged_name)
         )
 
         if existing:
@@ -325,6 +365,21 @@ def seed_sharepoint(
                         "site": site_name,
                     }
                 )
+            except httpx.HTTPStatusError as exc:
+                if exc.response.status_code == 409:
+                    logger.info(
+                        "Page '%s' already exists (409) — skipping.",
+                        page_cfg["title"],
+                    )
+                    actions.append(
+                        {
+                            "action": "skip_page",
+                            "page": page_cfg["title"],
+                            "reason": "already_exists",
+                        }
+                    )
+                else:
+                    logger.error("Failed to create page: %s", exc)
             except Exception as exc:
                 logger.error("Failed to create page: %s", exc)
 

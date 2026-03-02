@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import os
+import re
 from pathlib import Path
 from typing import Any
 
@@ -330,6 +331,12 @@ def resolve_secret(cfg: dict[str, Any]) -> str:
     Raises ``RuntimeError`` if the env var is unset or empty.
     """
     env_name = cfg["auth"].get("client_secret_env", "M365SEED_CLIENT_SECRET")
+    if not re.fullmatch(r"[A-Za-z_][A-Za-z0-9_]*", env_name):
+        raise RuntimeError(
+            "auth.client_secret_env must be an environment variable name "
+            "(for example: M365SEED_CLIENT_SECRET), not the secret value itself. "
+            f"Got: '{env_name}'"
+        )
     value = os.environ.get(env_name)
     if not value:
         raise RuntimeError(

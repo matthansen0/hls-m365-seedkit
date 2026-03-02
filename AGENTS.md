@@ -27,6 +27,7 @@ HLS-M365-Seed/
 │   ├── config.py           # YAML schema validation
 │   ├── graph.py            # Graph client, retry, auth
 │   ├── theme_content.py    # Theme content provider (typed, LRU-cached)
+│   ├── profiles.py         # User profile branding (jobTitle, dept, company)
 │   ├── mail.py             # Email seeding (theme-aware)
 │   ├── files.py            # File seeding — OneDrive + SharePoint
 │   ├── calendar.py         # Calendar seeding (+ online meetings)
@@ -58,6 +59,7 @@ Content is fully theme-aware across all 7 seeding modules. The `theme_content.py
 
 | Accessor | Returns |
 |----------|---------|
+| `get_user_profiles(theme)` | User profile attributes (jobTitle, department, company, office) |
 | `get_file_manifest(theme)` | File manifest (folder, name, template, description) |
 | `get_mail_threads(theme)` | Email thread metadata + attachment content |
 | `get_calendar_events(theme)` | Calendar event body text |
@@ -120,6 +122,7 @@ m365seed seed-all                 # Seed the tenant
 | `m365seed setup` | Interactive setup wizard — generates seed-config.yaml |
 | `m365seed register` | Automated Entra ID app registration via Azure CLI |
 | `m365seed validate` | Validate config, auth, permissions, users |
+| `m365seed seed-profiles` | Brand user profiles to match theme |
 | `m365seed seed-mail` | Seed email threads |
 | `m365seed seed-files` | Seed OneDrive/SharePoint files |
 | `m365seed seed-calendar` | Seed calendar events |

@@ -77,6 +77,7 @@ class TestCleanupFlags:
             chats=False,
             sharepoint=False,
             planner=False,
+            team_group=False,
         )
         assert actions == []
 
@@ -93,6 +94,7 @@ class TestCleanupFlags:
             chats=False,
             sharepoint=False,
             planner=False,
+            team_group=False,
         )
         # Will be empty because mock returns no messages
         assert isinstance(actions, list)
@@ -109,6 +111,7 @@ class TestCleanupFlags:
             chats=False,
             sharepoint=False,
             planner=False,
+            team_group=False,
         )
         assert isinstance(actions, list)
 
@@ -134,6 +137,7 @@ class TestCleanupWithContent:
             client, cfg, "run001",
             mail=False, files=False, calendar=False,
             teams=True, chats=False, sharepoint=False, planner=False,
+            team_group=False,
         )
         delete_actions = [a for a in actions if a["action"] == "delete_channel"]
         assert len(delete_actions) == 1
@@ -157,6 +161,7 @@ class TestCleanupWithContent:
             client, cfg, "run001",
             mail=False, files=False, calendar=False,
             teams=False, chats=False, sharepoint=False, planner=True,
+            team_group=False,
         )
         delete_actions = [a for a in actions if a["action"] == "delete_plan"]
         assert len(delete_actions) == 1
@@ -187,6 +192,59 @@ class TestCleanupWithContent:
             client, cfg, "run001",
             mail=False, files=False, calendar=False,
             teams=False, chats=False, sharepoint=True, planner=False,
+            team_group=False,
         )
         delete_actions = [a for a in actions if a["action"] == "delete_group_site"]
         assert len(delete_actions) == 1
+
+    def test_cleanup_team_group_deletes_seeded_group(self):
+        """Verify team group cleanup deletes groups created by the setup wizard."""
+        client = _dry_client()
+
+        # Return group details showing it was created by the tool
+        group_resp = MagicMock()
+        group_resp.json.return_value = {
+            "id": "team-123",
+            "displayName": "Contoso Health System",
+            "description": "Demo team for Contoso Health System",
+        }
+        client.get.return_value = group_resp
+
+        cfg = _full_cfg()
+        actions = cleanup(
+            client, cfg, "run001",
+            mail=False, files=False, calendar=False,
+            teams=False, chats=False, sharepoint=False, planner=False,
+            team_group=True,
+        )
+        delete_actions = [a for a in actions if a["action"] == "delete_team_group"]
+        # Both teams.team_id ("team-123") and planner.group_id ("group-123")
+        # are candidates; both should be deleted since the mock returns
+        # the "Demo team for" description for all lookups.
+        deleted_ids = {a["group_id"] for a in delete_actions}
+        assert "team-123" in deleted_ids
+        assert "group-123" in deleted_ids
+        assert all(a["display_name"] == "Contoso Health System" for a in delete_actions)
+
+    def test_cleanup_team_group_skips_preexisting_group(self):
+        """Verify team group cleanup does NOT delete pre-existing tenant groups."""
+        client = _dry_client()
+
+        # Return group details without "Demo team for" description
+        group_resp = MagicMock()
+        group_resp.json.return_value = {
+            "id": "team-123",
+            "displayName": "Contoso Health System",
+            "description": "Original tenant team",
+        }
+        client.get.return_value = group_resp
+
+        cfg = _full_cfg()
+        actions = cleanup(
+            client, cfg, "run001",
+            mail=False, files=False, calendar=False,
+            teams=False, chats=False, sharepoint=False, planner=False,
+            team_group=True,
+        )
+        delete_actions = [a for a in actions if a["action"] == "delete_team_group"]
+        assert len(delete_actions) == 0

@@ -6,6 +6,8 @@ import logging
 from datetime import datetime, timedelta, timezone
 from typing import Any
 
+import httpx
+
 from m365seed.graph import GraphClient
 from m365seed.theme_content import get_calendar_events
 
@@ -169,10 +171,25 @@ def seed_calendar(
             organizer,
         )
 
-        client.post(
-            f"/users/{organizer}/events",
-            json_body=payload,
-        )
+        try:
+            client.post(
+                f"/users/{organizer}/events",
+                json_body=payload,
+            )
+        except httpx.HTTPStatusError as exc:
+            logger.warning(
+                "Failed to create event '%s' for %s: %s",
+                event_id,
+                organizer,
+                exc,
+            )
+            actions.append({
+                "action": "error",
+                "event_id": event_id,
+                "organizer": organizer,
+                "error": str(exc),
+            })
+            continue
 
         actions.append(
             {

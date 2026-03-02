@@ -7,6 +7,7 @@ import logging
 from pathlib import Path
 from typing import Any
 
+import httpx
 from jinja2 import Environment, FileSystemLoader
 
 from m365seed.graph import GraphClient, GRAPH_V1
@@ -218,10 +219,27 @@ def seed_mail(
                 current_sender,
             )
 
-            client.post(
-                f"/users/{current_sender}/sendMail",
-                json_body=mail_payload,
-            )
+            try:
+                client.post(
+                    f"/users/{current_sender}/sendMail",
+                    json_body=mail_payload,
+                )
+            except httpx.HTTPStatusError as exc:
+                logger.warning(
+                    "Failed to send message %d of thread '%s' from %s: %s",
+                    msg_idx + 1,
+                    thread_id,
+                    current_sender,
+                    exc,
+                )
+                actions.append({
+                    "action": "error",
+                    "thread_id": thread_id,
+                    "message_index": msg_idx,
+                    "sender": current_sender,
+                    "error": str(exc),
+                })
+                continue
 
             actions.append(
                 {

@@ -2,6 +2,7 @@
 
 from unittest.mock import MagicMock, patch
 
+import httpx
 import pytest
 
 from m365seed.files import (
@@ -123,3 +124,30 @@ class TestSeedFilesDryRun:
             assert a["path"].startswith("Clinical Ops/") or a["path"].startswith(
                 "Compliance/"
             )
+
+    def test_seed_files_handles_upload_error_gracefully(self):
+        """A 404 from OneDrive upload should log an error action, not crash."""
+        request = httpx.Request("PUT", "https://graph.microsoft.com/v1.0/users/gone@test.com/drive/root:/test.txt:/content")
+        response = httpx.Response(404, request=request)
+        error = httpx.HTTPStatusError("Not Found", request=request, response=response)
+
+        client = MagicMock(spec=["put", "post", "get", "dry_run"])
+        client.dry_run = True
+        client.put.side_effect = error
+        client.post.return_value = MagicMock(status_code=201, json=lambda: {})
+        client.get.return_value = MagicMock(status_code=200, json=lambda: {})
+
+        cfg = {
+            "files": {
+                "oneDrive": {
+                    "enabled": True,
+                    "target_user": "gone@test.com",
+                    "folders": ["Clinical Ops"],
+                }
+            },
+            "targets": {"users": [{"upn": "gone@test.com"}]},
+        }
+        actions = seed_files(client, cfg, "healthcare", "run-err")
+        error_actions = [a for a in actions if a["action"] == "error"]
+        assert len(error_actions) > 0
+        assert all("Not Found" in a["error"] for a in error_actions)

@@ -2,6 +2,7 @@
 
 from unittest.mock import MagicMock, patch
 
+import httpx
 import pytest
 
 from m365seed.calendar import (
@@ -145,3 +146,32 @@ class TestSeedCalendarDryRun:
         assert len(actions) == 1
         assert actions[0]["action"] == "create_event"
         assert actions[0]["event_id"] == "e-001"
+
+    def test_seed_calendar_handles_404_gracefully(self):
+        """A 404 from event creation should log an error action, not crash."""
+        request = httpx.Request("POST", "https://graph.microsoft.com/v1.0/users/gone@test.com/events")
+        response = httpx.Response(404, request=request)
+        error = httpx.HTTPStatusError("Not Found", request=request, response=response)
+
+        client = MagicMock(spec=["post", "dry_run"])
+        client.dry_run = True
+        client.post.side_effect = error
+
+        cfg = {
+            "calendar": {
+                "enabled": True,
+                "events": [
+                    {
+                        "event_id": "e-001",
+                        "subject": "Test Meeting",
+                        "organizer": "gone@test.com",
+                        "attendees": ["a@test.com"],
+                        "duration_minutes": 30,
+                    }
+                ],
+            }
+        }
+        actions = seed_calendar(client, cfg, "healthcare", "run-err")
+        assert len(actions) == 1
+        assert actions[0]["action"] == "error"
+        assert "Not Found" in actions[0]["error"]

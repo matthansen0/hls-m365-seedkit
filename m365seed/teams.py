@@ -10,7 +10,9 @@ from __future__ import annotations
 import logging
 from typing import Any
 
-from m365seed.graph import GraphClient, GRAPH_BETA
+import httpx
+
+from m365seed.graph import GraphClient, GRAPH_BASE, GRAPH_BETA, build_delegated_client
 from m365seed.theme_content import get_teams_channels
 
 logger = logging.getLogger("m365seed.teams")
@@ -23,6 +25,55 @@ DISCLAIMER = "Demo content — synthetic, no patient data."
 # ---------------------------------------------------------------------------
 
 
+def _ensure_team_members(
+    client: GraphClient,
+    team_id: str,
+    user_upns: list[str],
+) -> None:
+    """Add users as team members (idempotent — skips existing members).
+
+    Uses the app-only *client* (needs ``Group.ReadWrite.All``).
+    """
+    # Fetch current members
+    existing_ids: set[str] = set()
+    try:
+        resp = client.get(
+            f"/groups/{team_id}/members",
+            params={"$select": "id"},
+        )
+        for m in resp.json().get("value", []):
+            existing_ids.add(m.get("id", ""))
+    except Exception as exc:
+        logger.warning("Could not list team members: %s", exc)
+
+    for upn in user_upns:
+        # Resolve UPN → user id
+        try:
+            user_resp = client.get(
+                f"/users/{upn}",
+                params={"$select": "id"},
+            )
+            uid = user_resp.json().get("id", "")
+        except Exception as exc:
+            logger.warning("Could not resolve %s for team membership: %s", upn, exc)
+            continue
+
+        if uid in existing_ids:
+            logger.debug("User %s already a team member — skipping.", upn)
+            continue
+
+        try:
+            client.post(
+                f"/groups/{team_id}/members/$ref",
+                json_body={
+                    "@odata.id": f"{GRAPH_BASE}/v1.0/directoryObjects/{uid}",
+                },
+            )
+            logger.info("Added %s as team member.", upn)
+        except Exception as exc:
+            logger.warning("Failed to add %s as team member: %s", upn, exc)
+
+
 def _channel_exists(
     client: GraphClient,
     team_id: str,
@@ -30,17 +81,23 @@ def _channel_exists(
 ) -> str | None:
     """Return channel ID if a channel with *display_name* exists, else None.
 
-    Uses the v1.0 endpoint (listing channels is GA).
+    Lists all channels and filters client-side because the Graph
+    ``/teams/{id}/channels`` endpoint does not support ``$filter``
+    on ``displayName``.
     """
     try:
-        resp = client.get(
-            f"/teams/{team_id}/channels",
-            params={"$filter": f"displayName eq '{display_name}'", "$top": "1"},
-        )
-        data = resp.json()
-        channels = data.get("value", [])
-        if channels:
-            return channels[0]["id"]
+        next_url = f"{GRAPH_BETA}/teams/{team_id}/channels"
+        params: dict[str, str] | None = {"$select": "id,displayName"}
+
+        while next_url:
+            resp = client.request("GET", next_url, params=params)
+            data = resp.json()
+            for ch in data.get("value", []):
+                if ch.get("displayName", "").lower() == display_name.lower():
+                    return ch["id"]
+
+            next_url = data.get("@odata.nextLink")
+            params = None
     except Exception as exc:
         logger.warning("Channel existence check failed: %s", exc)
     return None
@@ -116,6 +173,12 @@ def seed_teams(
         logger.warning("No team_id configured — skipping Teams seeding.")
         return []
 
+    # Detect app-only auth — channel message posting requires delegated auth.
+    # Automatically fall back to device_code for message posting.
+    auth_mode = cfg.get("auth", {}).get("mode", "")
+    app_only = auth_mode == "client_secret"
+    msg_client: GraphClient | None = None  # lazy-init delegated client
+
     channels = teams_cfg.get("channels", [])
 
     # Enrich config channels with theme-specific descriptions and posts
@@ -131,6 +194,15 @@ def seed_teams(
             if not ch_cfg.get("posts") and tc.get("posts"):
                 ch_cfg["posts"] = tc["posts"]
     actions: list[dict[str, Any]] = []
+
+    # Ensure all configured users are team members before posting.
+    # Uses the app-only client (Group.ReadWrite.All) — works regardless
+    # of auth mode.
+    all_upns = [
+        u["upn"] for u in cfg.get("targets", {}).get("users", [])
+    ]
+    if all_upns and not client.dry_run:
+        _ensure_team_members(client, team_id, all_upns)
 
     for ch_cfg in channels:
         display_name = ch_cfg["display_name"]
@@ -161,7 +233,44 @@ def seed_teams(
                 display_name,
                 team_id,
             )
-            channel_id = _create_channel(client, team_id, display_name, description)
+            try:
+                channel_id = _create_channel(client, team_id, display_name, description)
+            except httpx.HTTPStatusError as exc:
+                detail = ""
+                if exc.response is not None:
+                    try:
+                        detail = (
+                            exc.response.json().get("error", {}).get("message", "")
+                        )
+                    except Exception:
+                        detail = exc.response.text or ""
+                duplicate_name = (
+                    exc.response is not None
+                    and exc.response.status_code == 400
+                    and "already existed" in detail
+                )
+                if duplicate_name:
+                    logger.info(
+                        "Channel '%s' name already exists — skipping create.",
+                        display_name,
+                    )
+                    actions.append(
+                        {
+                            "action": "skip_channel",
+                            "channel": display_name,
+                            "reason": "already_exists",
+                        }
+                    )
+                    continue
+                logger.warning(
+                    "Failed to create channel '%s': %s", display_name, exc,
+                )
+                actions.append({
+                    "action": "error",
+                    "channel": display_name,
+                    "error": str(exc),
+                })
+                continue
             actions.append(
                 {
                     "action": "create_channel",
@@ -171,20 +280,69 @@ def seed_teams(
                 }
             )
 
-        # Post messages
-        for post_cfg in ch_cfg.get("posts", []):
-            message = post_cfg["message"]
-            logger.info(
-                "[BETA] Posting message to channel '%s'",
-                display_name,
-            )
-            _post_message(client, team_id, channel_id, message, run_id)
-            actions.append(
-                {
-                    "action": "post_message",
-                    "channel": display_name,
-                    "api": "beta",
-                }
-            )
+        # Post messages — requires delegated auth when running app-only
+        posts = ch_cfg.get("posts", [])
+        if posts:
+            # Determine which client to use for message posting
+            post_client = client
+            if app_only:
+                if msg_client is None:
+                    logger.info(
+                        "Channel message posting requires delegated auth — "
+                        "initiating device-code sign-in …"
+                    )
+                    try:
+                        msg_client = build_delegated_client(cfg, dry_run=client.dry_run)
+                        # Warm the token so the device-code prompt appears now
+                        msg_client._get_token()
+                    except Exception as exc:
+                        logger.warning(
+                            "Could not obtain delegated credentials — "
+                            "skipping message posting: %s", exc,
+                        )
+                        msg_client = False  # type: ignore[assignment]
+                if msg_client is False:
+                    actions.append({
+                        "action": "skip_messages",
+                        "channel": display_name,
+                        "count": len(posts),
+                        "reason": "delegated_auth_failed",
+                    })
+                else:
+                    post_client = msg_client  # type: ignore[assignment]
+
+            if post_client is not client and msg_client is False:
+                pass  # already appended skip action above
+            else:
+                for post_cfg in posts:
+                    # Accept both dict {"message": "..."} and plain string formats
+                    message = (
+                        post_cfg["message"] if isinstance(post_cfg, dict) else str(post_cfg)
+                    )
+                    logger.info(
+                        "[BETA] Posting message to channel '%s'",
+                        display_name,
+                    )
+                    try:
+                        _post_message(post_client, team_id, channel_id, message, run_id)
+                    except httpx.HTTPStatusError as exc:
+                        logger.warning(
+                            "Failed to post message to channel '%s': %s",
+                            display_name,
+                            exc,
+                        )
+                        actions.append({
+                            "action": "error",
+                            "channel": display_name,
+                            "error": str(exc),
+                        })
+                        continue
+                    actions.append(
+                        {
+                            "action": "post_message",
+                            "channel": display_name,
+                            "api": "beta",
+                        }
+                    )
 
     return actions

@@ -2,22 +2,10 @@
 # HLS-M365-Seed Dev Container
 # All deployment dependencies pre-installed for CLI-driven seeding.
 # ──────────────────────────────────────────────────────────────
-FROM mcr.microsoft.com/devcontainers/python:1-3.12-bullseye
+FROM mcr.microsoft.com/devcontainers/python:1-3.12-bookworm
 
 # Avoid interactive prompts during package installation
 ENV DEBIAN_FRONTEND=noninteractive
-
-# ── System packages ──────────────────────────────────────────
-RUN apt-get update && apt-get install -y --no-install-recommends \
-        curl \
-        gnupg \
-        lsb-release \
-        apt-transport-https \
-        jq \
-    && rm -rf /var/lib/apt/lists/*
-
-# ── Azure CLI (latest stable) ───────────────────────────────
-RUN curl -sL https://aka.ms/InstallAzureCLIDeb | bash
 
 # ── Pre-install Python build tools ──────────────────────────
 RUN pip install --no-cache-dir --upgrade pip setuptools wheel

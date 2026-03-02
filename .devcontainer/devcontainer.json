@@ -6,7 +6,7 @@
   },
   "features": {
     "ghcr.io/devcontainers/features/github-cli:1": {},
-    "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+    "ghcr.io/devcontainers/features/azure-cli:1": {}
   },
   "postCreateCommand": "bash .devcontainer/post-create.sh",
   "customizations": {
@@ -40,7 +40,7 @@
     "M365SEED_CLIENT_ID": "${localEnv:M365SEED_CLIENT_ID}"
   },
   "mounts": [
-    "source=${localEnv:HOME}${localEnv:USERPROFILE}/.azure,target=/home/vscode/.azure,type=bind,consistency=cached"
+    "source=${localEnv:HOME}/.azure,target=/home/vscode/.azure,type=bind,consistency=cached"
   ],
   "remoteUser": "vscode"
 }

@@ -8,6 +8,8 @@ with device-code login.
 from __future__ import annotations
 
 import json
+import os
+from pathlib import Path
 import shutil
 import subprocess
 import sys
@@ -26,6 +28,7 @@ GRAPH_API_ID = "00000003-0000-0000-c000-000000000000"
 # ── Application-type permission GUIDs (stable, from MS docs) ─
 CORE_PERMISSIONS: dict[str, str] = {
     "User.Read.All": "df021288-bdef-4463-88db-98f22de89214",
+    "User.ReadWrite.All": "741f803b-c850-494e-b5df-cde7c675a1ca",
     "Organization.Read.All": "498476ce-e0fe-48b0-b801-37ba7e2685c6",
     "Mail.Send": "b633e1c5-b582-4048-a93e-9f11b44c7e96",
     "Mail.ReadWrite": "e2a3a72e-5f79-4c64-b1b1-878b674786c9",
@@ -82,10 +85,54 @@ def _check_az_cli() -> bool:
     return shutil.which("az") is not None
 
 
+def _is_msal_http_cache_error(output: str) -> bool:
+    """Return True if output matches known Azure CLI MSAL cache corruption."""
+    text = (output or "").lower()
+    return (
+        ("can't get attribute 'normalizedresponse'" in text and "msal.throttled_http_client" in text)
+        or ("pickle.load" in text and "azure/cli/core/auth/binary_cache.py" in text)
+        or ("can't get attribute" in text and "msal" in text and "binary_cache" in text)
+    )
+
+
+def _get_azure_config_dir() -> Path:
+    """Return Azure CLI config directory, honoring AZURE_CONFIG_DIR when set."""
+    configured = os.environ.get("AZURE_CONFIG_DIR", "").strip()
+    if configured:
+        return Path(configured).expanduser()
+    return Path.home() / ".azure"
+
+
+def _clear_msal_http_cache() -> bool:
+    """Remove Azure CLI MSAL cache files. Returns True if any file was deleted."""
+    azure_dir = _get_azure_config_dir()
+    candidates = [
+        azure_dir / "msal_http_cache.bin",
+        azure_dir / "msal_http_cache.bin.lockfile",
+        azure_dir / "msal_http_cache.json",
+        azure_dir / "msal_token_cache.bin",
+        azure_dir / "msal_token_cache.json",
+    ]
+
+    removed_any = False
+    for path in candidates:
+        try:
+            if path.exists():
+                path.unlink()
+                removed_any = True
+        except OSError:
+            continue
+    return removed_any
+
+
 def _is_logged_in(tenant_id: str) -> bool:
     """Return True if already logged into the target tenant."""
-    acct = _az_json("account", "show")
-    if acct and isinstance(acct, dict):
+    probe = _az("account", "show")
+    if probe.returncode == 0:
+        try:
+            acct = json.loads(probe.stdout)
+        except (json.JSONDecodeError, TypeError):
+            return False
         return acct.get("tenantId", "").lower() == tenant_id.lower()
     return False
 
@@ -117,6 +164,14 @@ def register_app(
         return None
 
     # ── 2. Login via device code ────────────────────────────
+    pre_probe = _az("account", "show")
+    pre_probe_text = f"{pre_probe.stdout}\n{pre_probe.stderr}"
+    if _is_msal_http_cache_error(pre_probe_text):
+        console.print(
+            "[yellow]⚠ Detected Azure CLI MSAL cache corruption; clearing cache before login.[/yellow]"
+        )
+        _clear_msal_http_cache()
+
     if not _is_logged_in(tenant_id):
         console.print(
             "\n  [bold]Signing in to Azure…[/bold]\n"
@@ -131,8 +186,26 @@ def register_app(
             capture=False,
         )
         if result.returncode != 0:
-            console.print("[red]✗ Azure login failed.[/red]")
-            return None
+            probe = _az("account", "show")
+            retry_probe_text = f"{result.stdout}\n{result.stderr}\n{probe.stdout}\n{probe.stderr}"
+            if _is_msal_http_cache_error(retry_probe_text):
+                console.print(
+                    "[yellow]⚠ Detected Azure CLI MSAL cache corruption; clearing cache and retrying login once.[/yellow]"
+                )
+                _clear_msal_http_cache()
+                retry = _az(
+                    "login",
+                    "--tenant", tenant_id,
+                    "--use-device-code",
+                    "--allow-no-subscriptions",
+                    capture=False,
+                )
+                if retry.returncode != 0:
+                    console.print("[red]✗ Azure login failed after cache reset.[/red]")
+                    return None
+            else:
+                console.print("[red]✗ Azure login failed.[/red]")
+                return None
         console.print("[green]✓[/green] Logged in successfully.")
     else:
         console.print(f"[green]✓[/green] Already logged into tenant {tenant_id}.")

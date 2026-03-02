@@ -11,6 +11,48 @@
             "Nurse Manager",
             "Compliance Officer"
         ],
+        "user_profiles": [
+            {
+                "role": "Clinical Ops Manager",
+                "jobTitle": "Clinical Operations Manager",
+                "department": "Clinical Operations",
+                "companyName": "Contoso Health System",
+                "officeLocation": "Main Campus — Building A, Suite 200",
+                "aboutMe": "Oversees daily clinical operations across inpatient and outpatient services; leads quality improvement and patient-safety initiatives for Contoso Health System."
+            },
+            {
+                "role": "Physician Lead",
+                "jobTitle": "Physician Lead — Internal Medicine",
+                "department": "Medicine",
+                "companyName": "Contoso Health System",
+                "officeLocation": "Main Campus — Physician Tower, 4th Floor",
+                "aboutMe": "Board-certified internist leading the hospitalist programme; drives evidence-based care protocols and interdisciplinary rounding for Contoso Health System."
+            },
+            {
+                "role": "Care Coordinator",
+                "jobTitle": "Care Coordination Specialist",
+                "department": "Care Coordination",
+                "companyName": "Contoso Health System",
+                "officeLocation": "Main Campus — Patient Services Wing",
+                "aboutMe": "Facilitates discharge planning, transitional care, and post-acute follow-up to ensure patients receive seamless, coordinated care across the Contoso Health System."
+            },
+            {
+                "role": "Nurse Manager",
+                "jobTitle": "Nurse Manager — Med/Surg Unit",
+                "department": "Nursing",
+                "companyName": "Contoso Health System",
+                "officeLocation": "Main Campus — Building B, 3rd Floor",
+                "aboutMe": "Manages a 42-bed medical-surgical unit; oversees staffing, nurse education, and clinical quality metrics for Contoso Health System."
+            },
+            {
+                "role": "Compliance Officer",
+                "jobTitle": "Healthcare Compliance Officer",
+                "department": "Compliance & Risk Management",
+                "companyName": "Contoso Health System",
+                "officeLocation": "Administration Building — Suite 110",
+                "aboutMe": "Leads the HIPAA compliance programme, coordinates regulatory audits, and manages risk-mitigation strategies across Contoso Health System."
+            }
+        ],
         "folders": [
             "Clinical Ops",
             "Care Coordination",
@@ -68,7 +110,7 @@
                 "messages": 6,
                 "include_attachments": true,
                 "attachment_name": "Discharge_Planning_Summary.txt",
-                "attachment_content": "DISCHARGE PLANNING SUMMARY\n\nPatient: [Synthetic - Jane Doe]\nMRN: DEMO-001\nTarget Discharge: 2026-02-01\n\nMedication reconciliation: Complete\nFollow-up appointment: Scheduled (PCP, 5 business days)\nHome health referral: Submitted\nDME: Walker ordered, delivery confirmed\n\nCare Coordinator Notes:\n- PCP notified of admission\n- Insurance pre-auth obtained\n- Patient education completed\n\nDemo content - synthetic, no patient data."
+                "attachment_content": "DISCHARGE PLANNING SUMMARY\n\nPatient: [Synthetic — Jane Doe]\nMRN: DEMO-001\nAdmission Date: 2026-01-25\nTarget Discharge: 2026-02-01\n\nPRIMARY DIAGNOSIS: Community-acquired pneumonia\nCOMORBIDITIES: Type 2 DM, HTN, mild CHF (EF 45%)\n\nMEDICATION RECONCILIATION: Complete\n  - Amoxicillin-clavulanate 875mg BID x 5 days (new)\n  - Metformin 1000mg BID (continued)\n  - Lisinopril 10mg daily (continued)\n  - Furosemide 20mg daily (continued)\n  - Potassium 20mEq daily (continued — interaction reviewed)\n\nDISCHARGE CHECKLIST\n  ✓ Follow-up appointment scheduled: PCP Dr. Patel, Feb 6\n  ✓ Home health referral: Submitted (vitals + wound care)\n  ✓ DME: Walker ordered, delivery confirmed Feb 2\n  ✓ Insurance pre-authorization: Obtained\n  ✓ Patient education: Teach-back documented\n  ✓ Dietary counselling: Low-sodium diet reviewed\n\nCARE COORDINATOR NOTES\n  - PCP notified of admission and discharge plan\n  - Pharmacy consulted for drug interaction review\n  - Social work screening: no barriers to safe discharge\n  - 24-hour post-discharge phone call scheduled\n\nDemo content — synthetic, no patient data."
             },
             {
                 "thread_id": "clinical-ops-review-001",
@@ -135,8 +177,10 @@
                 "posts": [
                     "Welcome to Care Updates. Use this channel for discharge planning coordination, care transition alerts, and interdisciplinary communication.",
                     "Updated discharge protocols are now effective. Key changes: follow-up appointments must be confirmed within 48 hours of discharge order.",
-                    "Reminder: All care coordinators - please update the care coordination tracker by end of shift. We are tracking 30-day readmission rates for Q1.",
-                    "This week care coordination wins: 0 readmissions from Monday discharges, 100% follow-up compliance on Friday cohort."
+                    "Reminder: All care coordinators — please update the care coordination tracker by end of shift. We are tracking 30-day readmission rates for Q1.",
+                    "This week's care coordination wins: 0 readmissions from Monday discharges, 100% follow-up compliance on Friday cohort. Great work, team.",
+                    "Heads-up: We've identified a gap in medication reconciliation at discharge. Please double-check the med list against the discharge summary before patient leaves.",
+                    "New post-discharge phone call protocol starts next Monday. Care coordinators will call patients within 24 hours (was 48). Script document is in the Clinical Ops folder."
                 ]
             },
             {
@@ -145,8 +189,33 @@
                 "description": "Quality metrics dashboards, patient safety event discussions, and continuous improvement initiatives",
                 "posts": [
                     "Q1 quality metrics are now posted. Highlights: falls rate down 15%, hand hygiene compliance at 96%. See the full dashboard in the Quality Improvement folder.",
-                    "New near-miss reporting form is live. Remember: near-miss reports help us prevent actual events. No blame, no penalty - just safety.",
-                    "HCAHPS scores for January: Overall 87% (target 85%). Nurse communication improved to 91%. Physician communication needs attention at 86%."
+                    "New near-miss reporting form is live. Remember: near-miss reports help us prevent actual events. No blame, no penalty — just safety.",
+                    "HCAHPS scores for January: Overall 87% (target 85%). Nurse communication improved to 91%. Physician communication needs attention at 82%.",
+                    "Action item from this week's Quality Committee: Each unit must submit one PDSA (Plan-Do-Study-Act) improvement cycle by end of Q1. Templates are posted in the QI folder.",
+                    "Central line infection rate is at 0.4 per 1,000 line days — we've maintained zero for 90 days. CLABSI bundle compliance is at 98%."
+                ]
+            },
+            {
+                "channel_id": "nursing-operations-001",
+                "display_name": "Nursing Operations",
+                "description": "Nursing staffing, scheduling, education updates, and unit-level operational communications",
+                "posts": [
+                    "Staffing update: Night shift has two open RN positions on Med/Surg. Float pool has been notified. Please contact Charge if you can pick up an extra shift.",
+                    "Annual competency validation deadlines are approaching. Skills stations for IV insertion, blood transfusion, and fall prevention are available next week in the Sim Lab.",
+                    "Reminder: Shift handoff must follow the SBAR format. Audit results showed 78% compliance — our target is 95%. Charge nurses, please reinforce at huddles.",
+                    "New nurse residency cohort starts next month — 8 new grad RNs joining Med/Surg, 4 joining the ED. Preceptor assignments are posted in the staffing folder.",
+                    "Kudos to the 3 South team for achieving 100% fall-risk reassessment compliance for the second straight month!"
+                ]
+            },
+            {
+                "channel_id": "clinical-announcements-001",
+                "display_name": "Clinical Announcements",
+                "description": "Organization-wide clinical announcements, policy updates, and leadership communications",
+                "posts": [
+                    "Effective March 1: Updated antimicrobial stewardship guidelines. Empiric antibiotic orders >72 hours require infectious disease consult sign-off.",
+                    "Annual flu season wrap-up: Staff vaccination rate reached 94%. Thank you for protecting our patients and each other.",
+                    "Contoso Health System has been awarded Magnet designation renewal. This reflects the exceptional nursing practice across all our units.",
+                    "Reminder: All clinical staff must complete the annual bloodborne pathogen training by March 31. Access through the LMS portal."
                 ]
             }
         ],
@@ -154,21 +223,47 @@
             {
                 "conversation_id": "care-handoff-chat-001",
                 "type": "group",
-                "topic": "Care Handoff - Night Shift",
+                "topic": "Care Handoff — Night Shift",
                 "messages": [
                     "Night shift handoff: Patient in room 302 is hemodynamically stable but needs vitals check at 06:00. IV fluids running at 75ml/hr.",
-                    "Acknowledged. I will review the chart and labs before morning rounds. Any new admissions overnight?",
-                    "Two new admissions - room 308 (CHF exacerbation, on BiPAP) and room 315 (cellulitis, started on IV antibiotics at 02:00).",
-                    "Thanks for the detailed handoff. I will prioritize 308 for early rounding. Discharge planning for 310 is ready - paperwork needs physician sign-off."
+                    "Acknowledged. I'll review the chart and labs before morning rounds. Any new admissions overnight?",
+                    "Two new admissions — room 308 (CHF exacerbation, on BiPAP) and room 315 (cellulitis, started on IV antibiotics at 02:00).",
+                    "Thanks for the detailed handoff. I'll prioritize 308 for early rounding. Discharge planning for 310 is ready — paperwork needs physician sign-off.",
+                    "One more thing — room 302's family requested a care conference. I let them know we'd schedule it for tomorrow afternoon. Can you confirm with the attending?"
                 ]
             },
             {
                 "conversation_id": "compliance-quick-chat-001",
                 "type": "oneOnOne",
                 "messages": [
-                    "Quick heads-up: HIPAA training renewals are due by end of month. We are at 86% completion - need to reach 100% for Joint Commission readiness.",
-                    "Thanks for the reminder. I will send the team notice today and schedule make-up sessions for the 14% outstanding.",
-                    "Perfect. I will flag the two overdue staff members in the compliance tracker. Their managers have been notified."
+                    "Quick heads-up: HIPAA training renewals are due by end of month. We are at 86% completion — need to reach 100% for Joint Commission readiness.",
+                    "Thanks for the reminder. I'll send the team notice today and schedule make-up sessions for the 14% outstanding.",
+                    "Perfect. I'll flag the two overdue staff members in the compliance tracker. Their managers have been notified.",
+                    "Also — the incident reporting module had a minor update. New fields for near-miss classification. Can you review and confirm it looks right before I push to all staff?"
+                ]
+            },
+            {
+                "conversation_id": "discharge-planning-chat-001",
+                "type": "group",
+                "topic": "Discharge Planning — Room 310",
+                "messages": [
+                    "Room 310 discharge: Insurance pre-auth confirmed for home health. PT recommends 3x/week for 4 weeks.",
+                    "Med rec is complete. Patient is on 7 medications — I've flagged a potential interaction between lisinopril and the newly added potassium supplement.",
+                    "Good catch. I'll reach out to the attending for a reconciliation note. DME delivery is confirmed for tomorrow morning.",
+                    "Patient education done via teach-back. She can name her warning signs and knows to call the office if weight gain exceeds 3 lbs in 24 hours.",
+                    "Follow-up PCP appointment scheduled for Thursday. Discharge summary will be faxed to Dr. Patel's office. We're clear to discharge once the attending signs off.",
+                    "Attending signed the order at 10:15. Transport notified. Room 310 should be departing by 11:00."
+                ]
+            },
+            {
+                "conversation_id": "staffing-escalation-chat-001",
+                "type": "group",
+                "topic": "Staffing Escalation — Tonight",
+                "messages": [
+                    "We're short two RNs on night shift tonight — one called in sick, one had a family emergency. Current census is 38 patients.",
+                    "I can pull one float from the Ortho unit — they're running at 70% capacity tonight. Let me confirm with their charge nurse.",
+                    "Confirmed — we'll have one float starting at 19:00. I'm also checking if any PRN staff are available for pick-up.",
+                    "PRN nurse Karen confirmed for 19:00–07:00. We're covered. I'll update the staffing grid and notify the house supervisor."
                 ]
             }
         ],
@@ -179,23 +274,37 @@
                 "pages": [
                     {
                         "title": "Welcome to Clinical Operations",
-                        "content": "<h2>Clinical Operations Hub</h2><p>Welcome to the Contoso Health System Clinical Operations portal. This site serves as the central repository for all clinical operations documentation.</p><h3>Quick Links</h3><ul><li><strong>Standard Operating Procedures</strong> - Current SOPs for daily clinical operations, rounding protocols, and escalation procedures</li><li><strong>Staffing Rosters</strong> - Department schedules, on-call rotations, and shift coverage plans</li><li><strong>Quality Dashboards</strong> - Real-time quality metrics, patient safety indicators, and performance trends</li><li><strong>Care Coordination Toolkit</strong> - Discharge planning worksheets, handoff checklists, and transition-of-care protocols</li></ul><p><em>All content is maintained by Clinical Ops leadership. For questions, contact your department Clinical Ops Manager.</em></p>"
+                        "content": "<h2>Clinical Operations Hub</h2><p>Welcome to the Contoso Health System Clinical Operations portal. This site serves as the central repository for all clinical operations documentation.</p><h3>Quick Links</h3><ul><li><strong>Standard Operating Procedures</strong> — Current SOPs for daily clinical operations, rounding protocols, and escalation procedures</li><li><strong>Staffing Rosters</strong> — Department schedules, on-call rotations, and shift coverage plans</li><li><strong>Quality Dashboards</strong> — Real-time quality metrics, patient safety indicators, and performance trends</li><li><strong>Care Coordination Toolkit</strong> — Discharge planning worksheets, handoff checklists, and transition-of-care protocols</li></ul><p><em>All content is maintained by Clinical Ops leadership. For questions, contact your department Clinical Ops Manager.</em></p>"
                     },
                     {
                         "title": "Discharge Planning Process",
-                        "content": "<h2>Discharge Planning Process</h2><p>Effective discharge planning begins at admission. Follow this structured process to ensure safe, timely patient transitions.</p><h3>Process Steps</h3><ol><li><strong>Admission Assessment</strong> - Identify anticipated discharge needs within 24 hours of admission</li><li><strong>Interdisciplinary Planning</strong> - Coordinate with pharmacy, social work, PT/OT, and case management</li><li><strong>Patient Education</strong> - Verify teach-back on medications, warning signs, and follow-up plan</li><li><strong>Discharge Order</strong> - Physician completes discharge summary and medication reconciliation</li><li><strong>Post-Discharge Follow-up</strong> - Care coordinator confirms follow-up within 48 hours</li></ol><h3>Key Metrics</h3><ul><li>Target discharge turnaround: 4 hours or less from order to departure</li><li>30-day readmission target: 12% or less</li><li>Follow-up appointment compliance: 95% or more</li></ul>"
+                        "content": "<h2>Discharge Planning Process</h2><p>Effective discharge planning begins at admission. Follow this structured process to ensure safe, timely patient transitions.</p><h3>Process Steps</h3><ol><li><strong>Admission Assessment</strong> — Identify anticipated discharge needs within 24 hours of admission</li><li><strong>Interdisciplinary Planning</strong> — Coordinate with pharmacy, social work, PT/OT, and case management</li><li><strong>Patient Education</strong> — Verify teach-back on medications, warning signs, and follow-up plan</li><li><strong>Discharge Order</strong> — Physician completes discharge summary and medication reconciliation</li><li><strong>Post-Discharge Follow-up</strong> — Care coordinator confirms follow-up within 48 hours</li></ol><h3>Key Metrics</h3><ul><li>Target discharge turnaround: 4 hours or less from order to departure</li><li>30-day readmission target: 12% or less</li><li>Follow-up appointment compliance: 95% or more</li></ul>"
+                    },
+                    {
+                        "title": "Escalation Procedures",
+                        "content": "<h2>Clinical Escalation Procedures</h2><p>Use this reference for escalating patient care, operational, and safety concerns through the proper chain of command.</p><h3>Clinical Escalation Levels</h3><table><tr><th>Level</th><th>Path</th><th>Response Time</th></tr><tr><td>1</td><td>Charge Nurse → Nurse Manager</td><td>15 minutes</td></tr><tr><td>2</td><td>Nurse Manager → Department Director</td><td>30 minutes</td></tr><tr><td>3</td><td>Department Director → CMO / CNO</td><td>1 hour</td></tr></table><h3>Rapid Response</h3><p>Any staff member may call a Rapid Response for acute patient deterioration. Dial extension 4444. Do not wait for chain-of-command approval.</p>"
                     }
                 ],
                 "documents": [
                     {
                         "filename": "Clinical_SOP_2026.txt",
                         "folder": "Standard Operating Procedures",
-                        "content": "STANDARD OPERATING PROCEDURES - CLINICAL OPERATIONS 2026\nContoso Health System (Synthetic)\n\n1. PURPOSE\nThis document establishes standard operating procedures for daily clinical operations\nacross all inpatient and outpatient departments.\n\n2. DAILY OPERATIONS\n- 0700: Night-to-day shift handoff (SBAR format)\n- 0800: Morning huddle - review census, acuity, staffing\n- 0830: Patient rounding begins (attending + care team)\n- 1200: Midday safety check - fall risk, isolation compliance\n- 1500: Discharge planning rounds - care coordination team\n- 1900: Day-to-evening shift handoff\n\n3. ESCALATION PROTOCOL\nLevel 1: Charge Nurse to Nurse Manager (response: 15 min)\nLevel 2: Nurse Manager to Department Director (response: 30 min)\nLevel 3: Department Director to CMO/CNO (response: 1 hour)\n\n4. DOCUMENTATION\n- Clinical notes: complete within 24 hours\n- Discharge summaries: complete before patient departure\n- Incident reports: file within 4 hours\n\nDemo content - synthetic, no patient data."
+                        "content": "STANDARD OPERATING PROCEDURES — CLINICAL OPERATIONS 2026\nContoso Health System (Synthetic)\n\n1. PURPOSE\nThis document establishes standard operating procedures for daily clinical operations\nacross all inpatient and outpatient departments.\n\n2. DAILY OPERATIONS\n- 0700: Night-to-day shift handoff (SBAR format)\n- 0800: Morning huddle — review census, acuity, staffing\n- 0830: Patient rounding begins (attending + care team)\n- 1200: Midday safety check — fall risk, isolation compliance\n- 1500: Discharge planning rounds — care coordination team\n- 1900: Day-to-evening shift handoff\n\n3. ESCALATION PROTOCOL\nLevel 1: Charge Nurse to Nurse Manager (response: 15 min)\nLevel 2: Nurse Manager to Department Director (response: 30 min)\nLevel 3: Department Director to CMO/CNO (response: 1 hour)\n\n4. DOCUMENTATION\n- Clinical notes: complete within 24 hours\n- Discharge summaries: complete before patient departure\n- Incident reports: file within 4 hours\n\nDemo content — synthetic, no patient data."
                     },
                     {
                         "filename": "Staffing_Roster_Q1.txt",
                         "folder": "Staffing",
-                        "content": "STAFFING ROSTER - Q1 2026\nContoso Health System (Synthetic)\n\nDEPARTMENT: General Medicine\nDr. Amara Okafor      | Attending Physician  | Day    | Mon-Fri\nDr. Raj Mehta         | Hospitalist          | Day    | Mon-Thu\nDr. Sarah Chen        | Hospitalist          | Night  | Mon-Wed\nNurse Kim Tanaka      | Charge Nurse         | Day    | Mon-Fri\nNurse David Osei      | RN                   | Day    | Tue-Sat\nCarlos Hernandez      | Care Coordinator     | Day    | Mon-Fri\n\nDEPARTMENT: Emergency\nDr. Fatima Al-Rashidi  | ED Attending         | Day    | Mon-Fri\nDr. Michael Park      | ED Physician         | Night  | Wed-Sun\nNurse Priya Sharma    | Charge Nurse (ED)    | Day    | Mon-Fri\n\nAll names are fictitious. Demo content - synthetic, no patient data."
+                        "content": "STAFFING ROSTER — Q1 2026\nContoso Health System (Synthetic)\n\nDEPARTMENT: General Medicine\nDr. Amara Okafor      | Attending Physician  | Day    | Mon-Fri\nDr. Raj Mehta         | Hospitalist          | Day    | Mon-Thu\nDr. Sarah Chen        | Hospitalist          | Night  | Mon-Wed\nNurse Kim Tanaka      | Charge Nurse         | Day    | Mon-Fri\nNurse David Osei      | RN                   | Day    | Tue-Sat\nCarlos Hernandez      | Care Coordinator     | Day    | Mon-Fri\n\nDEPARTMENT: Emergency\nDr. Fatima Al-Rashidi  | ED Attending         | Day    | Mon-Fri\nDr. Michael Park      | ED Physician         | Night  | Wed-Sun\nNurse Priya Sharma    | Charge Nurse (ED)    | Day    | Mon-Fri\n\nAll names are fictitious. Demo content — synthetic, no patient data."
+                    },
+                    {
+                        "filename": "Quality_Metrics_Dashboard_Q1.txt",
+                        "folder": "Quality Improvement",
+                        "content": "QUALITY METRICS DASHBOARD — Q1 2026\nContoso Health System (Synthetic)\n\nPATIENT SAFETY\n  Falls per 1,000 patient days:       2.1 (target ≤ 2.5)\n  CLABSI per 1,000 line days:         0.4 (target ≤ 1.0)\n  CAUTI per 1,000 catheter days:      0.8 (target ≤ 1.5)\n  Medication errors (reported):       12  (target ≤ 15)\n  Near-miss reports (voluntary):      34  (higher = better culture)\n\nCLINICAL OUTCOMES\n  30-day readmission rate:            11.2% (target ≤ 12%)\n  Sepsis bundle compliance:           94%  (target ≥ 90%)\n  DVT prophylaxis compliance:         97%  (target ≥ 95%)\n\nPATIENT EXPERIENCE (HCAHPS)\n  Overall rating (9-10):              87%  (target ≥ 85%)\n  Nurse communication:                91%  (target ≥ 88%)\n  Physician communication:            82%  (target ≥ 85%)\n  Discharge information:              89%  (target ≥ 87%)\n\nDemo content — synthetic, no patient data."
+                    },
+                    {
+                        "filename": "Care_Coordination_Toolkit.txt",
+                        "folder": "Care Coordination",
+                        "content": "CARE COORDINATION TOOLKIT — 2026\nContoso Health System (Synthetic)\n\n1. DISCHARGE PLANNING CHECKLIST\n  □ Anticipated discharge date set within 24h of admission\n  □ Interdisciplinary team notified (PT/OT, pharmacy, social work)\n  □ Insurance pre-authorization obtained\n  □ DME ordered and delivery confirmed\n  □ Home health referral submitted (if applicable)\n  □ Medication reconciliation completed\n  □ Patient/family education — teach-back documented\n  □ Follow-up appointment confirmed (PCP within 7 days)\n  □ Discharge summary sent to PCP\n\n2. HANDOFF COMMUNICATION (SBAR)\n  S — Situation: Brief statement of the clinical situation\n  B — Background: Relevant clinical history and context\n  A — Assessment: Your professional assessment of the situation\n  R — Recommendation: What you need from the receiver\n\n3. READMISSION PREVENTION\n  - Post-discharge phone call within 24 hours\n  - Medication adherence check at 72 hours\n  - Transition clinic visit within 7 days for high-risk patients\n\nDemo content — synthetic, no patient data."
                     }
                 ]
             },
@@ -205,14 +314,40 @@
                 "pages": [
                     {
                         "title": "Compliance Overview",
-                        "content": "<h2>Compliance Portal</h2><p>Welcome to the Contoso Health System Compliance Portal. This site is the authoritative source for compliance documentation, audit results, and training records.</p><h3>Compliance Framework</h3><ul><li><strong>HIPAA Privacy and Security</strong> - PHI handling, access controls, breach notification procedures</li><li><strong>CMS Conditions of Participation</strong> - Medicare/Medicaid compliance, quality reporting</li><li><strong>Joint Commission (TJC)</strong> - Accreditation readiness, National Patient Safety Goals</li><li><strong>State Regulations</strong> - Licensing requirements, mandatory reporting obligations</li></ul><h3>Current Status</h3><p>Overall Compliance Score: <strong>92/100</strong> (target: 95 or more)</p><p>HIPAA Training Completion: <strong>86%</strong> (target: 100%)</p><p>Next Audit: Q2 2026 - Joint Commission Triennial Survey</p>"
+                        "content": "<h2>Compliance Portal</h2><p>Welcome to the Contoso Health System Compliance Portal. This site is the authoritative source for compliance documentation, audit results, and training records.</p><h3>Compliance Framework</h3><ul><li><strong>HIPAA Privacy and Security</strong> — PHI handling, access controls, breach notification procedures</li><li><strong>CMS Conditions of Participation</strong> — Medicare/Medicaid compliance, quality reporting</li><li><strong>Joint Commission (TJC)</strong> — Accreditation readiness, National Patient Safety Goals</li><li><strong>State Regulations</strong> — Licensing requirements, mandatory reporting obligations</li></ul><h3>Current Status</h3><p>Overall Compliance Score: <strong>92/100</strong> (target: 95 or more)</p><p>HIPAA Training Completion: <strong>86%</strong> (target: 100%)</p><p>Next Audit: Q2 2026 — Joint Commission Triennial Survey</p>"
+                    },
+                    {
+                        "title": "Audit Schedule 2026",
+                        "content": "<h2>Audit Schedule — 2026</h2><table><tr><th>Quarter</th><th>Audit Type</th><th>Scope</th><th>Status</th></tr><tr><td>Q1</td><td>Internal Compliance Audit</td><td>Medical records, consent forms, billing</td><td>Complete</td></tr><tr><td>Q2</td><td>Joint Commission Triennial Survey</td><td>Full hospital — all departments</td><td>Preparation</td></tr><tr><td>Q3</td><td>HIPAA Security Risk Assessment</td><td>IT systems, access controls, encryption</td><td>Scheduled</td></tr><tr><td>Q4</td><td>CMS Validation Survey</td><td>Medicare CoP compliance</td><td>Planned</td></tr></table><p>All departments must maintain survey-ready status year-round. Contact Compliance for readiness checklists.</p>"
                     }
                 ],
                 "documents": [
                     {
                         "filename": "HIPAA_Checklist_2026.txt",
                         "folder": "Audit Checklists",
-                        "content": "HIPAA COMPLIANCE CHECKLIST - 2026\nContoso Health System (Synthetic)\n\nPRIVACY RULE\n- Notice of Privacy Practices posted and distributed\n- Patient authorization forms current and accessible\n- Minimum necessary standard enforced\n- Business Associate Agreements (BAAs) - all current\n- Patient rights requests handled within 30 days\n\nSECURITY RULE\n- Risk assessment completed annually\n- Access controls reviewed quarterly\n- Audit logs reviewed monthly\n- Encryption standards met for ePHI at rest and in transit\n- Incident response plan tested\n\nBREACH NOTIFICATION\n- Breach notification procedures documented\n- HHS notification threshold: 500+ individuals\n- Individual notification: within 60 days\n- Breach log maintained and current\n\nTRAINING\n- Annual HIPAA training: 86% complete (target 100%)\n- New hire training: within 30 days of employment\n- Refresher modules: available on demand\n\nFINDINGS\n1. 2 staff members overdue on training - escalated to managers\n2. BAA renewal pending for Lab Services (FY2026)\n3. All clear on privacy audit - no reportable breaches\n\nDemo content - synthetic, no patient data."
+                        "content": "HIPAA COMPLIANCE CHECKLIST — 2026\nContoso Health System (Synthetic)\n\nPRIVACY RULE\n  □ Notice of Privacy Practices posted and distributed\n  □ Patient authorization forms current and accessible\n  □ Minimum necessary standard enforced\n  □ Business Associate Agreements (BAAs) — all current\n  □ Patient rights requests handled within 30 days\n\nSECURITY RULE\n  □ Risk assessment completed annually\n  □ Access controls reviewed quarterly\n  □ Audit logs reviewed monthly\n  □ Encryption standards met for ePHI at rest and in transit\n  □ Incident response plan tested\n\nBREACH NOTIFICATION\n  □ Breach notification procedures documented\n  □ HHS notification threshold: 500+ individuals\n  □ Individual notification: within 60 days\n  □ Breach log maintained and current\n\nTRAINING\n  □ Annual HIPAA training: 86% complete (target 100%)\n  □ New hire training: within 30 days of employment\n  □ Refresher modules: available on demand\n\nDemo content — synthetic, no patient data."
+                    },
+                    {
+                        "filename": "Joint_Commission_Readiness.txt",
+                        "folder": "Audit Checklists",
+                        "content": "JOINT COMMISSION READINESS — TRIENNIAL SURVEY PREP\nContoso Health System (Synthetic)\n\nNATIONAL PATIENT SAFETY GOALS (NPSGs)\n  1. Identify patients correctly (two-identifier policy) — COMPLIANT\n  2. Improve staff communication (read-back for verbal orders) — COMPLIANT\n  3. Use medicines safely (high-alert med protocols) — PARTIAL (action plan in progress)\n  4. Use alarms safely (alarm management policy) — COMPLIANT\n  5. Prevent infection (hand hygiene, CLABSI bundle) — COMPLIANT\n  6. Identify patient safety risks (fall prevention, suicide screening) — COMPLIANT\n\nTRACER METHODOLOGY PREP\n  □ Patient tracers scheduled (20 charts selected)\n  □ System tracers: infection control, medication management, emergency management\n  □ Environment of care rounds completed for all buildings\n  □ Life safety code deficiencies corrected\n\nDOCUMENTATION\n  □ Policy and procedure index — current\n  □ Competency validation records — complete\n  □ Equipment maintenance logs — up to date\n\nDemo content — synthetic, no patient data."
+                    }
+                ]
+            },
+            {
+                "display_name": "Patient Safety Center",
+                "description": "Patient safety dashboards, incident reporting, root cause analyses, and safety culture resources",
+                "pages": [
+                    {
+                        "title": "Patient Safety Dashboard",
+                        "content": "<h2>Patient Safety Dashboard</h2><p>Real-time visibility into patient safety events, near-miss trends, and harm-prevention metrics across Contoso Health System.</p><h3>Current Period Highlights</h3><ul><li>Serious Safety Events (SSEs): <strong>0</strong> this quarter</li><li>Near-Miss Reports: <strong>34</strong> (voluntary reporting up 20% YoY)</li><li>Good Catch Awards: <strong>8</strong> submitted this month</li></ul><h3>Key Metrics</h3><ul><li>Hand Hygiene Compliance: 96%</li><li>Falls with Injury: 0.3 per 1,000 patient days</li><li>Rapid Response Activations: 12 (appropriate use: 100%)</li></ul><p><em>Safety is everyone's responsibility. Use the Near-Miss Reporting link above to submit observations.</em></p>"
+                    }
+                ],
+                "documents": [
+                    {
+                        "filename": "Safety_Event_Report_Template.txt",
+                        "folder": "Incident Reports",
+                        "content": "PATIENT SAFETY EVENT REPORT TEMPLATE\nContoso Health System (Synthetic)\n\nEVENT DETAILS\n  Date/Time: _______________\n  Unit/Department: _______________\n  Reporter: _______________\n\nEVENT CLASSIFICATION\n  □ Near Miss (caught before reaching the patient)\n  □ No Harm Event (reached the patient, no injury)\n  □ Adverse Event (patient injury occurred)\n  □ Sentinel Event (serious harm or death)\n\nDESCRIPTION\n  What happened: _______________\n  Contributing factors: _______________\n  Immediate actions taken: _______________\n\nROOT CAUSE CATEGORIES\n  □ Communication  □ Staffing  □ Equipment\n  □ Process/Policy  □ Training  □ Environment\n  □ Technology  □ Patient Factors  □ Other\n\nCORRECTIVE ACTION\n  Proposed action: _______________\n  Owner: _______________\n  Target completion: _______________\n\nDemo content — synthetic, no patient data."
                     }
                 ]
             }
@@ -238,6 +373,11 @@
                                 "title": "Draft new patient rounding protocol",
                                 "priority": 3,
                                 "percent_complete": 0
+                            },
+                            {
+                                "title": "Evaluate new patient transport workflow",
+                                "priority": 5,
+                                "percent_complete": 0
                             }
                         ]
                     },
@@ -253,6 +393,11 @@
                                 "title": "Schedule HIPAA training refresher sessions",
                                 "priority": 5,
                                 "percent_complete": 50
+                            },
+                            {
+                                "title": "Redesign nursing shift handoff form (SBAR 2.0)",
+                                "priority": 3,
+                                "percent_complete": 50
                             }
                         ]
                     },
@@ -267,6 +412,11 @@
                             {
                                 "title": "Submit Q4 patient safety event report",
                                 "priority": 1,
+                                "percent_complete": 100
+                            },
+                            {
+                                "title": "Finalize antimicrobial stewardship guidelines update",
+                                "priority": 3,
                                 "percent_complete": 100
                             }
                         ]
@@ -288,6 +438,11 @@
                                 "title": "Document interdepartmental escalation procedures",
                                 "priority": 5,
                                 "percent_complete": 0
+                            },
+                            {
+                                "title": "Evaluate 30-day readmission risk factor model",
+                                "priority": 3,
+                                "percent_complete": 0
                             }
                         ]
                     },
@@ -303,6 +458,81 @@
                                 "title": "Build care coordinator training curriculum",
                                 "priority": 5,
                                 "percent_complete": 25
+                            },
+                            {
+                                "title": "Create transition-of-care checklist for SNF transfers",
+                                "priority": 3,
+                                "percent_complete": 50
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Done",
+                        "tasks": [
+                            {
+                                "title": "Deploy new discharge summary template in EHR",
+                                "priority": 3,
+                                "percent_complete": 100
+                            },
+                            {
+                                "title": "Complete Q4 readmission root cause analysis",
+                                "priority": 5,
+                                "percent_complete": 100
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "title": "Quality & Safety Improvement",
+                "buckets": [
+                    {
+                        "name": "Planning",
+                        "tasks": [
+                            {
+                                "title": "Design CLABSI prevention PDSA cycle",
+                                "priority": 1,
+                                "percent_complete": 0
+                            },
+                            {
+                                "title": "Plan hand hygiene secret shopper programme for Q2",
+                                "priority": 5,
+                                "percent_complete": 0
+                            },
+                            {
+                                "title": "Scope alarm fatigue reduction pilot for ICU",
+                                "priority": 3,
+                                "percent_complete": 0
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Executing",
+                        "tasks": [
+                            {
+                                "title": "Roll out updated fall prevention protocol",
+                                "priority": 1,
+                                "percent_complete": 50
+                            },
+                            {
+                                "title": "Implement medication barcode scanning on 3 South",
+                                "priority": 3,
+                                "percent_complete": 75
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Monitoring",
+                        "tasks": [
+                            {
+                                "title": "Track sepsis bundle compliance (target ≥ 95%)",
+                                "priority": 1,
+                                "percent_complete": 50
+                            },
+                            {
+                                "title": "Analyse HCAHPS physician communication scores",
+                                "priority": 5,
+                                "percent_complete": 50
                             }
                         ]
                     }
@@ -321,6 +551,48 @@
             "Regulatory Affairs Lead",
             "Lab Director",
             "Data Scientist"
+        ],
+        "user_profiles": [
+            {
+                "role": "Research Director",
+                "jobTitle": "Director of Research & Development",
+                "department": "Research & Development",
+                "companyName": "Contoso Pharmaceuticals",
+                "officeLocation": "Research Campus — Building R1, 5th Floor",
+                "aboutMe": "Leads the drug-discovery pipeline from target identification through IND filing; oversees a team of 60 scientists across oncology and immunology at Contoso Pharmaceuticals."
+            },
+            {
+                "role": "Clinical Trial Manager",
+                "jobTitle": "Clinical Trial Manager",
+                "department": "Clinical Operations",
+                "companyName": "Contoso Pharmaceuticals",
+                "officeLocation": "Research Campus — Clinical Ops Wing",
+                "aboutMe": "Manages Phase II/III clinical trials, coordinating multi-site enrollment, data monitoring, and sponsor communications for Contoso Pharmaceuticals."
+            },
+            {
+                "role": "Regulatory Affairs Lead",
+                "jobTitle": "Regulatory Affairs Lead",
+                "department": "Regulatory Affairs",
+                "companyName": "Contoso Pharmaceuticals",
+                "officeLocation": "Corporate HQ — Suite 400",
+                "aboutMe": "Manages FDA submissions (NDA/BLA), oversees labeling compliance, and liaises with global health authorities on behalf of Contoso Pharmaceuticals."
+            },
+            {
+                "role": "Lab Director",
+                "jobTitle": "Laboratory Director — Analytical Chemistry",
+                "department": "Laboratory Operations",
+                "companyName": "Contoso Pharmaceuticals",
+                "officeLocation": "Research Campus — Analytical Lab, Building R2",
+                "aboutMe": "Directs GLP-compliant analytical and bioanalytical laboratories; ensures method validation and equipment calibration for all Contoso Pharmaceuticals programmes."
+            },
+            {
+                "role": "Data Scientist",
+                "jobTitle": "Senior Data Scientist — Clinical Analytics",
+                "department": "Data Science & Bioinformatics",
+                "companyName": "Contoso Pharmaceuticals",
+                "officeLocation": "Research Campus — Data Science Hub",
+                "aboutMe": "Applies statistical modelling and machine learning to clinical trial data; builds predictive models for patient stratification at Contoso Pharmaceuticals."
+            }
         ],
         "folders": [
             "Research",
@@ -442,88 +714,175 @@
             {
                 "channel_id": "research-updates-001",
                 "display_name": "Research Updates",
-                "description": "Research pipeline progress, preclinical data, translational science, and compound tracking",
+                "description": "Pipeline status updates, preclinical findings, and R&D collaboration across therapeutic areas",
                 "posts": [
-                    "Welcome to Research Updates. Post pipeline developments, preclinical results, and cross-functional research coordination here.",
-                    "DEM-042 preclinical update: in-vivo model shows 45% tumor volume reduction at therapeutic dose. Full report in the Research folder.",
-                    "Reminder: Lab notebook entries must be reviewed and countersigned within 72 hours per GLP requirements.",
-                    "New compound DEM-055 (immunology) has cleared IND-enabling studies. Phase I protocol draft under review."
+                    "Welcome to Research Updates. Post pipeline milestones, preclinical data readouts, and cross-functional R&D updates here.",
+                    "DEM-042 (oncology lead compound) passed toxicology review. No adverse signals at therapeutic dose range. IND package on track for Q3 submission.",
+                    "New target identified in the immunology programme — PD-L2 variant shows promising selectivity in in-vitro assays. Full data package in the Research folder.",
+                    "Monthly pipeline review: 3 programmes in discovery, 2 in preclinical, 1 in Phase I, 1 in Phase III. Updated pipeline tracker posted to the Research Operations Hub.",
+                    "Reminder: Quarterly patent landscape review is next Wednesday. Legal team needs invention disclosures submitted by Friday.",
+                    "Bioanalytical lab has validated the new LC-MS/MS method for DEM-042 metabolite quantification. Method validation report uploaded to Lab Operations folder."
                 ]
             },
             {
                 "channel_id": "clinical-trials-ops-001",
                 "display_name": "Clinical Trials Ops",
-                "description": "Trial operations, site management, enrollment tracking, and safety reporting",
+                "description": "Clinical trial enrollment, site management, data monitoring, and operational updates",
                 "posts": [
-                    "Phase II enrollment update: 340/400 participants enrolled across 12 sites. Top-enrolling site: Site 007 (Cleveland).",
-                    "Protocol amendment v3.1 approved by IRB. Key change: expanded inclusion criteria for prior treatment history.",
-                    "Safety signal: No new Grade 4+ AEs reported this period. Cumulative Grade 3+ rate: 2.1% (within expected range)."
+                    "DEM-042 Phase III enrollment update: 342 of 500 patients enrolled across 28 sites. Enrollment pace is on target for Q2 close.",
+                    "Site 14 (Metro General) flagged for protocol deviation — PI administered incorrect dose level on Day 8. CRO has been notified and corrective action initiated.",
+                    "Data Monitoring Committee (DMC) meeting scheduled for March 15. Unblinded interim analysis will be reviewed. No safety signals reported to date.",
+                    "EDC system upgrade this weekend — eCRF access will be unavailable Saturday 22:00 – Sunday 06:00 UTC. Please enter pending data before the maintenance window.",
+                    "New site activation: Site 31 (Lakewood Medical) has completed SIV and is open for enrollment. First patient expected within 2 weeks."
+                ]
+            },
+            {
+                "channel_id": "regulatory-strategy-001",
+                "display_name": "Regulatory Strategy",
+                "description": "FDA/EMA submission tracking, regulatory intelligence, and labelling updates",
+                "posts": [
+                    "FDA Pre-IND feedback received for DEM-058 (immunology). Agency agrees with proposed Phase I design. No additional nonclinical studies required before FIH.",
+                    "Annual PDUFA date tracker updated. DEM-027 NDA has a target action date of August 15, 2026. Advisory committee meeting expected in July.",
+                    "EMA Scientific Advice request submitted for DEM-042 paediatric development plan. Expected feedback: 60-day timeline.",
+                    "Labelling review: Draft USPI for DEM-027 is under internal review. Comments due by Friday to Regulatory Affairs. Tracked in the Regulatory folder."
+                ]
+            },
+            {
+                "channel_id": "lab-operations-001",
+                "display_name": "Lab Operations",
+                "description": "Laboratory scheduling, equipment status, GLP compliance, and safety updates",
+                "posts": [
+                    "Quarterly equipment calibration completed. All HPLC, GC-MS, and dissolution units passed validation. Certificates uploaded to the Lab Operations folder.",
+                    "GLP inspection reminder: Our next FDA GLP inspection window opens in Q3. Pre-inspection checklists have been distributed to all lab leads.",
+                    "Chemical inventory reconciliation complete. Three reagents approaching expiry — replacement orders placed with Fisher Scientific.",
+                    "Lab safety incident: Minor chemical splash in Lab B-204 (no injury). Root cause: valve gasket failure. Replacement completed and incident report filed.",
+                    "New stability study initiated for DEM-042 API — 6-month accelerated and 12-month long-term conditions. Protocol in the Regulatory folder."
                 ]
             }
         ],
         "chat_conversations": [
             {
-                "conversation_id": "trial-data-chat-001",
+                "conversation_id": "dem042-interim-chat-001",
                 "type": "group",
                 "topic": "DEM-042 Interim Analysis Planning",
                 "messages": [
-                    "Interim analysis for DEM-042 is targeted for June. We need the statistical analysis plan finalized by end of March.",
-                    "SAP draft v2 is ready for review. Key endpoints: ORR (primary), PFS, OS (secondary). Using Simon two-stage design.",
-                    "I have reviewed the SAP. Suggest we add a futility boundary at the interim - helps us make an early go/no-go decision.",
-                    "Good call. I will update the SAP with the O Brien-Fleming stopping boundary. Data lock date will be May 15."
+                    "DMC meeting is March 15. I need the unblinded interim dataset locked by March 8. Biostatistics — can you confirm the analysis timeline?",
+                    "Confirmed. Statistical analysis plan is finalized. SAP v3.0 was signed off last week. Dataset lock by March 8 is feasible if all queries are resolved by March 5.",
+                    "CRO confirmed 98% query resolution as of today. I'll push for 100% by March 3 to give us buffer. Any concerns from the medical monitor?",
+                    "No safety concerns flagged. The latest SUSAR report was reviewed and determined unrelated to study drug. We're clear to proceed with the interim.",
+                    "Great. I'll send the DMC logistics package today — meeting agenda, charter reminder, and data access credentials for the secure portal."
                 ]
             },
             {
-                "conversation_id": "lab-results-chat-001",
+                "conversation_id": "regulatory-submission-chat-001",
                 "type": "oneOnOne",
                 "messages": [
-                    "Stability data for DEM-042 formulation lot B is in - all endpoints within spec through 24 months at 2-8C.",
-                    "Excellent. That supports the shelf-life claim for the regulatory filing. Please upload the certificate of analysis to Regulatory Affairs.",
-                    "Done. CoA uploaded and linked in the CMC section of the eCTD. Ready for your review."
+                    "Quick question — the FDA reviewer asked for additional stability data for the DEM-027 NDA. Do we have the 24-month data available yet?",
+                    "Yes, 24-month data just came in last week. All timepoints within specification. I'll compile the stability tables and updated shelf-life justification by Thursday.",
+                    "Perfect. I'll prepare the information request response letter. Can you also include the updated certificate of analysis for the 24-month pull?",
+                    "Will do. I'll package everything with the batch records and send for your review before we submit the IR response."
+                ]
+            },
+            {
+                "conversation_id": "lab-equipment-chat-001",
+                "type": "group",
+                "topic": "HPLC Calibration Issue — Lab R2",
+                "messages": [
+                    "HPLC-04 in Lab R2 failed the system suitability test this morning. Resolution is out of spec — looks like the column might be degraded.",
+                    "I'll check the column usage log. That column has 1,200 injections on it. We should have a backup C18 column in storage. Let me grab it.",
+                    "Column swapped and SST passed. Resolution is 2.8 (spec ≥ 2.0). I've logged the column change in the equipment maintenance system.",
+                    "Thanks for the quick turnaround. Remember to add the old column to the waste log and decommission it in the inventory system."
+                ]
+            },
+            {
+                "conversation_id": "trial-enrollment-chat-001",
+                "type": "group",
+                "topic": "DEM-042 Enrollment Push — Q1 Close",
+                "messages": [
+                    "We need 58 more patients to hit the 400-patient enrollment milestone by end of Q1. Current weekly enrollment rate is ~12. We're a bit behind.",
+                    "I've identified three high-performing sites that have capacity. I'll schedule calls with their PIs this week to discuss extending their slots.",
+                    "Marketing approved the updated recruitment materials. New patient-facing brochures are shipping to sites this week. Digital ads go live on Monday.",
+                    "Let's also look at the screen failure rate — Site 22 has a 40% screen failure. I'll request their screening logs to see if there's a systemic issue.",
+                    "Good plan. Let's reconvene Friday for a status check. I'll prepare a site-by-site enrollment waterfall chart."
                 ]
             }
         ],
         "sharepoint_sites": [
             {
                 "display_name": "Research Operations Hub",
-                "description": "Central hub for research pipeline management, lab operations, and scientific documentation",
+                "description": "Research pipeline documentation, study protocols, and R&D collaboration workspace",
                 "pages": [
                     {
-                        "title": "Welcome to Research Operations",
-                        "content": "<h2>Research Operations Hub</h2><p>Welcome to the Contoso Pharmaceuticals Research Operations portal, the central resource for pipeline management and scientific collaboration.</p><h3>Quick Links</h3><ul><li><strong>Pipeline Tracker</strong> - Active compounds, stage gates, and milestone timelines</li><li><strong>Lab Notebooks</strong> - Electronic lab notebook summaries and experiment indices</li><li><strong>Protocol Library</strong> - Clinical trial protocols, amendments, and informed consent templates</li><li><strong>Regulatory Intelligence</strong> - FDA guidance documents, EMA Scientific Advice outcomes, and competitive landscape</li></ul><p><em>Maintained by Research Operations. GLP-relevant documents must follow version control procedures.</em></p>"
+                        "title": "Research Operations Home",
+                        "content": "<h2>Research Operations Hub</h2><p>Welcome to the Contoso Pharmaceuticals Research Operations portal. Central resource for pipeline tracking, study protocols, and R&D documentation.</p><h3>Active Programmes</h3><ul><li><strong>DEM-042</strong> — Oncology (Phase III, enrollment active)</li><li><strong>DEM-058</strong> — Immunology (Pre-IND, nonclinical)</li><li><strong>DEM-027</strong> — Cardiology (NDA filed, PDUFA Q3 2026)</li></ul><h3>Quick Links</h3><ul><li>Pipeline Tracker (updated monthly)</li><li>Study Protocol Library</li><li>Lab Equipment & Calibration Records</li><li>Patent & IP Landscape</li></ul>"
                     },
                     {
-                        "title": "Clinical Trial Operating Model",
-                        "content": "<h2>Clinical Trial Operating Model</h2><p>Standardized process for planning, executing, and closing clinical trials at Contoso Pharmaceuticals.</p><h3>Trial Lifecycle</h3><ol><li><strong>Protocol Development</strong> - Scientific rationale, endpoint selection, statistical design, and regulatory strategy</li><li><strong>Site Selection and Activation</strong> - Feasibility assessment, contract negotiation, IRB/EC approval</li><li><strong>Enrollment and Conduct</strong> - Patient screening, randomization, dosing, and data collection per GCP</li><li><strong>Data Management</strong> - EDC setup, query resolution, medical coding, data lock</li><li><strong>Analysis and Reporting</strong> - Statistical analysis, CSR preparation, regulatory submission</li></ol><h3>Key Performance Indicators</h3><ul><li>Site activation cycle time: 90 days or less</li><li>Screen failure rate: 30% or less</li><li>Protocol deviation rate: 5% or less</li><li>Query resolution time: 5 business days or less</li></ul>"
+                        "title": "Drug Development Process",
+                        "content": "<h2>Drug Development Process</h2><p>Our standardized development framework from target identification through regulatory approval.</p><h3>Stage Gates</h3><ol><li><strong>Discovery</strong> — Target ID, hit-to-lead, lead optimization</li><li><strong>Preclinical</strong> — ADME, toxicology, GLP studies, formulation</li><li><strong>IND Filing</strong> — CMC, nonclinical summary, protocol, investigator brochure</li><li><strong>Phase I</strong> — First-in-human (FIH), dose escalation, PK/PD</li><li><strong>Phase II</strong> — Dose-finding, preliminary efficacy, safety expansion</li><li><strong>Phase III</strong> — Pivotal efficacy, global enrollment, regulatory endpoints</li><li><strong>NDA/BLA</strong> — Submission, FDA review, advisory committee, approval</li></ol>"
+                    },
+                    {
+                        "title": "GLP Compliance Guidelines",
+                        "content": "<h2>GLP Compliance Guidelines</h2><p>Good Laboratory Practice compliance is required for all nonclinical safety studies submitted to regulatory agencies.</p><h3>Key Requirements</h3><ul><li>Study Director must be identified before study initiation</li><li>All equipment calibrated and documented per SOPs</li><li>Raw data maintained in laboratory notebooks (electronic or paper)</li><li>Quality Assurance unit must audit each study phase</li><li>Specimens retained per protocol-specified retention schedule</li></ul><h3>Recent Inspections</h3><p>Last FDA GLP inspection: Q4 2025 — <strong>No findings</strong></p><p>Next inspection window: Q3 2026</p>"
                     }
                 ],
                 "documents": [
                     {
-                        "filename": "Pipeline_Status_Report.txt",
-                        "folder": "Pipeline Management",
-                        "content": "RESEARCH PIPELINE STATUS REPORT - Q1 2026\nContoso Pharmaceuticals (Synthetic)\n\nACTIVE PROGRAMS:\n1. DEM-042 (Oncology/NSCLC) - Phase II, enrollment 85%\n2. DEM-055 (Immunology/RA) - Phase I, IND filed\n3. DEM-063 (Rare Disease) - Preclinical, IND-enabling\n4. DEM-071 (Oncology/CRC) - Discovery, lead optimization\n\nMILESTONES THIS QUARTER:\n- DEM-042: Interim analysis target June 2026\n- DEM-055: Phase I first-patient-in target April 2026\n- DEM-063: GLP tox study completion March 2026\n\nRESOURCE ALLOCATION:\n- Oncology: 45% of R&D budget\n- Immunology: 30%\n- Rare Disease: 15%\n- Discovery: 10%\n\nDemo content - synthetic, no patient data."
+                        "filename": "Pipeline_Overview_2026.txt",
+                        "folder": "Research Pipeline",
+                        "content": "RESEARCH PIPELINE OVERVIEW — 2026\nContoso Pharmaceuticals (Synthetic)\n\nACTIVE PROGRAMMES\n\n  DEM-042 | Oncology (NSCLC)\n    Stage: Phase III (pivotal)\n    Enrollment: 342/500 patients across 28 sites\n    Primary endpoint: Progression-free survival\n    PDUFA target: H1 2027\n\n  DEM-027 | Cardiology (Heart Failure)\n    Stage: NDA filed\n    PDUFA date: August 15, 2026\n    Advisory Committee: Expected July 2026\n    Primary endpoint: MACE reduction at 52 weeks\n\n  DEM-058 | Immunology (Rheumatoid Arthritis)\n    Stage: Preclinical (IND-enabling)\n    Target: PD-L2 selective inhibitor\n    IND filing target: Q3 2026\n\n  DEM-071 | Neurology (Alzheimer's)\n    Stage: Discovery (lead optimization)\n    Target: Tau aggregation inhibitor\n    Estimated IND: 2028\n\nDemo content — synthetic, no patient data."
                     },
                     {
-                        "filename": "GLP_Audit_Results.txt",
-                        "folder": "Compliance",
-                        "content": "GLP COMPLIANCE AUDIT RESULTS - Q4 2025\nContoso Pharmaceuticals (Synthetic)\n\nAudit Scope: Research laboratories (Building A, B)\nAudit Date: December 2025\nAuditor: [Synthetic QA Auditor]\n\nFINDINGS:\n1. Equipment calibration: All instruments within spec\n2. Lab notebooks: 98% entries countersigned within 72 hours\n3. Reagent tracking: Full chain of custody documented\n4. Data integrity: No deviations found\n5. Standard references: Certificates of analysis current\n\nOBSERVATIONS:\n- Minor: 2 lab notebooks pending countersignature (addressed during audit)\n- Recommend: Update SOP for electronic data backup frequency\n\nOVERALL: COMPLIANT - No critical or major findings\n\nDemo content - synthetic, no patient data."
+                        "filename": "Study_Protocol_DEM042.txt",
+                        "folder": "Clinical Protocols",
+                        "content": "STUDY PROTOCOL — DEM-042-301 (Synthetic)\nContoso Pharmaceuticals\n\nTITLE: A Phase III, Randomized, Double-Blind, Placebo-Controlled Study\nof DEM-042 in Patients with Advanced Non-Small Cell Lung Cancer\n\nSPONSOR: Contoso Pharmaceuticals\nPROTOCOL: DEM-042-301 v4.0\n\nOBJECTIVES\n  Primary: Progression-free survival (PFS) per RECIST 1.1\n  Secondary: Overall survival (OS), objective response rate (ORR)\n  Exploratory: Biomarker-defined subgroup analyses\n\nSTUDY DESIGN\n  Randomized 2:1 (DEM-042 : placebo)\n  N = 500 (target enrollment)\n  Treatment: DEM-042 200mg PO daily or matching placebo\n  Duration: Until disease progression or unacceptable toxicity\n\nKEY ELIGIBILITY\n  - Adults ≥ 18 years with histologically confirmed NSCLC\n  - Measurable disease per RECIST 1.1\n  - ECOG PS 0-1\n  - Adequate organ function\n\nDemo content — synthetic, no patient data."
+                    },
+                    {
+                        "filename": "Equipment_Calibration_Log.txt",
+                        "folder": "Lab Operations",
+                        "content": "EQUIPMENT CALIBRATION LOG — Q1 2026\nContoso Pharmaceuticals (Synthetic)\n\nINSTRUMENT            | ID       | CAL DATE   | NEXT CAL  | STATUS\nHPLC (Agilent 1290)   | HPLC-01  | 2026-01-10 | 2026-07-10| PASS\nHPLC (Agilent 1290)   | HPLC-02  | 2026-01-12 | 2026-07-12| PASS\nHPLC (Waters Alliance)| HPLC-03  | 2026-01-15 | 2026-07-15| PASS\nHPLC (Agilent 1290)   | HPLC-04  | 2026-01-08 | 2026-07-08| PASS*\nGC-MS (Shimadzu)      | GC-01    | 2026-01-20 | 2026-07-20| PASS\nDissolution (Hanson)  | DIS-01   | 2026-01-22 | 2026-07-22| PASS\nDissolution (Hanson)  | DIS-02   | 2026-01-22 | 2026-07-22| PASS\nAnalytical Balance    | BAL-01   | 2026-01-05 | 2026-04-05| PASS\nUV-Vis Spectro        | UV-01    | 2026-01-14 | 2026-07-14| PASS\n\n* HPLC-04: Column replaced on 2026-02-20 (injection count exceeded).\n  New C18 column installed. SST passed post-change.\n\nDemo content — synthetic, no patient data."
                     }
                 ]
             },
             {
                 "display_name": "Regulatory Affairs Portal",
-                "description": "Regulatory submission tracking, FDA/EMA correspondence, and compliance documentation",
+                "description": "FDA/EMA submissions, regulatory intelligence, labelling, and compliance documentation",
                 "pages": [
                     {
-                        "title": "Regulatory Strategy Overview",
-                        "content": "<h2>Regulatory Affairs Portal</h2><p>Central resource for submission planning, health authority correspondence, and regulatory intelligence.</p><h3>Active Submissions</h3><ul><li><strong>DEM-042 (IND)</strong> - Active, annual safety report due March 2026</li><li><strong>DEM-055 (IND)</strong> - Filed January 2026, Day 30 clearance expected February 2026</li><li><strong>DEM-042 (Pre-NDA)</strong> - Type B meeting request submitted, target date TBD</li></ul><h3>Upcoming Milestones</h3><p>FDA Pre-Submission Meeting: Q2 2026 | EMA Scientific Advice: Q3 2026 | DEM-042 NDA Target: 2027</p>"
+                        "title": "Regulatory Affairs Home",
+                        "content": "<h2>Regulatory Affairs Portal</h2><p>Tracking all regulatory interactions, submissions, and compliance milestones for Contoso Pharmaceuticals programmes.</p><h3>Active Submissions</h3><ul><li><strong>DEM-027 NDA</strong> — Filed December 2025. PDUFA date: August 15, 2026</li><li><strong>DEM-042 IND Updates</strong> — Annual report due May 2026</li><li><strong>DEM-058 Pre-IND</strong> — Feedback received; IND-enabling studies in progress</li></ul><h3>Key Dates</h3><table><tr><th>Programme</th><th>Milestone</th><th>Date</th></tr><tr><td>DEM-027</td><td>Advisory Committee</td><td>July 2026</td></tr><tr><td>DEM-042</td><td>Interim analysis</td><td>March 2026</td></tr><tr><td>DEM-058</td><td>IND filing</td><td>Q3 2026</td></tr></table>"
+                    },
+                    {
+                        "title": "Submission Readiness Checklist",
+                        "content": "<h2>NDA/BLA Submission Readiness</h2><p>Use this checklist to ensure all modules are complete before eCTD compilation.</p><h3>eCTD Modules</h3><ul><li><strong>Module 1</strong> — Administrative (forms, cover letter, labelling) — <em>Draft</em></li><li><strong>Module 2</strong> — Summaries (quality, nonclinical, clinical) — <em>In Review</em></li><li><strong>Module 3</strong> — Quality/CMC (drug substance, drug product, specs) — <em>Complete</em></li><li><strong>Module 4</strong> — Nonclinical reports (tox, PK, pharm) — <em>Complete</em></li><li><strong>Module 5</strong> — Clinical study reports (CSRs, ISS, ISE) — <em>In Progress</em></li></ul>"
                     }
                 ],
                 "documents": [
                     {
-                        "filename": "Submission_Timeline.txt",
+                        "filename": "Regulatory_Submission_Tracker.txt",
                         "folder": "Submissions",
-                        "content": "REGULATORY SUBMISSION TIMELINE - 2026\nContoso Pharmaceuticals (Synthetic)\n\nQ1 2026:\n- DEM-042 IND Annual Report (due March 15)\n- DEM-055 IND Filing (submitted January 10)\n\nQ2 2026:\n- DEM-042 Type B Pre-NDA Meeting\n- DEM-042 Pediatric Study Plan\n\nQ3 2026:\n- DEM-042 EMA Scientific Advice\n- DEM-055 Phase I interim safety report\n\nQ4 2026:\n- DEM-042 NDA readiness assessment\n- DEM-063 IND preparation\n\nDemo content - synthetic, no patient data."
+                        "content": "REGULATORY SUBMISSION TRACKER — 2026\nContoso Pharmaceuticals (Synthetic)\n\nPROGRAMME   | SUBMISSION | AGENCY | FILED     | TARGET DATE | STATUS\nDEM-027     | NDA        | FDA    | 2025-12-15| 2026-08-15  | Under Review\nDEM-042     | IND Annual | FDA    | —         | 2026-05-01  | Preparation\nDEM-042     | EU PIP     | EMA    | 2026-01-20| 2026-03-20  | Under Review\nDEM-058     | Pre-IND    | FDA    | 2025-11-01| 2026-01-15  | Complete\nDEM-058     | IND        | FDA    | —         | 2026-09-01  | Planning\n\nACTION ITEMS\n1. DEM-027 IR response (stability data) — Due March 2026\n2. DEM-042 annual report compilation — Start April 2026\n3. DEM-058 IND nonclinical package — Complete by August 2026\n\nDemo content — synthetic, no patient data."
+                    },
+                    {
+                        "filename": "FDA_Meeting_Minutes_DEM058.txt",
+                        "folder": "Regulatory Correspondence",
+                        "content": "PRE-IND MEETING MINUTES — DEM-058\nContoso Pharmaceuticals (Synthetic)\n\nMEETING TYPE: Type B Pre-IND\nDATE: January 15, 2026\nFDA DIVISION: Division of Rheumatology and Transplant Medicine\n\nATTENDEES\n  Contoso: Regulatory Affairs Lead, Research Director, CMO\n  FDA: Division Director, Clinical Reviewer, Pharmacology Reviewer\n\nKEY AGREEMENTS\n  1. Proposed Phase I dose-escalation design is acceptable (3+3 with expansion)\n  2. 28-day repeat-dose toxicology in two species sufficient for FIH\n  3. No additional carcinogenicity studies required before Phase I\n  4. FDA agrees with proposed PD biomarker strategy\n  5. Paediatric study plan will be discussed post-Phase II\n\nACTION ITEMS\n  - Contoso to complete IND-enabling tox studies by Q2 2026\n  - IND submission target: Q3 2026\n  - Contoso to provide CMC stability data at 6-month timepoint\n\nDemo content — synthetic, no patient data."
+                    }
+                ]
+            },
+            {
+                "display_name": "Clinical Trial Data Center",
+                "description": "Clinical data management, biostatistics reports, and data monitoring resources",
+                "pages": [
+                    {
+                        "title": "Data Management Overview",
+                        "content": "<h2>Clinical Trial Data Center</h2><p>Central repository for data management plans, statistical analysis plans, and data quality resources for all Contoso Pharmaceuticals clinical programmes.</p><h3>Active Studies</h3><ul><li><strong>DEM-042-301</strong> — Phase III, 28 sites, 342 enrolled. Database lock target: Q4 2026</li></ul><h3>Data Quality Metrics</h3><ul><li>Query resolution rate: 98%</li><li>Overdue queries: 12 (target ≤ 20)</li><li>EDC data entry compliance: 94% within 3 days of visit</li></ul>"
+                    }
+                ],
+                "documents": [
+                    {
+                        "filename": "Statistical_Analysis_Plan_DEM042.txt",
+                        "folder": "Biostatistics",
+                        "content": "STATISTICAL ANALYSIS PLAN — DEM-042-301 v3.0\nContoso Pharmaceuticals (Synthetic)\n\nPRIMARY ANALYSIS\n  Endpoint: Progression-free survival (PFS)\n  Method: Stratified log-rank test (stratification: ECOG, region)\n  Alpha: 0.05 (two-sided), with O'Brien-Fleming spending function for interim\n\nSAMPLE SIZE\n  N = 500 (2:1 randomization)\n  Power: 90% to detect HR = 0.65\n  Expected median PFS control: 6.0 months\n\nINTERIM ANALYSIS\n  Planned at 60% information fraction (~200 events)\n  DMC review: March 15, 2026\n  Stopping boundaries: Efficacy (p < 0.005) or futility (conditional power < 20%)\n\nSECONDARY ANALYSES\n  - Overall survival (OS): Stratified log-rank, final analysis at 400 events\n  - Objective response rate (ORR): Exact binomial CI\n  - Duration of response (DOR): Kaplan-Meier\n\nDemo content — synthetic, no patient data."
                     }
                 ]
             }
@@ -536,17 +895,22 @@
                         "name": "To Do",
                         "tasks": [
                             {
-                                "title": "Finalize statistical analysis plan for DEM-042 interim",
-                                "priority": 1,
-                                "percent_complete": 0
-                            },
-                            {
-                                "title": "Complete site qualification visit for Site 013 (Boston)",
+                                "title": "Finalize site monitoring visit schedule for Q2",
                                 "priority": 3,
                                 "percent_complete": 0
                             },
                             {
-                                "title": "Review protocol amendment v3.2 with medical monitor",
+                                "title": "Review EDC edit check specifications for protocol amendment",
+                                "priority": 5,
+                                "percent_complete": 0
+                            },
+                            {
+                                "title": "Prepare DMC data package for March interim analysis",
+                                "priority": 1,
+                                "percent_complete": 0
+                            },
+                            {
+                                "title": "Update Investigator Brochure with new safety data",
                                 "priority": 3,
                                 "percent_complete": 0
                             }
@@ -556,13 +920,18 @@
                         "name": "In Progress",
                         "tasks": [
                             {
-                                "title": "Prepare FDA Type B meeting briefing document",
-                                "priority": 1,
+                                "title": "Resolve outstanding EDC queries (12 remaining)",
+                                "priority": 3,
                                 "percent_complete": 50
                             },
                             {
-                                "title": "Reconcile EDC queries for sites 001-006",
+                                "title": "Activate Site 31 (Lakewood Medical) for enrollment",
                                 "priority": 5,
+                                "percent_complete": 75
+                            },
+                            {
+                                "title": "Compile adverse event listings for DSMB report",
+                                "priority": 1,
                                 "percent_complete": 50
                             }
                         ]
@@ -571,13 +940,18 @@
                         "name": "Completed",
                         "tasks": [
                             {
-                                "title": "Submit DEM-055 IND application to FDA",
-                                "priority": 1,
+                                "title": "File protocol amendment v4.0 with IRBs at all active sites",
+                                "priority": 3,
                                 "percent_complete": 100
                             },
                             {
-                                "title": "Complete GLP toxicology study report for DEM-063",
-                                "priority": 3,
+                                "title": "Complete CRO quarterly oversight report",
+                                "priority": 5,
+                                "percent_complete": 100
+                            },
+                            {
+                                "title": "Validate SAP v3.0 with biostatistics team",
+                                "priority": 1,
                                 "percent_complete": 100
                             }
                         ]
@@ -591,29 +965,104 @@
                         "name": "Discovery",
                         "tasks": [
                             {
-                                "title": "Complete lead optimization for DEM-071 series",
+                                "title": "Complete lead optimization for DEM-071 tau inhibitor",
+                                "priority": 3,
+                                "percent_complete": 25
+                            },
+                            {
+                                "title": "Run selectivity panel for DEM-058 lead series",
                                 "priority": 5,
                                 "percent_complete": 0
                             },
                             {
-                                "title": "Design DEM-071 selectivity assay panel",
+                                "title": "Patent application for DEM-071 chemical matter",
+                                "priority": 3,
+                                "percent_complete": 0
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Preclinical/IND",
+                        "tasks": [
+                            {
+                                "title": "DEM-058: Complete 28-day repeat-dose tox study",
+                                "priority": 1,
+                                "percent_complete": 50
+                            },
+                            {
+                                "title": "DEM-058: Finalize CMC section for IND",
+                                "priority": 3,
+                                "percent_complete": 25
+                            },
+                            {
+                                "title": "DEM-058: Draft Investigator Brochure v1.0",
                                 "priority": 5,
                                 "percent_complete": 0
                             }
                         ]
                     },
                     {
-                        "name": "Preclinical",
+                        "name": "Regulatory Milestones",
                         "tasks": [
                             {
-                                "title": "DEM-063 IND-enabling toxicology study - in progress",
-                                "priority": 3,
-                                "percent_complete": 60
+                                "title": "DEM-027: Prepare advisory committee briefing document",
+                                "priority": 1,
+                                "percent_complete": 50
                             },
                             {
-                                "title": "DEM-063 CMC process development - scale-up runs",
+                                "title": "DEM-027: Respond to FDA information request (stability)",
+                                "priority": 1,
+                                "percent_complete": 75
+                            },
+                            {
+                                "title": "DEM-042: Submit IND annual report",
+                                "priority": 5,
+                                "percent_complete": 0
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "title": "Lab Operations & Compliance",
+                "buckets": [
+                    {
+                        "name": "Maintenance",
+                        "tasks": [
+                            {
+                                "title": "Schedule Q2 equipment calibration cycle",
+                                "priority": 5,
+                                "percent_complete": 0
+                            },
+                            {
+                                "title": "Replace expired reagents in stability storage",
                                 "priority": 3,
-                                "percent_complete": 40
+                                "percent_complete": 0
+                            },
+                            {
+                                "title": "GLP archive: Index and file 2025 study records",
+                                "priority": 5,
+                                "percent_complete": 50
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Compliance",
+                        "tasks": [
+                            {
+                                "title": "Conduct GLP pre-inspection self-assessment",
+                                "priority": 1,
+                                "percent_complete": 0
+                            },
+                            {
+                                "title": "Update SOPs for new dissolution testing method",
+                                "priority": 3,
+                                "percent_complete": 50
+                            },
+                            {
+                                "title": "Review and renew lab personnel training records",
+                                "priority": 5,
+                                "percent_complete": 25
                             }
                         ]
                     }
@@ -632,6 +1081,48 @@
             "Quality Assurance Lead",
             "Regulatory Specialist",
             "R&D Engineer"
+        ],
+        "user_profiles": [
+            {
+                "role": "Product Manager",
+                "jobTitle": "Product Manager — Surgical Robotics",
+                "department": "Product Management",
+                "companyName": "Contoso Medical Devices",
+                "officeLocation": "Innovation Center — Building 1, 3rd Floor",
+                "aboutMe": "Drives product roadmap and market strategy for next-generation surgical robotic platforms at Contoso Medical Devices."
+            },
+            {
+                "role": "Manufacturing Engineer",
+                "jobTitle": "Senior Manufacturing Engineer",
+                "department": "Manufacturing Engineering",
+                "companyName": "Contoso Medical Devices",
+                "officeLocation": "Production Facility — Clean Room Wing",
+                "aboutMe": "Designs and validates manufacturing processes for Class II/III medical devices; leads IQ/OQ/PQ protocols at Contoso Medical Devices."
+            },
+            {
+                "role": "Quality Assurance Lead",
+                "jobTitle": "Quality Assurance Lead",
+                "department": "Quality Assurance",
+                "companyName": "Contoso Medical Devices",
+                "officeLocation": "Production Facility — QA Office",
+                "aboutMe": "Maintains ISO 13485 quality management system; oversees CAPA, NCR investigations, and internal audits for Contoso Medical Devices."
+            },
+            {
+                "role": "Regulatory Specialist",
+                "jobTitle": "Regulatory Affairs Specialist",
+                "department": "Regulatory Affairs",
+                "companyName": "Contoso Medical Devices",
+                "officeLocation": "Corporate Office — Suite 220",
+                "aboutMe": "Prepares 510(k) and PMA submissions; manages post-market surveillance and FDA correspondence for Contoso Medical Devices."
+            },
+            {
+                "role": "R&D Engineer",
+                "jobTitle": "R&D Engineer — Biomedical Systems",
+                "department": "Research & Development",
+                "companyName": "Contoso Medical Devices",
+                "officeLocation": "Innovation Center — Prototyping Lab",
+                "aboutMe": "Designs and prototypes next-generation implantable devices; owns design-history documentation and risk analysis per ISO 14971 at Contoso Medical Devices."
+            }
         ],
         "folders": [
             "Product Development",
@@ -751,24 +1242,51 @@
         ],
         "teams_channels": [
             {
-                "channel_id": "product-dev-updates-001",
+                "channel_id": "product-development-001",
                 "display_name": "Product Development",
-                "description": "Design reviews, V&V testing, risk analysis, and product lifecycle updates",
+                "description": "Design reviews, prototype updates, verification/validation planning, and cross-functional R&D collaboration",
                 "posts": [
-                    "Welcome to Product Development. Post design review updates, V&V results, and engineering change notices here.",
-                    "DEM-MED-100 design freeze approved! CAD models locked at Rev C. Design transfer package is now the priority.",
-                    "Biocompatibility testing complete for DEM-MED-100 - all ISO 10993 endpoints met. Report uploaded to the Design History File.",
-                    "Software validation (IEC 62304) passed with no anomalies. Class B classification confirmed."
+                    "Welcome to Product Development. Use this channel for design review updates, prototype milestones, and V&V planning discussions.",
+                    "DEM-MED-100 (surgical robot arm) design review #3 complete. All open design inputs resolved. Moving to design verification phase.",
+                    "New requirement from clinical affairs: The user interface must support left-handed instrument controls. Adding to the design input matrix.",
+                    "3D-printed prototype v7 of the guide catheter passed bench testing. Tensile strength at 42N (spec ≥ 35N). Dimensional tolerance within ±0.05mm.",
+                    "Risk analysis update: DFMEA v4.0 uploaded to the Design History File. Two new high-priority risks identified — mitigations assigned to the mechanical team.",
+                    "Reminder: Design transfer readiness review is scheduled for March 20. All teams must submit transfer checklists by March 15."
                 ]
             },
             {
                 "channel_id": "quality-assurance-001",
                 "display_name": "Quality Assurance",
-                "description": "CAPA tracking, NCR investigations, audit findings, and QMS updates per ISO 13485",
+                "description": "ISO 13485 QMS updates, CAPA tracking, NCR investigations, and audit readiness",
                 "posts": [
-                    "Monthly QMS dashboard: 3 open CAPAs, 2 pending effectiveness checks, 0 critical nonconformances. Trending positive.",
-                    "NCR-2026-003 investigation complete. Root cause: supplier material variation. CAPA-2026-007 initiated for incoming inspection enhancement.",
-                    "Reminder: Internal audit schedule for Q1 posted. Manufacturing (Feb), Design Controls (Mar), Purchasing (Apr)."
+                    "Q1 CAPA dashboard: 3 open CAPAs, 2 in effectiveness verification, 5 closed this quarter. Overall CAPA closure rate: 87% on time.",
+                    "NCR-2026-014: Non-conforming epoxy lot detected during incoming inspection. Lot quarantined. Supplier notified. MRB review scheduled for Thursday.",
+                    "ISO 13485 surveillance audit is confirmed for April 8-10. Pre-audit readiness meeting this Friday at 10:00. All process owners please attend.",
+                    "Complaint trend analysis: 3 field complaints received in January related to connector torque. Investigation in progress — may escalate to CAPA.",
+                    "Management Review meeting summary posted. Key action: Reduce customer complaint response time from 15 days to 10 days by Q3."
+                ]
+            },
+            {
+                "channel_id": "manufacturing-ops-001",
+                "display_name": "Manufacturing Operations",
+                "description": "Production scheduling, yield metrics, process validation updates, and clean room operations",
+                "posts": [
+                    "Production yield report — Week 8: Overall yield 94.2% (target ≥ 93%). Reflow soldering yield recovered to 97% after profile adjustment.",
+                    "IQ/OQ for the new laser welding station is complete. PQ protocol starts next week — 3 consecutive lots required for validation.",
+                    "Clean room environmental monitoring: All particle counts within Class 7 limits. Next gown qualification is scheduled for March 1.",
+                    "Heads-up: Raw material lead time for titanium alloy extended to 12 weeks (was 8). Procurement is working with alternate suppliers.",
+                    "Process deviation PD-2026-003: Solvent concentration drifted below spec during coating process. Batch placed on hold pending investigation."
+                ]
+            },
+            {
+                "channel_id": "regulatory-submissions-001",
+                "display_name": "Regulatory Submissions",
+                "description": "510(k), PMA, and CE marking submission tracking, FDA/EU MDR correspondence",
+                "posts": [
+                    "510(k) submission for DEM-MED-100 is on track. Substantial equivalence comparison with the predicate device is complete. Target filing: Q2 2026.",
+                    "FDA reviewer questions received for the DEM-MED-085 510(k). They want additional biocompatibility data — ISO 10993-5 cytotoxicity and sensitization results.",
+                    "EU MDR compliance update: Technical documentation for the Class IIb portfolio is 80% complete. Notified Body audit window is Q3 2026.",
+                    "Post-market surveillance report for DEM-MED-070 submitted to FDA. No new safety signals. Next PMSR due in 12 months."
                 ]
             }
         ],
@@ -778,63 +1296,119 @@
                 "type": "group",
                 "topic": "DEM-MED-100 Design Transfer",
                 "messages": [
-                    "Design transfer documentation: we need the final BOM, process flow diagrams, and work instructions by end of February.",
-                    "BOM is finalized. Working on process flow for the sterilization step - need to align with the validation protocol.",
-                    "IQ/OQ are scheduled for March 10-14. We need the equipment qualification reports and process parameters locked by March 1.",
-                    "Got it. I will have the sterilization validation protocol and process parameters finalized by Feb 28. Can we sync Thursday to review?"
+                    "Design transfer readiness review is March 20. Are all design outputs documented and released to manufacturing?",
+                    "Mechanical drawings are released. Firmware v2.1 is frozen and tagged in the repo. Software validation report is in final QA review.",
+                    "Manufacturing BOM is locked. I've verified all component suppliers are qualified and on the approved supplier list. One alternate supplier pending for the stepper motor.",
+                    "Risk file is current — DFMEA v4.0 and process FMEA v2.0 are both approved. Residual risk is acceptable per ISO 14971.",
+                    "Good. I'll compile the DHF index and circulate the transfer checklist. Let's aim to have all sign-offs by March 18.",
+                    "One open item: The labelling artwork for the IFU needs regulatory approval. I've submitted it — expecting sign-off by Friday."
                 ]
             },
             {
-                "conversation_id": "capa-followup-chat-001",
+                "conversation_id": "ncr-investigation-chat-001",
                 "type": "oneOnOne",
                 "messages": [
-                    "CAPA-2026-005 effectiveness check is due next week. The corrective action was the incoming inspection SOP update - can you verify implementation?",
-                    "Verified. Updated inspection procedure has been in effect for 3 lots. Zero non-conformances on those lots. I will document the effectiveness check.",
-                    "Perfect, close it out in the QMS. We are down to 3 open CAPAs - best we have been all year."
+                    "NCR-2026-014 update: The incoming inspection data shows the epoxy viscosity was 15% above the upper spec limit. The supplier's CoA was within spec, though.",
+                    "That's a significant discrepancy. We should request the supplier's batch records and retention samples for re-testing. I'll draft the supplier corrective action request (SCAR).",
+                    "Agreed. I've already quarantined the lot and put a hold on any kits that were built with material from this batch. MRB meeting is Thursday at 14:00.",
+                    "I'll have the SCAR template ready by tomorrow. We should also check if this supplier had any previous NCRs — I recall a similar issue in Q3 2025."
+                ]
+            },
+            {
+                "conversation_id": "process-validation-chat-001",
+                "type": "group",
+                "topic": "Laser Weld PQ — Production Validation",
+                "messages": [
+                    "PQ protocol for the new laser welding station starts Monday. We need 3 consecutive lots of 100 units each. Production has confirmed line time.",
+                    "I've set up the inspection plan — every unit gets visual inspection, 10% destructive tensile testing, 100% leak testing. Acceptance criteria are in the protocol.",
+                    "Statistical justification for sample size is documented. We're using the ANSI/ASQ Z1.4 Level II sampling plan.",
+                    "Weather advisory: Temperature fluctuations may affect clean room conditions this week. Environmental monitoring will be continuous during the PQ runs.",
+                    "PQ Lot 1 complete — 98/100 passed visual, all 10 destructive samples passed tensile (avg 48N, spec ≥ 40N), 100/100 passed leak test. Looking good."
+                ]
+            },
+            {
+                "conversation_id": "field-complaint-chat-001",
+                "type": "group",
+                "topic": "Field Complaint — Connector Torque Issue",
+                "messages": [
+                    "Three field complaints this month about connector torque being too high. All from the same product family (DEM-MED-070). Different lot numbers, though.",
+                    "I pulled the production records. Torque testing at release was within spec for all three lots. Could be a use-condition issue or a gradual material property change.",
+                    "I'll request the returned units from the field for engineering evaluation. We should also check the connector supplier's material certification — any resin lot changes recently?",
+                    "Good call. I'll also pull the complaint trend data for the last 12 months to see if this is truly a new signal or an ongoing low-level issue."
                 ]
             }
         ],
         "sharepoint_sites": [
             {
                 "display_name": "Product Development Hub",
-                "description": "Design history files, V&V documentation, risk management, and engineering change control",
+                "description": "Design history files, risk management documentation, and product development resources",
                 "pages": [
                     {
-                        "title": "Welcome to Product Development",
-                        "content": "<h2>Product Development Hub</h2><p>Welcome to the Contoso Medical Devices Product Development portal. This site is the controlled repository for design history files, verification and validation documentation, and engineering change management.</p><h3>Quick Links</h3><ul><li><strong>Design History Files (DHF)</strong> - Controlled design documents per FDA 21 CFR 820.30</li><li><strong>Risk Management</strong> - Risk analysis files per ISO 14971, including hazard analyses and risk/benefit assessments</li><li><strong>V&V Documentation</strong> - Verification protocols, validation reports, and test results</li><li><strong>Engineering Change Control</strong> - ECOs, ECNs, and revision history</li></ul><p><em>All documents in this site are controlled and subject to the document control SOP. Do not use copies outside the QMS.</em></p>"
+                        "title": "Product Development Home",
+                        "content": "<h2>Product Development Hub</h2><p>Welcome to the Contoso Medical Devices Product Development portal. This site houses design history files, risk management documents, and development milestone tracking.</p><h3>Active Programmes</h3><ul><li><strong>DEM-MED-100</strong> — Next-gen surgical robot arm (design transfer phase)</li><li><strong>DEM-MED-110</strong> — Minimally invasive catheter system (design verification)</li><li><strong>DEM-MED-085</strong> — Patient monitoring accessory (510(k) filed)</li></ul><h3>Quick Links</h3><ul><li>Design History File Index</li><li>Risk Management Library (ISO 14971)</li><li>V&V Protocol Templates</li><li>Design Review Meeting Minutes</li></ul>"
                     },
                     {
-                        "title": "DEM-MED-100 Project Overview",
-                        "content": "<h2>DEM-MED-100 Project Overview</h2><p>Class II surgical instrument currently in Design Transfer phase (Phase 4 of 5).</p><h3>Status</h3><ul><li><strong>Design Freeze:</strong> Approved (January 2026)</li><li><strong>Design Transfer:</strong> In progress - manufacturing process documentation</li><li><strong>510(k) Submission:</strong> Target Q2 2026</li></ul><h3>Key Deliverables Remaining</h3><ol><li>Process validation (IQ/OQ/PQ) - March 2026</li><li>Sterilization validation - March 2026</li><li>510(k) submission package - May 2026</li><li>Market launch - Target Q4 2026</li></ol>"
+                        "title": "Design Control Process",
+                        "content": "<h2>Design Control Process (per 21 CFR 820.30)</h2><p>Our stage-gate design control process ensures each medical device meets user needs, intended use, and regulatory requirements.</p><h3>Phases</h3><ol><li><strong>Design Input</strong> — User needs, design requirements, regulatory requirements, risk-based requirements</li><li><strong>Design Output</strong> — Drawings, specifications, software, labelling, BOM</li><li><strong>Design Review</strong> — Cross-functional formal review at each phase gate</li><li><strong>Design Verification</strong> — Confirm outputs meet inputs (bench testing, analysis)</li><li><strong>Design Validation</strong> — Confirm device meets user needs (simulated use, clinical)</li><li><strong>Design Transfer</strong> — Release to manufacturing with validated processes</li></ol><h3>Key Documents</h3><ul><li>Design History File (DHF)</li><li>Device Master Record (DMR)</li><li>Device History Record (DHR)</li></ul>"
+                    },
+                    {
+                        "title": "Risk Management Framework",
+                        "content": "<h2>Risk Management — ISO 14971</h2><p>All Contoso Medical Devices products follow a risk management process compliant with ISO 14971:2019.</p><h3>Process Steps</h3><ol><li>Risk Analysis — Identify hazards, hazardous situations, and harms (DFMEA + use FMEA)</li><li>Risk Evaluation — Compare estimated risk against acceptability criteria</li><li>Risk Control — Implement mitigation measures (design, protective, information)</li><li>Residual Risk Assessment — Verify overall residual risk is acceptable</li><li>Production & Post-Production — Monitor field performance and update risk file</li></ol><h3>Risk Acceptability Matrix</h3><p>Severity × Probability matrix with defined thresholds per product class (Class I, II, III)</p>"
                     }
                 ],
                 "documents": [
                     {
-                        "filename": "Design_Control_SOP.txt",
-                        "folder": "Quality System",
-                        "content": "DESIGN CONTROL SOP - SOP-DC-001 Rev 3\nContoso Medical Devices (Synthetic)\n\n1. PURPOSE: Establish design control procedures per 21 CFR 820.30 and ISO 13485.\n\n2. PHASE GATES:\nPhase 1: Concept to Feasibility Review\nPhase 2: Feasibility to Design Input Review\nPhase 3: Design to Design Review / Design Freeze\nPhase 4: Transfer to Design Transfer Review\nPhase 5: Validation to Design Validation / Market Release\n\n3. DOCUMENTATION:\n- Design inputs: User needs, regulatory requirements, standards\n- Design outputs: Specifications, drawings, software, labeling\n- Design verification: Testing against specifications\n- Design validation: Testing against user needs (clinical if required)\n- Design review: Formal gate review with cross-functional team\n\n4. CHANGES:\nAll design changes after Design Freeze require an Engineering Change Order (ECO).\n\nDemo content - synthetic, no patient data."
+                        "filename": "Design_History_File_Index_DEM100.txt",
+                        "folder": "Design History Files",
+                        "content": "DESIGN HISTORY FILE INDEX — DEM-MED-100\nContoso Medical Devices (Synthetic)\n\nPRODUCT: Surgical Robot Arm, Next Generation\nPROJECT: DEM-MED-100\nCLASS: II (510(k))\n\nDOCUMENT INDEX\n  1. Design Input Requirements (DIR-100-001 v3.0) — Approved\n  2. Design Output Specification (DOS-100-001 v2.0) — Approved\n  3. Design FMEA (DFMEA-100-001 v4.0) — Approved\n  4. Process FMEA (PFMEA-100-001 v2.0) — Approved\n  5. Risk Management Report (RMR-100-001 v2.0) — Approved\n  6. Design Verification Protocol (DVP-100-001 v1.0) — In Progress\n  7. Design Verification Report (DVR-100-001) — Pending\n  8. Design Validation Protocol (DValP-100-001) — Draft\n  9. Software Validation Report (SVR-100-001 v1.0) — In Review\n  10. Biocompatibility Assessment (BIO-100-001 v1.0) — Approved\n  11. Labelling/IFU (LBL-100-001 v1.0) — In Review\n  12. Design Transfer Checklist (DTC-100-001) — Not Started\n\nDemo content — synthetic, no patient data."
                     },
                     {
-                        "filename": "Risk_Management_Plan.txt",
+                        "filename": "Risk_Analysis_DEM100.txt",
                         "folder": "Risk Management",
-                        "content": "RISK MANAGEMENT PLAN - DEM-MED-100\nContoso Medical Devices (Synthetic)\n\nStandard: ISO 14971:2019\n\nRisk Acceptability Matrix:\n  Probability: 1 (Improbable) to 5 (Frequent)\n  Severity: 1 (Negligible) to 5 (Critical)\n  Acceptable: Risk Priority 8 or below\n  ALARP: Risk Priority 9-15\n  Unacceptable: Risk Priority 16 or above\n\nIdentified Hazards: 23\n  Acceptable: 18\n  ALARP (mitigated): 5\n  Unacceptable: 0\n\nResidual Risk Assessment: ACCEPTABLE\nBenefit-Risk Analysis: Favorable\n\nDemo content - synthetic, no patient data."
+                        "content": "RISK ANALYSIS — DEM-MED-100 (DFMEA Summary)\nContoso Medical Devices (Synthetic)\n\nHIGH-PRIORITY RISKS (RPN ≥ 100 before mitigation)\n\n  HAZARD                         | SEV | OCC | DET | RPN | MITIGATION\n  Unintended instrument motion   |  5  |  3  |  3  | 45  | Force-limiting sensors + SW watchdog\n  Electrical leakage to patient  |  5  |  2  |  2  | 20  | Double insulation + hipot test\n  Software lockup during use     |  4  |  3  |  3  | 36  | Dual-processor watchdog + safe state\n  Mechanical joint failure       |  5  |  2  |  3  | 30  | Fatigue testing 2× lifetime cycles\n  Sterile barrier breach         |  4  |  2  |  3  | 24  | Validated packaging + seal integrity\n\nOVERALL RESIDUAL RISK: Acceptable per policy QP-RM-001\nRisk-benefit analysis: Benefits of improved surgical precision outweigh residual risks.\n\nDemo content — synthetic, no patient data."
+                    },
+                    {
+                        "filename": "CAPA_Log_2026.txt",
+                        "folder": "Quality Assurance",
+                        "content": "CAPA LOG — 2026\nContoso Medical Devices (Synthetic)\n\nCAPA ID     | OPENED     | SOURCE         | DESCRIPTION                          | STATUS\nCAPA-2026-01| 2026-01-08 | Internal Audit | SOP-MFG-015 not followed (clean room) | Effectiveness Verification\nCAPA-2026-02| 2026-01-15 | Customer Compl | Connector torque out of spec (3 units) | Investigation\nCAPA-2026-03| 2026-01-22 | NCR-2026-008   | Incorrect label applied to packaging  | Closed — Effective\nCAPA-2026-04| 2026-02-01 | Trend Analysis | Incoming inspection reject rate +2%   | Root Cause Analysis\nCAPA-2026-05| 2026-02-10 | Supplier Audit | Epoxy supplier viscosity drift         | SCAR Issued\n\nMETRICS\n  Open CAPAs: 3\n  Avg days to closure: 42 (target ≤ 45)\n  On-time closure rate: 87% (target ≥ 90%)\n\nDemo content — synthetic, no patient data."
                     }
                 ]
             },
             {
                 "display_name": "Quality Management System",
-                "description": "QMS documentation, CAPA tracking, audit management, and ISO 13485 compliance records",
+                "description": "ISO 13485 QMS documentation, SOPs, audit records, and supplier quality resources",
                 "pages": [
                     {
                         "title": "QMS Overview",
-                        "content": "<h2>Quality Management System</h2><p>Contoso Medical Devices maintains a Quality Management System compliant with ISO 13485:2016 and FDA 21 CFR Part 820.</p><h3>Key Processes</h3><ul><li><strong>Document Control</strong> - SOPs, work instructions, forms, and records</li><li><strong>CAPA Management</strong> - Corrective and preventive action tracking and effectiveness verification</li><li><strong>Internal Audits</strong> - Annual audit schedule covering all QMS processes</li><li><strong>Management Review</strong> - Quarterly review of QMS performance, trends, and improvements</li><li><strong>Supplier Quality</strong> - Approved supplier list, incoming inspection, and supplier audits</li></ul><p><strong>Last External Audit:</strong> ISO 13485 Surveillance - October 2025 (0 major, 1 minor observation)</p>"
+                        "content": "<h2>Quality Management System</h2><p>Contoso Medical Devices maintains an ISO 13485:2016-certified Quality Management System covering design, manufacturing, and distribution of Class II/III medical devices.</p><h3>QMS Scope</h3><ul><li>Design and development of electromechanical surgical instruments</li><li>Manufacturing (injection molding, CNC machining, cleanroom assembly)</li><li>Sterilization (contracted EtO and e-beam)</li><li>Distribution and post-market surveillance</li></ul><h3>Certifications</h3><ul><li>ISO 13485:2016 — Certified (last surveillance: October 2025)</li><li>EU MDR — Notified Body: TÜV SÜD (Cert expires: 2027)</li><li>FDA Establishment Registration — Current</li></ul>"
+                    },
+                    {
+                        "title": "Supplier Quality Programme",
+                        "content": "<h2>Supplier Quality Programme</h2><p>All suppliers of critical components and materials are qualified, monitored, and audited per SOP-SQ-001.</p><h3>Supplier Tiers</h3><table><tr><th>Tier</th><th>Definition</th><th>Audit Frequency</th></tr><tr><td>Critical</td><td>Components affecting safety/performance</td><td>Annual on-site audit</td></tr><tr><td>Major</td><td>Key materials, packaging, or services</td><td>Biennial audit or questionnaire</td></tr><tr><td>Standard</td><td>Non-critical supplies</td><td>Initial qualification only</td></tr></table><h3>Current Approved Suppliers</h3><p>42 approved suppliers | 3 under corrective action (SCAR) | 1 on probation</p>"
                     }
                 ],
                 "documents": [
                     {
-                        "filename": "CAPA_Summary_Q1.txt",
-                        "folder": "CAPA Records",
-                        "content": "CAPA SUMMARY - Q1 2026\nContoso Medical Devices (Synthetic)\n\nOPEN CAPAs: 3\nCLOSED THIS QUARTER: 5\nEFFECTIVENESS CHECKS DUE: 2\n\nCurrent Open CAPAs:\nCAPA-2026-005: Incoming inspection procedure update (Due: Feb 15)\nCAPA-2026-007: Supplier material variation control (Due: Mar 30)\nCAPA-2026-008: Labeling error prevention (Due: Apr 15)\n\nRoot Cause Categories (last 12 months):\n- Process: 40%\n- Supplier: 25%\n- Human Error: 20%\n- Design: 10%\n- Other: 5%\n\nDemo content - synthetic, no patient data."
+                        "filename": "ISO13485_Audit_Report_2025.txt",
+                        "folder": "Audit Records",
+                        "content": "ISO 13485 SURVEILLANCE AUDIT REPORT — OCTOBER 2025\nContoso Medical Devices (Synthetic)\n\nAUDIT BODY: TÜV SÜD\nSCOPE: Full QMS scope including design, manufacturing, sterilization\n\nFINDINGS\n  Major nonconformities: 0\n  Minor nonconformities: 2\n    1. Training records for 3 cleanroom operators not up to date (SOP-HR-003)\n    2. CAPA-2025-18 effectiveness verification overdue by 15 days\n\n  Observations: 1\n    1. Consider adding statistical process control (SPC) to critical dimensions\n\nCORRECTIVE ACTIONS\n  1. Training records updated within 5 days; calendar reminders implemented\n  2. CAPA-2025-18 closed with effectiveness evidence provided within 30 days\n  3. SPC implementation planned for Q2 2026 (observation)\n\nCERTIFICATION STATUS: Maintained (valid through October 2028)\n\nDemo content — synthetic, no patient data."
+                    }
+                ]
+            },
+            {
+                "display_name": "Manufacturing Operations Center",
+                "description": "Production schedules, process validation records, equipment maintenance, and clean room operations",
+                "pages": [
+                    {
+                        "title": "Manufacturing Overview",
+                        "content": "<h2>Manufacturing Operations Center</h2><p>Real-time manufacturing documentation, process validation records, and production metrics for the Contoso Medical Devices production facility.</p><h3>Production Lines</h3><ul><li><strong>Line A</strong> — Injection molding and CNC machining (housing components)</li><li><strong>Line B</strong> — PCB assembly and SMT reflow soldering</li><li><strong>Line C</strong> — Cleanroom assembly and packaging (Class 7/ISO 14644)</li></ul><h3>Key Metrics (Current Month)</h3><ul><li>Overall Equipment Effectiveness (OEE): 88%</li><li>First-pass yield: 94.2%</li><li>On-time delivery: 96%</li></ul>"
+                    }
+                ],
+                "documents": [
+                    {
+                        "filename": "Process_Validation_Summary.txt",
+                        "folder": "Validation Records",
+                        "content": "PROCESS VALIDATION SUMMARY — 2026\nContoso Medical Devices (Synthetic)\n\nVALIDATED PROCESSES\n\n  PROCESS              | IQ     | OQ     | PQ     | NEXT REVAL\n  Injection Molding    | Pass   | Pass   | Pass   | Q4 2026\n  SMT Reflow Soldering | Pass   | Pass   | Pass   | Q2 2026\n  Laser Welding (new)  | Pass   | Pass   | In Prog| —\n  EtO Sterilization    | Pass   | Pass   | Pass   | Q3 2026\n  Cleanroom Assembly   | Pass   | Pass   | Pass   | Q1 2027\n\nVALIDATION IN PROGRESS\n  Laser Welding Station (LW-003)\n  PQ Protocol: PQ-LW-003-001\n  Status: Lot 1 of 3 complete — all acceptance criteria met\n  Expected completion: March 2026\n\nDemo content — synthetic, no patient data."
                     }
                 ]
             }
@@ -847,17 +1421,22 @@
                         "name": "To Do",
                         "tasks": [
                             {
-                                "title": "Complete sterilization validation protocol",
+                                "title": "Complete design verification test report",
                                 "priority": 1,
                                 "percent_complete": 0
                             },
                             {
-                                "title": "Finalize labeling and IFU for 510(k)",
+                                "title": "Submit labelling artwork for regulatory review",
                                 "priority": 3,
                                 "percent_complete": 0
                             },
                             {
-                                "title": "Schedule process validation runs (IQ/OQ/PQ)",
+                                "title": "Draft manufacturing work instructions for assembly",
+                                "priority": 5,
+                                "percent_complete": 0
+                            },
+                            {
+                                "title": "Schedule IEC 62304 software documentation review",
                                 "priority": 3,
                                 "percent_complete": 0
                             }
@@ -867,14 +1446,19 @@
                         "name": "In Progress",
                         "tasks": [
                             {
-                                "title": "Complete design transfer documentation package",
+                                "title": "Design transfer readiness review preparation",
                                 "priority": 1,
                                 "percent_complete": 50
                             },
                             {
-                                "title": "Prepare 510(k) predicate comparison matrix",
+                                "title": "Process FMEA v2.0 — update for laser welding process",
                                 "priority": 3,
-                                "percent_complete": 60
+                                "percent_complete": 75
+                            },
+                            {
+                                "title": "Compile substantial equivalence comparison for 510(k)",
+                                "priority": 3,
+                                "percent_complete": 50
                             }
                         ]
                     },
@@ -882,13 +1466,18 @@
                         "name": "Completed",
                         "tasks": [
                             {
-                                "title": "DEM-MED-100 design freeze - approved",
+                                "title": "Biocompatibility assessment per ISO 10993",
                                 "priority": 1,
                                 "percent_complete": 100
                             },
                             {
-                                "title": "Biocompatibility testing (ISO 10993) - all endpoints met",
+                                "title": "Software validation report (firmware v2.1)",
                                 "priority": 3,
+                                "percent_complete": 100
+                            },
+                            {
+                                "title": "Design FMEA v4.0 review and approval",
+                                "priority": 1,
                                 "percent_complete": 100
                             }
                         ]
@@ -899,32 +1488,102 @@
                 "title": "Quality System Improvement",
                 "buckets": [
                     {
-                        "name": "Open CAPAs",
+                        "name": "Planning",
                         "tasks": [
                             {
-                                "title": "CAPA-2026-005: Update incoming inspection SOP",
+                                "title": "Implement SPC for critical CNC dimensions",
                                 "priority": 3,
-                                "percent_complete": 80
+                                "percent_complete": 0
                             },
                             {
-                                "title": "CAPA-2026-007: Supplier material control enhancement",
-                                "priority": 3,
-                                "percent_complete": 30
-                            }
-                        ]
-                    },
-                    {
-                        "name": "Audit Prep",
-                        "tasks": [
-                            {
-                                "title": "Prepare for ISO 13485 surveillance audit (Q2)",
+                                "title": "Design new CAPA effectiveness verification checklist",
                                 "priority": 5,
                                 "percent_complete": 0
                             },
                             {
-                                "title": "Complete internal audit - Manufacturing process",
+                                "title": "Scope electronic DHR system deployment",
                                 "priority": 5,
-                                "percent_complete": 25
+                                "percent_complete": 0
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Executing",
+                        "tasks": [
+                            {
+                                "title": "Close CAPA-2026-01 (cleanroom SOP compliance)",
+                                "priority": 3,
+                                "percent_complete": 75
+                            },
+                            {
+                                "title": "Investigate CAPA-2026-02 (connector torque complaints)",
+                                "priority": 1,
+                                "percent_complete": 50
+                            },
+                            {
+                                "title": "Prepare ISO 13485 surveillance audit documentation",
+                                "priority": 1,
+                                "percent_complete": 50
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Closed",
+                        "tasks": [
+                            {
+                                "title": "Close CAPA-2026-03 (labelling error — single lot)",
+                                "priority": 3,
+                                "percent_complete": 100
+                            },
+                            {
+                                "title": "Update incoming inspection procedure per new sampling plan",
+                                "priority": 5,
+                                "percent_complete": 100
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "title": "Regulatory Compliance Tracker",
+                "buckets": [
+                    {
+                        "name": "Submissions",
+                        "tasks": [
+                            {
+                                "title": "DEM-MED-100: Prepare 510(k) submission package",
+                                "priority": 1,
+                                "percent_complete": 50
+                            },
+                            {
+                                "title": "DEM-MED-085: Respond to FDA AI questions",
+                                "priority": 1,
+                                "percent_complete": 75
+                            },
+                            {
+                                "title": "EU MDR: Update technical documentation for Class IIb portfolio",
+                                "priority": 3,
+                                "percent_complete": 50
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Post-Market",
+                        "tasks": [
+                            {
+                                "title": "DEM-MED-070: Annual post-market surveillance report",
+                                "priority": 5,
+                                "percent_complete": 100
+                            },
+                            {
+                                "title": "Compile vigilance report — Q1 field safety data",
+                                "priority": 3,
+                                "percent_complete": 0
+                            },
+                            {
+                                "title": "Review MDR periodic safety update report (PSUR) requirements",
+                                "priority": 5,
+                                "percent_complete": 0
                             }
                         ]
                     }
@@ -943,6 +1602,48 @@
             "Provider Relations Lead",
             "Compliance Officer",
             "Actuarial Analyst"
+        ],
+        "user_profiles": [
+            {
+                "role": "Claims Operations Manager",
+                "jobTitle": "Claims Operations Manager",
+                "department": "Claims Operations",
+                "companyName": "Contoso Health Plans",
+                "officeLocation": "Corporate Campus — Building C, 2nd Floor",
+                "aboutMe": "Manages end-to-end claims adjudication workflows; drives auto-adjudication rates and first-pass resolution metrics for Contoso Health Plans."
+            },
+            {
+                "role": "Member Services Director",
+                "jobTitle": "Director of Member Services",
+                "department": "Member Services",
+                "companyName": "Contoso Health Plans",
+                "officeLocation": "Corporate Campus — Member Engagement Center",
+                "aboutMe": "Leads member experience strategy including enrollment, onboarding, grievance resolution, and satisfaction survey programmes for Contoso Health Plans."
+            },
+            {
+                "role": "Provider Relations Lead",
+                "jobTitle": "Provider Relations Lead",
+                "department": "Provider Network Management",
+                "companyName": "Contoso Health Plans",
+                "officeLocation": "Corporate Campus — Building D",
+                "aboutMe": "Manages provider network adequacy, credentialing, and contract negotiations to ensure comprehensive coverage for Contoso Health Plans members."
+            },
+            {
+                "role": "Compliance Officer",
+                "jobTitle": "Compliance & Regulatory Affairs Officer",
+                "department": "Compliance & Regulatory",
+                "companyName": "Contoso Health Plans",
+                "officeLocation": "Corporate Campus — Building A, Suite 105",
+                "aboutMe": "Oversees CMS/state regulatory compliance, market-conduct readiness, and internal audit programmes for Contoso Health Plans."
+            },
+            {
+                "role": "Actuarial Analyst",
+                "jobTitle": "Senior Actuarial Analyst",
+                "department": "Actuarial & Analytics",
+                "companyName": "Contoso Health Plans",
+                "officeLocation": "Corporate Campus — Analytics Suite",
+                "aboutMe": "Develops pricing models, medical loss ratio projections, and risk-adjustment analyses supporting plan design at Contoso Health Plans."
+            }
         ],
         "folders": [
             "Claims Operations",
@@ -1062,24 +1763,51 @@
         ],
         "teams_channels": [
             {
-                "channel_id": "claims-ops-updates-001",
+                "channel_id": "claims-operations-001",
                 "display_name": "Claims Operations",
-                "description": "Claims adjudication updates, backlog status, denial trends, and process improvements",
+                "description": "Claims adjudication updates, auto-adjudication metrics, and claims processing workflow discussions",
                 "posts": [
-                    "Welcome to Claims Operations. Use this channel for adjudication updates, inventory management, and cross-team coordination on claims processing.",
-                    "Daily claims inventory: 12,400 pending | 78% auto-adjudication rate | Average turnaround 3.2 days. Trending toward recovery target.",
-                    "New auto-adjudication rules deployed for CPT 99213-99215 (E&M visits). Expecting 3% improvement in auto-adjudication rate this week.",
-                    "Claims backlog for >45 days is down to 420 (from 580 last month). Provider outreach on clean claim submission is showing results."
+                    "Welcome to Claims Operations. Post adjudication metrics updates, workflow changes, and escalation questions here.",
+                    "Auto-adjudication rate hit 78% this week — up 3 points from January. Top denial reason remains missing prior authorization (code 4401). Working with Provider Relations to address.",
+                    "New claim edit rule deployed: CMS-1500 claims with invalid NPI will auto-pend instead of denying. This should reduce provider abrasion by ~200 claims/week.",
+                    "Reminder: Claims inventory target is 5 days or less. Current average is 4.8 days. Let's keep the momentum — check your pended queues daily.",
+                    "System maintenance this Saturday 02:00–06:00 EST. Claims processing will be paused. All batch runs will resume automatically after maintenance.",
+                    "Q1 first-pass resolution rate: 82% (target 85%). Root cause analysis shows 60% of rework is from incomplete provider submissions. Provider education campaign launching next month."
                 ]
             },
             {
                 "channel_id": "member-services-001",
                 "display_name": "Member Services",
-                "description": "Member satisfaction, call center metrics, grievances, and member engagement programs",
+                "description": "Member experience updates, enrollment reporting, grievance tracking, and satisfaction surveys",
                 "posts": [
-                    "Call center metrics for this week: average wait time 2.1 min, first-call resolution 82%, CSAT 4.2/5.0. Weekend staffing adjustments helped.",
-                    "Member portal usage hit 64% of active members - up 8% from last quarter. Self-service claim status checks are reducing call volume.",
-                    "Monthly grievance report: 36 grievances received (0.003% of membership). Top category: billing disputes (42%)."
+                    "January member satisfaction survey results: Overall satisfaction 4.1/5.0 (target 4.0). Call center average hold time: 2.5 minutes (target ≤ 3.0).",
+                    "Open enrollment recap: 12,400 new member enrollments processed. 98.5% of ID cards shipped within the 10-day SLA. Great work by the enrollment team.",
+                    "Grievance trending: 45 grievances received in January (down 12% from December). Top category: claim denial disputes (40%). G&A team is meeting weekly to address.",
+                    "New member portal features launched: Online ID card replacement, digital EOB access, and provider directory search. Member training webinar is next Tuesday.",
+                    "Star Ratings focus: HEDIS measure gaps report distributed to care management team. Diabetic eye exam compliance is at 62% — our Q4 target is 75%."
+                ]
+            },
+            {
+                "channel_id": "provider-network-001",
+                "display_name": "Provider Network",
+                "description": "Provider credentialing, network adequacy reporting, contract negotiations, and provider communications",
+                "posts": [
+                    "Network adequacy report — Q1 2026: All 14 counties meet CMS time-and-distance standards for PCP, behavioral health, and specialist access. One county on watch for OB/GYN.",
+                    "Credentialing backlog update: 34 applications pending (15 are re-credentialing). Average processing time: 18 days (target ≤ 30 days). Clean pass rate: 91%.",
+                    "Provider contract renewal cycle starts next month. Templates for Tier 1 (hospital systems) and Tier 2 (large group practices) are updated and approved by legal.",
+                    "New network addition: Lakewood Orthopedic Associates (5 providers) joined the network effective March 1. Directory update has been pushed to the portal.",
+                    "Provider satisfaction survey results: 3.8/5.0 overall. Biggest pain point: claims payment turnaround. We're targeting 14-day clean claim payment by Q3."
+                ]
+            },
+            {
+                "channel_id": "compliance-regulatory-001",
+                "display_name": "Compliance & Regulatory",
+                "description": "CMS/state regulatory compliance, market conduct exam preparation, and internal audit updates",
+                "posts": [
+                    "CMS Program Audit notification received for Q3 2026. Scope: Part D formulary compliance, coverage determinations, and appeals/grievances. Prep meetings start in April.",
+                    "State Department of Insurance market conduct exam concluded with no significant findings. Final report expected in 30 days.",
+                    "Quarterly compliance training completion: 94% (target 100%). 38 employees have overdue modules — list sent to department managers.",
+                    "FWA (Fraud, Waste, and Abuse) tip line received 12 reports in January. 8 investigated and closed (no substantiated fraud). 4 in active investigation."
                 ]
             }
         ],
@@ -1089,63 +1817,118 @@
                 "type": "group",
                 "topic": "Priority Claims Escalation",
                 "messages": [
-                    "We have 15 claims past the 45-day turnaround for Medicare Advantage. CMS timely filing requirements - these need immediate attention.",
-                    "I have flagged them in the queue. Root cause: 12 are pending provider information. We sent outreach yesterday - expecting responses by Thursday.",
-                    "For the remaining 3, it is a system issue - the EDI translator dropped the diagnosis pointer. IT is deploying a hotfix tonight.",
-                    "Good. Let us track these daily until resolved. Any claim past 60 days becomes a compliance risk. I will add it to the weekly compliance sync agenda."
+                    "Flagging a batch of 42 claims stuck in pended status for 8+ days — all from Lakewood Medical Group. Looks like a systematic NPI mapping issue post-contract update.",
+                    "I see the issue. Their new Tax ID wasn't linked to the existing provider group record. I'll update the provider master file and reprocess the batch today.",
+                    "Thanks. I've notified their practice manager about the delay. Can you also check if any of their members had EOBs generated with incorrect denial language?",
+                    "Checked — 6 EOBs went out with denial code 197 (invalid provider). I'll flag those for corrected EOBs and send an apology letter template to Member Services.",
+                    "Good. Let's also add a QA check for provider master file updates going forward. This shouldn't have slipped through without validation."
                 ]
             },
             {
-                "conversation_id": "network-update-chat-001",
+                "conversation_id": "hedis-gaps-chat-001",
                 "type": "oneOnOne",
                 "messages": [
-                    "Provider directory audit is done - we are at 95.4% accuracy. CMS threshold is 95%, so we are barely compliant. Need to improve.",
-                    "I saw the report. The accepting-new-patients field is the biggest issue. Can we set up quarterly automated verification calls?",
-                    "Yes, I am budgeting for an IVR-based verification system. Should have it operational by Q2. For now, manual outreach to the 70 flagged providers."
+                    "HEDIS gap report shows we're behind on diabetic eye exam (DEE) measure — 62% versus our Q4 target of 75%. That's 1,400 open gaps across our commercial book.",
+                    "I'll work with the care management team to launch targeted outreach. Can we get a list of members who had a PCP visit in the last 90 days but no DEE on file?",
+                    "Yes — I'll pull the claims-based gap list by Friday. We should also check if any gaps are due to missing supplemental data from provider EMR feeds.",
+                    "Good point. I'll coordinate with Health Informatics to run the supplemental data reconciliation. Some of those exams may have been done but not captured in our system."
+                ]
+            },
+            {
+                "conversation_id": "enrollment-issue-chat-001",
+                "type": "group",
+                "topic": "Enrollment File Discrepancy — February",
+                "messages": [
+                    "CMS 834 enrollment file for February has a 0.3% delta versus our internal enrollment count. 47 members show active in CMS but termed in our system.",
+                    "That's within the reporting tolerance, but we should reconcile. Most likely a timing issue with retroactive terminations processed after the file cutoff.",
+                    "I'll pull the list and cross-check against our term transactions. If any are billing-active members, we need to alert Premium Billing before the next invoice cycle.",
+                    "Found the root cause — 39 of 47 are COBRA continuations that our system termed at initial separation but CMS has as active. The COBRA election notices went out late.",
+                    "I'll update the enrollment records and submit a corrected 834 by Friday. Going forward, COBRA elections should be flagged before the outgoing enrollment file is generated."
+                ]
+            },
+            {
+                "conversation_id": "mlr-analysis-chat-001",
+                "type": "oneOnOne",
+                "messages": [
+                    "Preliminary Q1 MLR (Medical Loss Ratio) is coming in at 86.2% for the commercial book. Target is 85%. The variance is driven by a spike in high-cost claimants in January.",
+                    "How many high-cost claimants exceeded the $100K threshold? If it's reinsurance-eligible costs we can net those out of the MLR numerator.",
+                    "14 members exceeded $100K. Aggregate stop-loss kicks in at $1.2M — we're at $980K, so likely won't trigger this quarter. Individual spec is covering 9 of the 14.",
+                    "Let's model the run-rate for Q2. If the high-cost trend continues, we may need to revisit the pharmacy benefit carve-out strategy. I'll have projections by Wednesday."
                 ]
             }
         ],
         "sharepoint_sites": [
             {
                 "display_name": "Claims Operations Center",
-                "description": "Claims processing documentation, adjudication guidelines, and performance dashboards",
+                "description": "Claims processing SOPs, adjudication metrics, and operational resources for the claims team",
                 "pages": [
                     {
-                        "title": "Welcome to Claims Operations",
-                        "content": "<h2>Claims Operations Center</h2><p>Welcome to the Contoso Health Plans Claims Operations portal. This site contains all claims processing documentation, adjudication guidelines, and performance metrics.</p><h3>Quick Links</h3><ul><li><strong>Adjudication Guidelines</strong> - Claims processing SOPs, coding references, and benefit interpretation</li><li><strong>Performance Dashboards</strong> - Real-time inventory, turnaround, and accuracy metrics</li><li><strong>Provider Billing Resources</strong> - Clean claim requirements, common denial reasons, and appeal procedures</li><li><strong>Training Materials</strong> - New adjudicator onboarding, annual refresher, and system training</li></ul><p><em>Questions? Contact Claims Operations Management.</em></p>"
+                        "title": "Claims Operations Home",
+                        "content": "<h2>Claims Operations Center</h2><p>Welcome to the Contoso Health Plans Claims Operations portal. Access adjudication procedures, metrics dashboards, and training resources.</p><h3>Quick Links</h3><ul><li><strong>Claims Processing SOPs</strong> — Standard procedures for all claim types</li><li><strong>Adjudication Metrics</strong> — Real-time dashboards (auto-adj rate, inventory, turnaround)</li><li><strong>Denial Code Reference</strong> — CMS and internal denial code lookup</li><li><strong>Provider Master File Updates</strong> — Request and tracking log</li></ul><h3>Current Metrics Snapshot</h3><ul><li>Auto-adjudication rate: 78%</li><li>Claims inventory: 4.8 days</li><li>First-pass resolution: 82%</li><li>Clean claim payment: 16 days (target ≤ 14)</li></ul>"
                     },
                     {
-                        "title": "Claims Adjudication Process",
-                        "content": "<h2>Claims Adjudication Process</h2><p>Overview of the end-to-end claims adjudication workflow at Contoso Health Plans.</p><h3>Workflow</h3><ol><li><strong>Receipt and Intake</strong> - Claims received via EDI (837P/837I) or paper. Digitized and assigned to queue.</li><li><strong>Auto-Adjudication</strong> - Rules engine processes clean claims: eligibility, benefits, pricing, provider contract</li><li><strong>Manual Review</strong> - Claims failing auto-adjudication routed to adjustors by complexity tier</li><li><strong>Payment or Denial</strong> - EOB generated, payment issued (EFT/check), or denial with reason code</li><li><strong>Appeals</strong> - Member/provider may appeal denials within 180 days</li></ol><h3>Targets</h3><ul><li>Auto-adjudication rate: 82% or more</li><li>Clean claim turnaround: 5 calendar days or less</li><li>Payment accuracy: 99% or more</li><li>Timely filing (CMS): 100% within 30 days</li></ul>"
+                        "title": "Claims Adjudication Workflow",
+                        "content": "<h2>Claims Adjudication Workflow</h2><p>End-to-end claims processing from receipt through payment or denial.</p><h3>Process Steps</h3><ol><li><strong>Receipt & Registration</strong> — EDI 837 or paper claim received, registered in claims system</li><li><strong>Front-End Edits</strong> — Eligibility, duplicate check, provider status, timely filing</li><li><strong>Auto-Adjudication</strong> — Rules engine applies benefit design, fee schedule, medical policy</li><li><strong>Pend & Review</strong> — Claims not auto-adjudicated route to examiner queue by complexity</li><li><strong>Determination</strong> — Pay, deny, or pend for additional information</li><li><strong>Payment/EOB</strong> — EFT/check issued, EOB generated to member and provider</li></ol><h3>SLA Targets</h3><ul><li>Clean claims: 30 calendar days (contractual)</li><li>Internal target: 14 days</li><li>Appeals: 30 days (standard), 72 hours (expedited)</li></ul>"
                     }
                 ],
                 "documents": [
                     {
-                        "filename": "Claims_SOP_2026.txt",
+                        "filename": "Claims_Processing_SOP.txt",
                         "folder": "Standard Operating Procedures",
-                        "content": "CLAIMS PROCESSING SOP - 2026\nContoso Health Plans (Synthetic)\n\n1. INTAKE:\n- EDI 837P (Professional) and 837I (Institutional) claims\n- Paper claims digitized within 24 hours\n- All claims assigned tracking number upon receipt\n\n2. ADJUDICATION:\n- Step 1: Member eligibility verification\n- Step 2: Provider network status check\n- Step 3: Benefit determination (plan document)\n- Step 4: Pricing (fee schedule or contracted rate)\n- Step 5: Coordination of Benefits (if applicable)\n- Step 6: Payment or denial determination\n\n3. TURNAROUND REQUIREMENTS:\n- Clean claims: 5 calendar days or less\n- Medicare Advantage: 30 calendar days or less (CMS requirement)\n- Urgent/pre-service: 72 hours or less\n\n4. QUALITY ASSURANCE:\n- Random sample audit: 5% of manual adjudications\n- Payment accuracy target: 99% or more\n- Auditor reviews documented in QA tracker\n\nDemo content - synthetic, no patient data."
+                        "content": "CLAIMS PROCESSING STANDARD OPERATING PROCEDURES\nContoso Health Plans (Synthetic)\n\n1. SCOPE\nThis SOP covers professional (CMS-1500), institutional (UB-04), and pharmacy claims processing.\n\n2. CLAIM RECEIPT\n  - EDI: 837P/837I transactions processed within 2 hours of receipt\n  - Paper: Scanned and indexed within 24 hours, OCR data entry within 48 hours\n  - Portal: Provider-submitted claims available in real-time\n\n3. FRONT-END EDITS\n  - Member eligibility verified against enrollment database\n  - Provider status validated (active, credentialed, in-network)\n  - Duplicate claim detection (same member, provider, date, CPT)\n  - Timely filing check (180 days for in-network, 365 for out-of-network)\n\n4. AUTO-ADJUDICATION\n  - Fee schedule pricing (contracted rate or Medicare allowable)\n  - Benefit accumulator check (deductible, copay, coinsurance, OOP max)\n  - Medical policy edits (prior auth, medical necessity, bundling)\n  - Coordination of benefits (COB) if applicable\n\n5. MANUAL REVIEW\n  - Complex claim types: hospital inpatient, out-of-network, high-dollar\n  - Clinical review threshold: $25,000 (auto-route to medical director)\n\nDemo content — synthetic, no patient data."
                     },
                     {
-                        "filename": "Denial_Analysis_Q4.txt",
-                        "folder": "Reports",
-                        "content": "DENIAL ANALYSIS - Q4 2025\nContoso Health Plans (Synthetic)\n\nTotal Claims Processed: 245,000\nDenial Rate: 8.5%\nTotal Denials: 20,825\n\nTop Reasons:\n1. Missing/Invalid Information (40%): 8,330 claims\n2. Out-of-Network Provider (25%): 5,206 claims\n3. Prior Authorization Required (20%): 4,165 claims\n4. Coding Errors (15%): 3,124 claims\n\nAppeal Rate: 12% of denials (2,499 appeals)\nOverturn Rate: 35% of appeals (875 overturned)\n\nAction Items:\n1. Provider education on clean claim submission\n2. Enhance auto-PA for routine procedures\n3. Deploy real-time eligibility check at provider portal\n\nDemo content - synthetic, no patient data."
+                        "filename": "Adjudication_Metrics_Q1.txt",
+                        "folder": "Metrics & Reporting",
+                        "content": "ADJUDICATION METRICS — Q1 2026\nContoso Health Plans (Synthetic)\n\nVOLUME\n  Total claims received:        124,500\n  Professional (CMS-1500):       89,200 (71.6%)\n  Institutional (UB-04):         28,100 (22.6%)\n  Pharmacy:                       7,200 (5.8%)\n\nPROCESSING\n  Auto-adjudication rate:         78% (target ≥ 80%)\n  First-pass resolution:          82% (target ≥ 85%)\n  Average turnaround (clean):     4.8 days (target ≤ 5)\n  Average turnaround (all):       8.2 days (target ≤ 14)\n\nDENIALS\n  Overall denial rate:            12.4% (target ≤ 12%)\n  Top denial reasons:\n    1. Missing prior authorization (4401)     — 31%\n    2. Non-covered service (4406)             — 22%\n    3. Timely filing exceeded (4409)          — 15%\n    4. Invalid/inactive provider (4412)       — 12%\n    5. Duplicate claim (4415)                 — 8%\n\nDemo content — synthetic, no patient data."
                     }
                 ]
             },
             {
                 "display_name": "Compliance and Regulatory Portal",
-                "description": "Regulatory compliance, DOI market conduct exam prep, CMS audit readiness, and privacy documentation",
+                "description": "CMS/state compliance documentation, audit preparation, FWA programme, and regulatory filings",
                 "pages": [
                     {
-                        "title": "Compliance Overview",
-                        "content": "<h2>Compliance and Regulatory Portal</h2><p>Central hub for regulatory compliance documentation at Contoso Health Plans.</p><h3>Regulatory Framework</h3><ul><li><strong>CMS Compliance</strong> - Medicare Advantage program requirements, Stars ratings, and audit readiness</li><li><strong>DOI Oversight</strong> - Department of Insurance market conduct, financial examinations, and rate filings</li><li><strong>HIPAA/Privacy</strong> - PHI handling, privacy policies, breach notification, and annual training</li><li><strong>NCQA Accreditation</strong> - Quality management, credentialing, UM standards</li></ul><h3>Key Dates</h3><p>DOI Market Conduct Exam: Q2 2026 | CMS Program Audit: Q3 2026 | NCQA Renewal: Q4 2026</p>"
+                        "title": "Compliance Home",
+                        "content": "<h2>Compliance & Regulatory Portal</h2><p>Contoso Health Plans compliance framework, audit preparation resources, and regulatory filing tracking.</p><h3>Compliance Framework</h3><ul><li><strong>CMS Program Audit</strong> — Part C/D compliance, coverage determinations, appeals</li><li><strong>State Market Conduct</strong> — Claims practices, consumer protection, rate filings</li><li><strong>FWA Programme</strong> — Fraud, Waste, and Abuse detection and investigation</li><li><strong>HIPAA</strong> — Privacy, security, breach notification</li></ul><h3>Current Status</h3><ul><li>CMS Program Audit: Notification received — Q3 2026</li><li>State Market Conduct Exam: Concluded — no significant findings</li><li>Annual compliance training: 94% complete</li></ul>"
+                    },
+                    {
+                        "title": "CMS Audit Preparation Guide",
+                        "content": "<h2>CMS Program Audit Preparation</h2><p>Step-by-step guide for preparing for CMS program audits under the Medicare Parts C and D audit programme.</p><h3>Audit Universe</h3><ol><li>Coverage Determinations, Appeals, and Grievances (CDAG)</li><li>Formulary/Benefit Administration</li><li>Compliance Programme Effectiveness (CPE)</li><li>Special Needs Plans (SNP) Model of Care</li></ol><h3>Preparation Timeline</h3><table><tr><th>Weeks Out</th><th>Activity</th></tr><tr><td>16 weeks</td><td>Mock audit — sample pull and dry-run review</td></tr><tr><td>12 weeks</td><td>Remediation of mock audit findings</td></tr><tr><td>8 weeks</td><td>Staff training on audit protocols</td></tr><tr><td>4 weeks</td><td>Final documentation review and data room setup</td></tr></table>"
                     }
                 ],
                 "documents": [
                     {
-                        "filename": "Compliance_Program_Summary.txt",
-                        "folder": "Compliance Program",
-                        "content": "COMPLIANCE PROGRAM SUMMARY - 2026\nContoso Health Plans (Synthetic)\n\nProgram Elements (per OIG/CMS guidance):\n1. Written policies and procedures - current\n2. Compliance Officer designated - reporting to Board\n3. Training and education - 95% completion\n4. Effective communication - hotline, open-door policy\n5. Internal monitoring and auditing - quarterly\n6. Disciplinary guidelines - documented and enforced\n7. Response to detected offenses - corrective action process\n\nFocus Areas for 2026:\n- Medicare Advantage compliance (Stars improvement)\n- Provider directory accuracy (CMS interoperability rules)\n- Claims timely filing compliance\n- Privacy and security program enhancement\n\nDemo content - synthetic, no patient data."
+                        "filename": "Market_Conduct_Summary.txt",
+                        "folder": "Regulatory Examinations",
+                        "content": "STATE MARKET CONDUCT EXAMINATION — SUMMARY\nContoso Health Plans (Synthetic)\n\nEXAMINATION PERIOD: January 1, 2024 — December 31, 2025\nCONDUCTED BY: [Synthetic State Department of Insurance]\nCOMPLETED: February 2026\n\nSCOPE\n  - Claims handling practices (timeliness, accuracy, denial procedures)\n  - Consumer complaints and grievance handling\n  - Network adequacy and provider directory accuracy\n  - Marketing materials and member communications\n  - Rate filing compliance\n\nFINDINGS\n  Significant Findings: 0\n  Minor Observations: 3\n    1. Provider directory had 2.1% inaccuracy rate (target ≤ 2%)\n    2. Three appeal acknowledgment letters sent after the 5-day requirement\n    3. One marketing piece lacked required disclaimer language\n\nCORRECTIVE ACTIONS\n  1. Monthly provider directory attestation programme implemented\n  2. Appeal letter automation enhanced with calendar-day tracking\n  3. Marketing review checklist updated\n\nOVERALL RESULT: Satisfactory — no fines or penalties assessed\n\nDemo content — synthetic, no patient data."
+                    },
+                    {
+                        "filename": "FWA_Programme_Overview.txt",
+                        "folder": "Fraud Waste Abuse",
+                        "content": "FRAUD, WASTE & ABUSE (FWA) PROGRAMME OVERVIEW\nContoso Health Plans (Synthetic)\n\n1. PROGRAMME STRUCTURE\n  - Special Investigations Unit (SIU): 4 investigators\n  - Compliance hotline: 1-800-555-TIPS (anonymous)\n  - Data analytics: Predictive models for claims outlier detection\n\n2. DETECTION METHODS\n  - Prepayment claims analytics (statistical outliers, peer comparison)\n  - Post-payment audits (targeted provider audits, DRG validation)\n  - Tip line reports and referrals\n  - CMS OIG exclusion list screening (monthly)\n\n3. Q1 2026 ACTIVITY\n  - Tips received: 12\n  - Investigations opened: 8\n  - Investigations closed (no finding): 6\n  - Investigations closed (substantiated): 2 (referred to authorities)\n  - Overpayments identified: $142,000 (recovery in progress)\n\n4. ANNUAL TRAINING\n  - All employees: General FWA awareness (CMS requirement)\n  - Claims staff: Enhanced FWA detection training\n  - Completion rate: 94% (target: 100%)\n\nDemo content — synthetic, no patient data."
+                    }
+                ]
+            },
+            {
+                "display_name": "Member Experience Hub",
+                "description": "Member engagement resources, enrollment workflows, satisfaction data, and HEDIS quality measures",
+                "pages": [
+                    {
+                        "title": "Member Experience Overview",
+                        "content": "<h2>Member Experience Hub</h2><p>Resources for delivering exceptional member experience across enrollment, benefits, and care management at Contoso Health Plans.</p><h3>Key Programmes</h3><ul><li><strong>New Member Onboarding</strong> — Welcome kit, ID card, benefits orientation</li><li><strong>Member Portal</strong> — Self-service tools, digital ID, claims status</li><li><strong>Care Management</strong> — Chronic condition programmes, health coaching</li><li><strong>HEDIS Quality</strong> — Gap closure campaigns, provider outreach</li></ul><h3>Satisfaction Metrics</h3><ul><li>Overall satisfaction: 4.1/5.0</li><li>Net Promoter Score: +32</li><li>Call center hold time: 2.5 min (target ≤ 3.0)</li><li>First-call resolution: 88%</li></ul>"
+                    }
+                ],
+                "documents": [
+                    {
+                        "filename": "HEDIS_Gap_Report_Q1.txt",
+                        "folder": "Quality & HEDIS",
+                        "content": "HEDIS MEASURE GAP REPORT — Q1 2026\nContoso Health Plans (Synthetic)\n\nMEASURE                          | CURRENT | TARGET | GAPS OPEN | STAR RATING\nBreast Cancer Screening (BCS)    | 72%     | 75%    | 890       | ★★★★\nDiabetic Eye Exam (DEE)          | 62%     | 75%    | 1,400     | ★★★\nControlling HbA1c (CDC-HBD)      | 68%     | 72%    | 1,020     | ★★★★\nStatin Use in Diabetes (SPC)     | 81%     | 80%    | 340       | ★★★★★\nColorectal Cancer Screen (COL)   | 69%     | 72%    | 1,150     | ★★★\nAdult BMI Assessment (ABA)       | 88%     | 85%    | 210       | ★★★★★\nFollow-Up After ED Visit (FUA)   | 55%     | 60%    | 2,100     | ★★★\n\nPRIORITY ACTIONS\n  1. DEE: Targeted outreach to 1,400 members with PCP visit but no exam\n  2. FUA: Coordinate with care management for ED high-utilizers\n  3. COL: Partner with in-network GI practices for colonoscopy access\n\nDemo content — synthetic, no patient data."
+                    },
+                    {
+                        "filename": "Member_Satisfaction_Survey_Jan.txt",
+                        "folder": "Member Engagement",
+                        "content": "MEMBER SATISFACTION SURVEY — JANUARY 2026\nContoso Health Plans (Synthetic)\n\nRESPONSES: 2,400 (response rate: 18%)\n\nOVERALL SATISFACTION\n  Very Satisfied:    34%\n  Satisfied:         48%\n  Neutral:           12%\n  Dissatisfied:       4%\n  Very Dissatisfied:  2%\n  Composite Score: 4.1 / 5.0 (target ≥ 4.0)\n\nCATEGORY SCORES\n  Ease of understanding benefits:  4.2\n  Provider network access:          3.9\n  Claims processing experience:     3.7\n  Customer service quality:          4.3\n  Digital tools (portal/app):        4.0\n\nVERBATIM THEMES (top 3)\n  1. 'Claims take too long to process' (frequent)\n  2. 'Love the new member portal' (positive)\n  3. 'Hard to find a specialist in my area' (rural counties)\n\nACTION ITEMS\n  - Claims turnaround improvement initiative (target: 14-day clean claim)\n  - Rural specialist access partnership (telehealth expansion)\n  - Portal enhancement: prescription refill tracking\n\nDemo content — synthetic, no patient data."
                     }
                 ]
             }
@@ -1158,18 +1941,23 @@
                         "name": "To Do",
                         "tasks": [
                             {
-                                "title": "Deploy new auto-adjudication rules for E&M codes",
+                                "title": "Analyse top 5 auto-adjudication fallout reasons",
                                 "priority": 3,
                                 "percent_complete": 0
                             },
                             {
-                                "title": "Develop provider clean claim education materials",
+                                "title": "Draft provider education campaign on clean claim submission",
                                 "priority": 5,
                                 "percent_complete": 0
                             },
                             {
-                                "title": "Design real-time eligibility check for provider portal",
-                                "priority": 3,
+                                "title": "Evaluate new AI-assisted claims coding tool",
+                                "priority": 5,
+                                "percent_complete": 0
+                            },
+                            {
+                                "title": "Update denial letter templates for clarity",
+                                "priority": 5,
                                 "percent_complete": 0
                             }
                         ]
@@ -1178,14 +1966,19 @@
                         "name": "In Progress",
                         "tasks": [
                             {
-                                "title": "Hire and train 3 temporary claims adjustors",
+                                "title": "Reduce clean claim payment turnaround to 14 days",
                                 "priority": 1,
                                 "percent_complete": 50
                             },
                             {
-                                "title": "Analyze denial root causes for coding error category",
-                                "priority": 5,
-                                "percent_complete": 60
+                                "title": "Implement NPI validation check on provider master updates",
+                                "priority": 3,
+                                "percent_complete": 75
+                            },
+                            {
+                                "title": "Reconcile pended claims inventory (>8 days)",
+                                "priority": 1,
+                                "percent_complete": 50
                             }
                         ]
                     },
@@ -1193,13 +1986,18 @@
                         "name": "Completed",
                         "tasks": [
                             {
-                                "title": "Complete claims backlog triage for >45 day claims",
-                                "priority": 1,
+                                "title": "Deploy auto-pend rule for invalid NPI (replaces auto-deny)",
+                                "priority": 3,
                                 "percent_complete": 100
                             },
                             {
-                                "title": "Deploy EDI translator hotfix for diagnosis pointer issue",
-                                "priority": 1,
+                                "title": "Publish Q1 adjudication metrics report",
+                                "priority": 5,
+                                "percent_complete": 100
+                            },
+                            {
+                                "title": "Complete claims examiner refresher training",
+                                "priority": 5,
                                 "percent_complete": 100
                             }
                         ]
@@ -1210,32 +2008,122 @@
                 "title": "Regulatory Readiness 2026",
                 "buckets": [
                     {
-                        "name": "DOI Exam Prep",
+                        "name": "CMS Audit Prep",
                         "tasks": [
                             {
-                                "title": "Compile market conduct exam document request list",
+                                "title": "Conduct mock audit — coverage determinations sample",
+                                "priority": 1,
+                                "percent_complete": 0
+                            },
+                            {
+                                "title": "Review G&A case files for audit readiness",
+                                "priority": 1,
+                                "percent_complete": 0
+                            },
+                            {
+                                "title": "Prepare compliance programme effectiveness (CPE) documentation",
                                 "priority": 3,
                                 "percent_complete": 0
                             },
                             {
-                                "title": "Run mock examination for claims timeliness",
+                                "title": "Schedule staff training on audit protocols",
                                 "priority": 5,
                                 "percent_complete": 0
                             }
                         ]
                     },
                     {
-                        "name": "CMS Audit Prep",
+                        "name": "Ongoing Compliance",
                         "tasks": [
                             {
-                                "title": "Update Medicare Advantage compliance program documentation",
-                                "priority": 3,
-                                "percent_complete": 40
+                                "title": "Achieve 100% annual compliance training completion",
+                                "priority": 1,
+                                "percent_complete": 50
                             },
                             {
-                                "title": "Prepare provider directory accuracy evidence package",
+                                "title": "Monthly OIG exclusion list screening — automate process",
+                                "priority": 3,
+                                "percent_complete": 75
+                            },
+                            {
+                                "title": "Remediate market conduct exam observations (3 items)",
+                                "priority": 3,
+                                "percent_complete": 50
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Closed",
+                        "tasks": [
+                            {
+                                "title": "Submit annual MLR report to CMS",
+                                "priority": 1,
+                                "percent_complete": 100
+                            },
+                            {
+                                "title": "Close state market conduct examination",
+                                "priority": 3,
+                                "percent_complete": 100
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "title": "Star Ratings & Quality Improvement",
+                "buckets": [
+                    {
+                        "name": "Gap Closure",
+                        "tasks": [
+                            {
+                                "title": "Launch diabetic eye exam outreach campaign (1,400 gaps)",
+                                "priority": 1,
+                                "percent_complete": 0
+                            },
+                            {
+                                "title": "Partner with GI practices for colonoscopy access programme",
                                 "priority": 3,
                                 "percent_complete": 25
+                            },
+                            {
+                                "title": "ED follow-up improvement pilot with care management",
+                                "priority": 3,
+                                "percent_complete": 0
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Data & Analytics",
+                        "tasks": [
+                            {
+                                "title": "Reconcile supplemental data from provider EMR feeds",
+                                "priority": 3,
+                                "percent_complete": 50
+                            },
+                            {
+                                "title": "Build HEDIS gap prediction model for Q4 targeting",
+                                "priority": 5,
+                                "percent_complete": 0
+                            },
+                            {
+                                "title": "Validate pharmacy claims data for medication adherence measures",
+                                "priority": 5,
+                                "percent_complete": 50
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Member Engagement",
+                        "tasks": [
+                            {
+                                "title": "Launch rural telehealth specialist access programme",
+                                "priority": 3,
+                                "percent_complete": 25
+                            },
+                            {
+                                "title": "Enhance member portal with prescription refill tracking",
+                                "priority": 5,
+                                "percent_complete": 50
                             }
                         ]
                     }

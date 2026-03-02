@@ -197,6 +197,15 @@ def get_folders(theme: str) -> list[str]:
     return load_theme(theme).get("folders", [])
 
 
+def get_user_profiles(theme: str) -> list[dict[str, str]]:
+    """Return the user profile definitions for the given theme.
+
+    Each entry has: ``role``, ``jobTitle``, ``department``,
+    ``companyName``, ``officeLocation``, ``aboutMe``.
+    """
+    return _get_section(theme, "user_profiles")
+
+
 def get_industry_context(theme: str) -> str:
     """Return the industry context blurb for the theme."""
     return load_theme(theme).get("industry_context", "Healthcare operations")

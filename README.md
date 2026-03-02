@@ -12,6 +12,7 @@
 |---------|-------------|--------|
 | `m365seed setup` | Interactive setup wizard — generates `seed-config.yaml` | GA |
 | `m365seed validate` | Validate config, auth, permissions, and users | GA |
+| `m365seed seed-profiles` | Brand user profiles (jobTitle, department, company) to match theme | GA |
 | `m365seed seed-mail` | Send synthetic email threads with attachments | GA |
 | `m365seed seed-files` | Upload documents to OneDrive / SharePoint | GA |
 | `m365seed seed-calendar` | Create calendar events (with optional Teams meeting links) | GA |
@@ -75,7 +76,9 @@ On first launch it installs the project, copies the example config, and runs the
 m365seed setup
 ```
 
-The wizard walks through tenant ID → app registration → theme → demo users → content modules, then generates `seed-config.yaml`.
+The wizard walks through tenant ID → app registration → theme → demo users → optional user password reset → content modules, then generates `seed-config.yaml`.
+
+Passwords are never written to `seed-config.yaml`; the optional reset step updates selected tenant users directly via Azure CLI.
 
 ### 5. Seed the Tenant
 
@@ -143,6 +146,7 @@ This uses Azure CLI with device-code login to:
 | Feature | Permission | Type | Justification |
 |---------|-----------|------|---------------|
 | Validate | `User.Read.All` | Application | Verify demo users exist |
+| Profiles | `User.ReadWrite.All` | Application | Update user jobTitle, department, companyName, officeLocation |
 | Validate | `Organization.Read.All` | Application | Verify auth works |
 | Email | `Mail.Send` | Application | Send mail as demo users |
 | Email | `Mail.ReadWrite` | Application | Idempotency checks + cleanup |
@@ -238,6 +242,7 @@ Key sections:
 ```
 m365seed --help
 m365seed validate --help
+m365seed seed-profiles --help
 m365seed seed-mail --help
 m365seed seed-files --help
 m365seed seed-calendar --help

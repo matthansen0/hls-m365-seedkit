@@ -8,7 +8,13 @@ import time
 from typing import Any
 
 import httpx
-from azure.identity import ClientSecretCredential, DeviceCodeCredential
+from azure.identity import (
+    AzureCliCredential,
+    ChainedTokenCredential,
+    ClientSecretCredential,
+    DeviceCodeCredential,
+    TokenCachePersistenceOptions,
+)
 
 from m365seed.config import resolve_secret
 
@@ -18,6 +24,16 @@ GRAPH_BASE = "https://graph.microsoft.com"
 GRAPH_V1 = f"{GRAPH_BASE}/v1.0"
 GRAPH_BETA = f"{GRAPH_BASE}/beta"
 SCOPES = ["https://graph.microsoft.com/.default"]
+
+# Delegated scopes requested explicitly for device-code fallback.
+# `.default` alone may not return dynamically-added delegated permissions
+# for public client flows.
+DELEGATED_SCOPES = [
+    "https://graph.microsoft.com/ChannelMessage.Send",
+    "https://graph.microsoft.com/Chat.Create",
+    "https://graph.microsoft.com/Chat.ReadWrite",
+    "https://graph.microsoft.com/User.Read",
+]
 
 # Retry settings
 MAX_RETRIES = 5
@@ -43,12 +59,60 @@ def build_credential(cfg: dict[str, Any]):
             client_secret=secret,
         )
     elif mode == "device_code":
+        cache_opts = TokenCachePersistenceOptions(
+            name="m365seed-device-code-cache",
+            allow_unencrypted_storage=True,
+        )
         return DeviceCodeCredential(
             tenant_id=tenant_id,
             client_id=client_id,
+            cache_persistence_options=cache_opts,
         )
     else:
         raise ValueError(f"Unsupported auth mode: {mode}")
+
+
+def build_delegated_client(
+    cfg: dict[str, Any],
+    dry_run: bool = False,
+) -> "GraphClient":
+    """Build a :class:`GraphClient` for delegated operations.
+
+    Used when the primary auth mode is ``client_secret`` but the
+    operation requires delegated permissions (e.g. posting Teams
+    channel messages or creating chats).
+
+    Auth strategy is non-interactive first:
+    1) ``AzureCliCredential`` (reuses existing ``az login`` session)
+    2) ``DeviceCodeCredential`` fallback if CLI token is unavailable
+    """
+    tenant_id = cfg["tenant"]["tenant_id"]
+    client_id = cfg["auth"]["client_id"]
+
+    cache_opts = TokenCachePersistenceOptions(
+        name="m365seed-device-code-cache",
+        allow_unencrypted_storage=True,
+    )
+
+    delegated_credential = ChainedTokenCredential(
+        DeviceCodeCredential(
+            tenant_id=tenant_id,
+            client_id=client_id,
+            cache_persistence_options=cache_opts,
+        ),
+        AzureCliCredential(tenant_id=tenant_id),
+    )
+
+    delegated_cfg = {
+        **cfg,
+        "auth": {**cfg["auth"], "mode": "device_code"},
+    }
+    return GraphClient(
+        delegated_cfg,
+        dry_run=dry_run,
+        scopes=DELEGATED_SCOPES,
+        credential=delegated_credential,
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -69,16 +133,29 @@ class GraphClient:
         self,
         cfg: dict[str, Any],
         dry_run: bool = False,
+        scopes: list[str] | None = None,
+        credential: Any | None = None,
     ) -> None:
         self.cfg = cfg
         self.dry_run = dry_run
-        self._credential = build_credential(cfg)
+        self._credential = credential or build_credential(cfg)
+        self._scopes = scopes
         self._http = httpx.Client(timeout=60.0)
 
     # -- token ---------------------------------------------------------------
 
     def _get_token(self) -> str:
-        token = self._credential.get_token(*SCOPES)
+        scopes = self._scopes or SCOPES
+        try:
+            token = self._credential.get_token(*scopes)
+        except Exception as exc:
+            # AzureCliCredential requires exactly one scope per request.
+            # When used in a chain for delegated flows, fall back to the
+            # first scope to avoid hard failure on multi-scope calls.
+            if len(scopes) > 1 and "exactly one scope" in str(exc):
+                token = self._credential.get_token(scopes[0])
+            else:
+                raise
         return token.token
 
     def _auth_headers(self) -> dict[str, str]:
@@ -156,6 +233,37 @@ class GraphClient:
                 time.sleep(retry_after)
                 continue
 
+            if resp.status_code >= 400:
+                # Log the response body for debugging before raising.
+                # 404s are often expected (idempotency existence checks),
+                # so log them at DEBUG; everything else at WARNING.
+                try:
+                    body = resp.json()
+                    detail = body.get("error", {}).get("message", resp.text[:500])
+                except Exception:
+                    detail = resp.text[:500]
+                duplicate_channel_name = (
+                    resp.status_code == 400
+                    and isinstance(detail, str)
+                    and "Channel name already existed" in detail
+                )
+                app_only_chat_import_restriction = (
+                    resp.status_code == 401
+                    and isinstance(detail, str)
+                    and "import purposes" in detail
+                )
+                log_level = (
+                    logging.DEBUG
+                    if resp.status_code in (404, 409)
+                    or duplicate_channel_name
+                    or app_only_chat_import_restriction
+                    else logging.WARNING
+                )
+                logger.log(
+                    log_level,
+                    "Graph %d detail for %s %s: %s",
+                    resp.status_code, method, url, detail,
+                )
             resp.raise_for_status()
             return resp
 
