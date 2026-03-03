@@ -32,6 +32,7 @@ DELEGATED_SCOPES = [
     "https://graph.microsoft.com/ChannelMessage.Send",
     "https://graph.microsoft.com/Chat.Create",
     "https://graph.microsoft.com/Chat.ReadWrite",
+    "https://graph.microsoft.com/ChatMessage.Send",
     "https://graph.microsoft.com/User.Read",
 ]
 

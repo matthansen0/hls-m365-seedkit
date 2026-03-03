@@ -36,8 +36,8 @@ THEME_LABELS = {
 
 DEFAULT_USERS = [
     {"upn": "AllanD@{domain}", "role": "Clinical Ops Manager"},
-    {"upn": "MeganB@{domain}", "role": "Physician Lead"},
-    {"upn": "NestorW@{domain}", "role": "Care Coordinator"},
+    {"upn": "MeganB@{domain}", "role": "Care Manager — Dr. Donald Wilson"},
+    {"upn": "NestorW@{domain}", "role": "Care Manager — Dr. Mary Gonzalez"},
     {"upn": "LeeG@{domain}", "role": "Nurse Manager"},
     {"upn": "JoniS@{domain}", "role": "Compliance Officer"},
 ]

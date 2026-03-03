@@ -557,8 +557,8 @@ def seed_all_cmd(
     console.print("\n[bold]── Planner ──[/bold]")
     all_actions.extend(seed_planner(client, cfg, resolved_theme, run_id))
 
-    _print_seed_summary(resolved_theme, all_actions)
     _print_actions(all_actions)
+    _print_seed_summary(resolved_theme, all_actions)
     _print_log_path()
 
 @app.command()

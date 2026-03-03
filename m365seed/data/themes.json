@@ -6,8 +6,8 @@
         "industry_context": "Acute care hospital with 350 beds, outpatient clinics, and an emergency department serving a metropolitan area.",
         "roles": [
             "Clinical Ops Manager",
-            "Physician Lead",
-            "Care Coordinator",
+            "Care Manager — Dr. Donald Wilson",
+            "Care Manager — Dr. Mary Gonzalez",
             "Nurse Manager",
             "Compliance Officer"
         ],
@@ -21,20 +21,20 @@
                 "aboutMe": "Oversees daily clinical operations across inpatient and outpatient services; leads quality improvement and patient-safety initiatives for Contoso Health System."
             },
             {
-                "role": "Physician Lead",
-                "jobTitle": "Physician Lead — Internal Medicine",
-                "department": "Medicine",
+                "role": "Care Manager — Dr. Donald Wilson",
+                "jobTitle": "Care Manager",
+                "department": "Care Management",
                 "companyName": "Contoso Health System",
                 "officeLocation": "Main Campus — Physician Tower, 4th Floor",
-                "aboutMe": "Board-certified internist leading the hospitalist programme; drives evidence-based care protocols and interdisciplinary rounding for Contoso Health System."
+                "aboutMe": "Leads interdisciplinary rounding and documents care-management notes for Jennifer Moore and related synthetic care-coordination cases."
             },
             {
-                "role": "Care Coordinator",
-                "jobTitle": "Care Coordination Specialist",
-                "department": "Care Coordination",
+                "role": "Care Manager — Dr. Mary Gonzalez",
+                "jobTitle": "Care Manager",
+                "department": "Care Management",
                 "companyName": "Contoso Health System",
                 "officeLocation": "Main Campus — Patient Services Wing",
-                "aboutMe": "Facilitates discharge planning, transitional care, and post-acute follow-up to ensure patients receive seamless, coordinated care across the Contoso Health System."
+                "aboutMe": "Leads discharge-readiness documentation and follow-up planning for Margaret Hernandez and related synthetic transitional-care cases."
             },
             {
                 "role": "Nurse Manager",
@@ -110,7 +110,7 @@
                 "messages": 6,
                 "include_attachments": true,
                 "attachment_name": "Discharge_Planning_Summary.txt",
-                "attachment_content": "DISCHARGE PLANNING SUMMARY\n\nPatient: [Synthetic — Jane Doe]\nMRN: DEMO-001\nAdmission Date: 2026-01-25\nTarget Discharge: 2026-02-01\n\nPRIMARY DIAGNOSIS: Community-acquired pneumonia\nCOMORBIDITIES: Type 2 DM, HTN, mild CHF (EF 45%)\n\nMEDICATION RECONCILIATION: Complete\n  - Amoxicillin-clavulanate 875mg BID x 5 days (new)\n  - Metformin 1000mg BID (continued)\n  - Lisinopril 10mg daily (continued)\n  - Furosemide 20mg daily (continued)\n  - Potassium 20mEq daily (continued — interaction reviewed)\n\nDISCHARGE CHECKLIST\n  ✓ Follow-up appointment scheduled: PCP Dr. Patel, Feb 6\n  ✓ Home health referral: Submitted (vitals + wound care)\n  ✓ DME: Walker ordered, delivery confirmed Feb 2\n  ✓ Insurance pre-authorization: Obtained\n  ✓ Patient education: Teach-back documented\n  ✓ Dietary counselling: Low-sodium diet reviewed\n\nCARE COORDINATOR NOTES\n  - PCP notified of admission and discharge plan\n  - Pharmacy consulted for drug interaction review\n  - Social work screening: no barriers to safe discharge\n  - 24-hour post-discharge phone call scheduled\n\nDemo content — synthetic, no patient data."
+                "attachment_content": "DISCHARGE PLANNING SUMMARY\n\nCase 1\nPatient: Jennifer Moore\nMRN: DEMO-001\nCare Manager: Dr. Donald Wilson\nAdmission Date: 2026-01-25\nTarget Discharge: 2026-02-01\n\nCase 2\nPatient: Margaret Hernandez\nMRN: DEMO-002\nCare Manager: Dr. Mary Gonzalez\nAdmission Date: 2026-01-26\nTarget Discharge: 2026-02-02\n\nPRIMARY DIAGNOSIS: Community-acquired pneumonia\nCOMORBIDITIES: Type 2 DM, HTN, mild CHF (EF 45%)\n\nMEDICATION RECONCILIATION: Complete\n  - Amoxicillin-clavulanate 875mg BID x 5 days (new)\n  - Metformin 1000mg BID (continued)\n  - Lisinopril 10mg daily (continued)\n  - Furosemide 20mg daily (continued)\n  - Potassium 20mEq daily (continued — interaction reviewed)\n\nCARE MANAGER INTERACTIONS\n  - Dr. Donald Wilson rounded on Jennifer Moore during morning rounds and documented a progress note.\n  - Dr. Mary Gonzalez rounded on Margaret Hernandez and added a discharge readiness note.\n  - Dr. Donald Wilson sent a coordination message to nursing and pharmacy for Jennifer Moore.\n  - Dr. Mary Gonzalez sent follow-up instructions for Margaret Hernandez post-discharge outreach.\n\nDISCHARGE CHECKLIST\n  ✓ Follow-up appointments scheduled\n  ✓ Home health referral submitted\n  ✓ DME delivery confirmed\n  ✓ Insurance pre-authorization obtained\n  ✓ Patient education teach-back documented\n\nDemo content — synthetic, no patient data."
             },
             {
                 "thread_id": "clinical-ops-review-001",
@@ -142,7 +142,7 @@
                 "recurrence": "weekly",
                 "duration_minutes": 30,
                 "is_online_meeting": true,
-                "body": "Weekly review of active care coordination cases, discharge planning status, post-discharge follow-up outcomes, and interdisciplinary collaboration needs."
+                "body": "Weekly review of active care coordination cases, including Jennifer Moore (care manager Dr. Donald Wilson) and Margaret Hernandez (care manager Dr. Mary Gonzalez), with rounding notes, care-manager messages, discharge status, and post-discharge follow-up outcomes."
             },
             {
                 "event_id": "compliance-review-001",
@@ -177,8 +177,8 @@
                 "posts": [
                     "Welcome to Care Updates. Use this channel for discharge planning coordination, care transition alerts, and interdisciplinary communication.",
                     "Updated discharge protocols are now effective. Key changes: follow-up appointments must be confirmed within 48 hours of discharge order.",
-                    "Reminder: All care coordinators — please update the care coordination tracker by end of shift. We are tracking 30-day readmission rates for Q1.",
-                    "This week's care coordination wins: 0 readmissions from Monday discharges, 100% follow-up compliance on Friday cohort. Great work, team.",
+                    "Case update: Dr. Donald Wilson rounded on Jennifer Moore this morning and documented a progress note. Dr. Mary Gonzalez completed Margaret Hernandez's discharge readiness assessment. Both notes are in the care coordination tracker — please review before end of shift.",
+                    "This week's care coordination wins: Jennifer Moore (care manager Dr. Donald Wilson) is on track for discharge — follow-up appointments confirmed and home health referral submitted. Margaret Hernandez (care manager Dr. Mary Gonzalez) completed teach-back and med-rec review. 0 readmissions from Monday cohort. Great work, team.",
                     "Heads-up: We've identified a gap in medication reconciliation at discharge. Please double-check the med list against the discharge summary before patient leaves.",
                     "New post-discharge phone call protocol starts next Monday. Care coordinators will call patients within 24 hours (was 48). Script document is in the Clinical Ops folder."
                 ]
@@ -228,7 +228,7 @@
                     "Night shift handoff: Patient in room 302 is hemodynamically stable but needs vitals check at 06:00. IV fluids running at 75ml/hr.",
                     "Acknowledged. I'll review the chart and labs before morning rounds. Any new admissions overnight?",
                     "Two new admissions — room 308 (CHF exacerbation, on BiPAP) and room 315 (cellulitis, started on IV antibiotics at 02:00).",
-                    "Thanks for the detailed handoff. I'll prioritize 308 for early rounding. Discharge planning for 310 is ready — paperwork needs physician sign-off.",
+                    "Thanks for the detailed handoff. I'll prioritize 308 for early rounding. Also — Dr. Donald Wilson left a progress note for Jennifer Moore in room 401, and Dr. Mary Gonzalez updated Margaret Hernandez's discharge plan in room 402. Discharge planning for 310 is ready — paperwork needs physician sign-off.",
                     "One more thing — room 302's family requested a care conference. I let them know we'd schedule it for tomorrow afternoon. Can you confirm with the attending?"
                 ]
             },
@@ -247,12 +247,12 @@
                 "type": "group",
                 "topic": "Discharge Planning — Room 310",
                 "messages": [
-                    "Room 310 discharge: Insurance pre-auth confirmed for home health. PT recommends 3x/week for 4 weeks.",
+                    "Room 310 discharge: Insurance pre-auth confirmed for home health. PT recommends 3x/week for 4 weeks. Separately — Dr. Donald Wilson sent a coordination message to nursing and pharmacy regarding Jennifer Moore's medication follow-up.",
                     "Med rec is complete. Patient is on 7 medications — I've flagged a potential interaction between lisinopril and the newly added potassium supplement.",
-                    "Good catch. I'll reach out to the attending for a reconciliation note. DME delivery is confirmed for tomorrow morning.",
+                    "Good catch. I'll reach out to the attending for a reconciliation note. DME delivery is confirmed for tomorrow morning. Also, Dr. Mary Gonzalez rounded on Margaret Hernandez and added a discharge readiness note — her target discharge is confirmed for tomorrow.",
                     "Patient education done via teach-back. She can name her warning signs and knows to call the office if weight gain exceeds 3 lbs in 24 hours.",
                     "Follow-up PCP appointment scheduled for Thursday. Discharge summary will be faxed to Dr. Patel's office. We're clear to discharge once the attending signs off.",
-                    "Attending signed the order at 10:15. Transport notified. Room 310 should be departing by 11:00."
+                    "Attending signed the order at 10:15. Transport notified. Room 310 should be departing by 11:00. Dr. Mary Gonzalez sent post-discharge outreach instructions for Margaret Hernandez — home health RN follow-up within 24 hours."
                 ]
             },
             {
@@ -278,7 +278,7 @@
                     },
                     {
                         "title": "Discharge Planning Process",
-                        "content": "<h2>Discharge Planning Process</h2><p>Effective discharge planning begins at admission. Follow this structured process to ensure safe, timely patient transitions.</p><h3>Process Steps</h3><ol><li><strong>Admission Assessment</strong> — Identify anticipated discharge needs within 24 hours of admission</li><li><strong>Interdisciplinary Planning</strong> — Coordinate with pharmacy, social work, PT/OT, and case management</li><li><strong>Patient Education</strong> — Verify teach-back on medications, warning signs, and follow-up plan</li><li><strong>Discharge Order</strong> — Physician completes discharge summary and medication reconciliation</li><li><strong>Post-Discharge Follow-up</strong> — Care coordinator confirms follow-up within 48 hours</li></ol><h3>Key Metrics</h3><ul><li>Target discharge turnaround: 4 hours or less from order to departure</li><li>30-day readmission target: 12% or less</li><li>Follow-up appointment compliance: 95% or more</li></ul>"
+                        "content": "<h2>Discharge Planning Process</h2><p>Effective discharge planning begins at admission. Follow this structured process to ensure safe, timely patient transitions.</p><h3>Active Synthetic Care-Manager Cases</h3><ul><li><strong>Jennifer Moore</strong> — care manager: <strong>Dr. Donald Wilson</strong>; latest interaction: morning rounding note and medication follow-up message.</li><li><strong>Margaret Hernandez</strong> — care manager: <strong>Dr. Mary Gonzalez</strong>; latest interaction: discharge readiness note and post-discharge outreach message.</li></ul><h3>Process Steps</h3><ol><li><strong>Admission Assessment</strong> — Identify anticipated discharge needs within 24 hours of admission</li><li><strong>Interdisciplinary Planning</strong> — Coordinate with pharmacy, social work, PT/OT, and case management</li><li><strong>Patient Education</strong> — Verify teach-back on medications, warning signs, and follow-up plan</li><li><strong>Discharge Order</strong> — Physician completes discharge summary and medication reconciliation</li><li><strong>Post-Discharge Follow-up</strong> — Care coordinator confirms follow-up within 48 hours</li></ol><h3>Key Metrics</h3><ul><li>Target discharge turnaround: 4 hours or less from order to departure</li><li>30-day readmission target: 12% or less</li><li>Follow-up appointment compliance: 95% or more</li></ul>"
                     },
                     {
                         "title": "Escalation Procedures",
@@ -304,7 +304,7 @@
                     {
                         "filename": "Care_Coordination_Toolkit.txt",
                         "folder": "Care Coordination",
-                        "content": "CARE COORDINATION TOOLKIT — 2026\nContoso Health System (Synthetic)\n\n1. DISCHARGE PLANNING CHECKLIST\n  □ Anticipated discharge date set within 24h of admission\n  □ Interdisciplinary team notified (PT/OT, pharmacy, social work)\n  □ Insurance pre-authorization obtained\n  □ DME ordered and delivery confirmed\n  □ Home health referral submitted (if applicable)\n  □ Medication reconciliation completed\n  □ Patient/family education — teach-back documented\n  □ Follow-up appointment confirmed (PCP within 7 days)\n  □ Discharge summary sent to PCP\n\n2. HANDOFF COMMUNICATION (SBAR)\n  S — Situation: Brief statement of the clinical situation\n  B — Background: Relevant clinical history and context\n  A — Assessment: Your professional assessment of the situation\n  R — Recommendation: What you need from the receiver\n\n3. READMISSION PREVENTION\n  - Post-discharge phone call within 24 hours\n  - Medication adherence check at 72 hours\n  - Transition clinic visit within 7 days for high-risk patients\n\nDemo content — synthetic, no patient data."
+                        "content": "CARE COORDINATION TOOLKIT — 2026\nContoso Health System (Synthetic)\n\nACTIVE SYNTHETIC CARE-MANAGER CASES\n  - Jennifer Moore — care manager Dr. Donald Wilson\n    * Interaction: rounded on patient and documented morning note\n    * Interaction: sent care-coordination message to nursing/pharmacy\n  - Margaret Hernandez — care manager Dr. Mary Gonzalez\n    * Interaction: rounded on patient and documented discharge readiness note\n    * Interaction: sent post-discharge follow-up message\n\n1. DISCHARGE PLANNING CHECKLIST\n  □ Anticipated discharge date set within 24h of admission\n  □ Interdisciplinary team notified (PT/OT, pharmacy, social work)\n  □ Insurance pre-authorization obtained\n  □ DME ordered and delivery confirmed\n  □ Home health referral submitted (if applicable)\n  □ Medication reconciliation completed\n  □ Patient/family education — teach-back documented\n  □ Follow-up appointment confirmed (PCP within 7 days)\n  □ Discharge summary sent to PCP\n\n2. HANDOFF COMMUNICATION (SBAR)\n  S — Situation: Brief statement of the clinical situation\n  B — Background: Relevant clinical history and context\n  A — Assessment: Your professional assessment of the situation\n  R — Recommendation: What you need from the receiver\n\n3. READMISSION PREVENTION\n  - Post-discharge phone call within 24 hours\n  - Medication adherence check at 72 hours\n  - Transition clinic visit within 7 days for high-risk patients\n\nDemo content — synthetic, no patient data."
                     }
                 ]
             },
@@ -370,12 +370,12 @@
                                 "percent_complete": 0
                             },
                             {
-                                "title": "Draft new patient rounding protocol",
+                                "title": "Dr. Donald Wilson rounded on Jennifer Moore — progress note follow-up",
                                 "priority": 3,
                                 "percent_complete": 0
                             },
                             {
-                                "title": "Evaluate new patient transport workflow",
+                                "title": "Dr. Mary Gonzalez rounded on Margaret Hernandez — discharge note review",
                                 "priority": 5,
                                 "percent_complete": 0
                             }
@@ -430,7 +430,7 @@
                         "name": "Triage",
                         "tasks": [
                             {
-                                "title": "Review patient handoff protocol effectiveness",
+                                "title": "Review handoff notes for Jennifer Moore and Margaret Hernandez care-manager interactions",
                                 "priority": 3,
                                 "percent_complete": 0
                             },
@@ -450,7 +450,7 @@
                         "name": "Active",
                         "tasks": [
                             {
-                                "title": "Coordinate post-discharge follow-up program pilot",
+                                "title": "Coordinate post-discharge follow-up messages for Jennifer Moore and Margaret Hernandez",
                                 "priority": 3,
                                 "percent_complete": 50
                             },

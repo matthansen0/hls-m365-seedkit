@@ -22,8 +22,8 @@ class TestBuildProfileMap:
     def test_healthcare_profiles(self):
         pmap = _build_profile_map("healthcare")
         assert "Clinical Ops Manager" in pmap
-        assert "Physician Lead" in pmap
-        assert "Care Coordinator" in pmap
+        assert "Care Manager — Dr. Donald Wilson" in pmap
+        assert "Care Manager — Dr. Mary Gonzalez" in pmap
         assert "Nurse Manager" in pmap
         assert "Compliance Officer" in pmap
         assert pmap["Clinical Ops Manager"]["companyName"] == "Contoso Health System"
@@ -69,11 +69,11 @@ class TestBuildProfileMap:
 class TestResolveProfile:
     def test_matching_role_returns_payload(self):
         pmap = _build_profile_map("healthcare")
-        user = {"upn": "user@test.com", "role": "Physician Lead"}
+        user = {"upn": "user@test.com", "role": "Care Manager — Dr. Donald Wilson"}
         payload = resolve_profile(user, pmap)
         assert payload is not None
-        assert payload["jobTitle"] == "Physician Lead — Internal Medicine"
-        assert payload["department"] == "Medicine"
+        assert payload["jobTitle"] == "Care Manager"
+        assert payload["department"] == "Care Management"
         assert payload["companyName"] == "Contoso Health System"
         assert "officeLocation" in payload
 
@@ -137,8 +137,8 @@ class TestSeedProfilesDryRun:
             "targets": {
                 "users": [
                     {"upn": "allan@test.com", "role": "Clinical Ops Manager"},
-                    {"upn": "megan@test.com", "role": "Physician Lead"},
-                    {"upn": "nestor@test.com", "role": "Care Coordinator"},
+                    {"upn": "megan@test.com", "role": "Care Manager — Dr. Donald Wilson"},
+                    {"upn": "nestor@test.com", "role": "Care Manager — Dr. Mary Gonzalez"},
                 ]
             }
         }
@@ -146,8 +146,8 @@ class TestSeedProfilesDryRun:
         assert len(actions) == 3
         assert all(a["action"] == "update-profile" for a in actions)
         assert actions[0]["jobTitle"] == "Clinical Operations Manager"
-        assert actions[1]["jobTitle"] == "Physician Lead — Internal Medicine"
-        assert actions[2]["department"] == "Care Coordination"
+        assert actions[1]["jobTitle"] == "Care Manager"
+        assert actions[2]["department"] == "Care Management"
 
     def test_seed_profiles_skips_unknown_role(self):
         client = self._make_dry_client()
@@ -241,7 +241,7 @@ class TestSeedProfilesDryRun:
             "targets": {
                 "users": [
                     {"upn": "gone@test.com", "role": "Clinical Ops Manager"},
-                    {"upn": "also_gone@test.com", "role": "Physician Lead"},
+                    {"upn": "also_gone@test.com", "role": "Care Manager — Dr. Donald Wilson"},
                 ]
             }
         }

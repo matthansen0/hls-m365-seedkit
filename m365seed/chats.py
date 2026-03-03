@@ -91,6 +91,28 @@ def _send_chat_message(
     )
 
 
+def _remove_chat_member(
+    client: GraphClient,
+    chat_id: str,
+    membership_id: str,
+) -> None:
+    """Remove a member from a chat by membership ID.  Uses **/beta**."""
+    client.delete(f"/chats/{chat_id}/members/{membership_id}", base=GRAPH_BETA)
+
+
+def _find_membership_id(
+    client: GraphClient,
+    chat_id: str,
+    user_id: str,
+) -> str | None:
+    """Find the membership ID for a user in a chat."""
+    resp = client.get(f"/chats/{chat_id}/members", base=GRAPH_BETA)
+    for member in resp.json().get("value", []):
+        if member.get("userId") == user_id:
+            return member.get("id")
+    return None
+
+
 # ---------------------------------------------------------------------------
 # Public API
 # ---------------------------------------------------------------------------
@@ -108,6 +130,19 @@ def seed_chats(
     ``--enable-beta-teams`` argument.
 
     Returns a list of action records (including chat IDs for cleanup).
+
+    **Auth strategy for chat messages (client_secret mode):**
+
+    Graph does not allow app-only tokens to send chat messages outside
+    of Teams migration/import mode.  When ``auth.mode`` is
+    ``client_secret`` this function:
+
+    1. Pre-builds a delegated client (device-code / Azure CLI token).
+    2. Resolves the delegated user's identity (``/me``).
+    3. Adds the delegated user as a temporary member of each group chat
+       so they can send messages.
+    4. Sends messages with the delegated client.
+    5. Removes the delegated user from the chat afterward.
     """
     chats_cfg = cfg.get("chats", {})
     if not chats_cfg.get("enabled"):
@@ -153,6 +188,54 @@ def seed_chats(
             logger.warning("Could not resolve user id for %s: %s", upn, exc)
             user_ids[upn] = upn  # fallback to UPN
 
+    # ------------------------------------------------------------------
+    # Pre-build delegated client for message sending.
+    #
+    # In client_secret mode, app-only tokens can CREATE chats but cannot
+    # SEND messages (Graph requires delegated ChatMessage.Send).  We
+    # eagerly build the delegated client, resolve the signed-in user,
+    # and include them as a temporary member of each group chat so they
+    # have permission to post messages.
+    # ------------------------------------------------------------------
+    delegated_client: GraphClient | None = None
+    delegated_user_id: str = ""
+    delegated_user_upn: str = ""
+
+    if auth_mode == "client_secret":
+        try:
+            delegated_client = build_delegated_client(cfg, dry_run=client.dry_run)
+            me_resp = delegated_client.get(
+                "/me", params={"$select": "id,userPrincipalName"}
+            )
+            me_data = me_resp.json()
+            delegated_user_id = me_data.get("id", "")
+            delegated_user_upn = me_data.get("userPrincipalName", "")
+            if delegated_user_id and delegated_user_upn:
+                user_ids[delegated_user_upn] = delegated_user_id
+                logger.info(
+                    "Delegated user for chat messages: %s", delegated_user_upn
+                )
+                # Add delegated user to group chat members so they can
+                # send messages after the chat is created.
+                for conv in conversations:
+                    conv_type = conv.get("type", "group")
+                    if conv_type == "oneOnOne":
+                        continue
+                    if delegated_user_upn not in conv["members"]:
+                        conv["members"].append(delegated_user_upn)
+            else:
+                logger.warning(
+                    "Could not resolve delegated user identity — "
+                    "chat messages may fail."
+                )
+                delegated_client = None
+        except Exception as exc:
+            logger.warning(
+                "Could not pre-build delegated client for chat messages: %s",
+                exc,
+            )
+            delegated_client = None
+
     # For delegated flows, Graph requires the signed-in caller to be a member
     # of chats they create.
     if auth_mode == "device_code":
@@ -176,27 +259,41 @@ def seed_chats(
         conv_id = conv.get("conversation_id", conv.get("topic", "unnamed"))
         conv_type = conv.get("type", "group")
 
-        if auth_mode == "device_code" and conv_type == "oneOnOne":
-            try:
-                me_resp = chat_client.get("/me", params={"$select": "userPrincipalName"})
-                me_upn = (me_resp.json().get("userPrincipalName") or "").lower()
-            except Exception:
-                me_upn = ""
+        # For oneOnOne chats, the caller must be one of the 2 members.
+        if conv_type == "oneOnOne":
+            caller_upn = ""
+            if auth_mode == "device_code":
+                try:
+                    me_resp = chat_client.get(
+                        "/me", params={"$select": "userPrincipalName"}
+                    )
+                    caller_upn = (
+                        me_resp.json().get("userPrincipalName") or ""
+                    ).lower()
+                except Exception:
+                    pass
+            elif auth_mode == "client_secret" and delegated_user_upn:
+                caller_upn = delegated_user_upn.lower()
 
-            members = [m.lower() for m in conv.get("members", [])]
-            if me_upn and me_upn not in members:
-                logger.info(
-                    "Skipping oneOnOne chat '%s': delegated caller is not one of the configured members.",
-                    conv_id,
-                )
-                actions.append(
-                    {
-                        "action": "skip_chat",
-                        "conversation_id": conv_id,
-                        "reason": "caller_not_member_for_oneOnOne",
-                    }
-                )
-                continue
+            if caller_upn:
+                members_lower = [m.lower() for m in conv.get("members", [])]
+                if caller_upn not in members_lower:
+                    # For client_secret mode, we skip silently — oneOnOne
+                    # chats can only have exactly 2 members.
+                    if auth_mode == "device_code":
+                        logger.info(
+                            "Skipping oneOnOne chat '%s': delegated caller is "
+                            "not one of the configured members.",
+                            conv_id,
+                        )
+                    actions.append(
+                        {
+                            "action": "skip_chat",
+                            "conversation_id": conv_id,
+                            "reason": "caller_not_member_for_oneOnOne",
+                        }
+                    )
+                    continue
 
         logger.info(
             "[BETA] Creating chat '%s' with %d members",
@@ -221,7 +318,11 @@ def seed_chats(
                         "Chat create hit auth boundary — attempting delegated auth …"
                     )
                     try:
-                        chat_client = build_delegated_client(cfg, dry_run=client.dry_run)
+                        if not delegated_client:
+                            delegated_client = build_delegated_client(
+                                cfg, dry_run=client.dry_run
+                            )
+                        chat_client = delegated_client
                         chat_data = _create_chat(chat_client, conv, run_id, user_ids)
                     except Exception as delegated_exc:
                         logger.warning(
@@ -252,7 +353,16 @@ def seed_chats(
                 }
             )
 
+            # ----------------------------------------------------------
             # Send messages
+            # ----------------------------------------------------------
+            # Pick the right client for sending messages.
+            # In client_secret mode, always use the delegated client
+            # (the app-only token cannot send chat messages).
+            msg_client = chat_client
+            if auth_mode == "client_secret" and delegated_client:
+                msg_client = delegated_client
+
             message_send_blocked = False
             for msg_cfg in conv.get("messages", []):
                 # Accept both dict {"text": "..."} and plain string formats
@@ -264,34 +374,38 @@ def seed_chats(
                     conv_id,
                 )
                 try:
-                    _send_chat_message(chat_client, chat_id, message, run_id)
+                    _send_chat_message(msg_client, chat_id, message, run_id)
                 except Exception as exc:
                     exc_str = str(exc)
                     detail = ""
                     if hasattr(exc, "response") and exc.response is not None:
                         try:
                             detail = (
-                                exc.response.json().get("error", {}).get("message", "")
+                                exc.response.json()
+                                .get("error", {})
+                                .get("message", "")
                             )
                         except Exception:
                             detail = exc.response.text or ""
-                    app_only_message_block = (
-                        auth_mode == "client_secret"
-                        and ("401" in exc_str or "Unauthorized" in exc_str)
-                        and "import purposes" in detail
+                    authz_failure = (
+                        "403" in exc_str
+                        or "401" in exc_str
+                        or "Forbidden" in exc_str
+                        or "Unauthorized" in exc_str
                     )
-                    if app_only_message_block:
-                        logger.info(
-                            "Skipping messages for chat '%s' in app-only mode: %s",
+                    if authz_failure:
+                        logger.warning(
+                            "Chat message send failed for '%s': %s — %s",
                             conv_id,
                             exc,
+                            detail,
                         )
                         actions.append(
                             {
                                 "action": "skip_chat_messages",
                                 "conversation_id": conv_id,
                                 "chat_id": chat_id,
-                                "reason": "app_only_import_only",
+                                "reason": "insufficient_privileges",
                             }
                         )
                         message_send_blocked = True
@@ -305,6 +419,34 @@ def seed_chats(
                         "api": "beta",
                     }
                 )
+
+            # ----------------------------------------------------------
+            # Clean up: remove the temporary delegated user from group
+            # chats so they don't pollute the demo.
+            # ----------------------------------------------------------
+            if (
+                auth_mode == "client_secret"
+                and delegated_user_id
+                and conv_type != "oneOnOne"
+                and chat_id != "dry-run-id"
+            ):
+                try:
+                    membership_id = _find_membership_id(
+                        client, chat_id, delegated_user_id
+                    )
+                    if membership_id:
+                        _remove_chat_member(client, chat_id, membership_id)
+                        logger.info(
+                            "Removed temporary delegated user from chat '%s'",
+                            conv_id,
+                        )
+                except Exception as cleanup_exc:
+                    logger.warning(
+                        "Could not remove delegated user from chat '%s': %s",
+                        conv_id,
+                        cleanup_exc,
+                    )
+
             if message_send_blocked:
                 continue
         except Exception as exc:
