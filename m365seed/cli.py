@@ -9,6 +9,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Optional
 
+import httpx
 import typer
 from rich.console import Console
 from rich.logging import RichHandler
@@ -183,6 +184,56 @@ def _build_client(cfg: dict, dry_run: bool):
     return GraphClient(cfg, dry_run=dry_run)
 
 
+def _format_http_error(exc: Exception) -> str:
+    """Return the most useful HTTP error detail for console output."""
+    if isinstance(exc, httpx.HTTPStatusError) and exc.response is not None:
+        try:
+            payload = exc.response.json()
+            detail = payload.get("error", {}).get("message", "")
+            if detail:
+                return str(detail)
+        except Exception:
+            pass
+        if exc.response.text:
+            return exc.response.text
+    return str(exc)
+
+
+def _validate_graph_auth(client, cfg: dict) -> tuple[dict | None, str | None]:
+    """Validate auth without treating app-only organization lookup as fatal."""
+    try:
+        return client.check_auth(), None
+    except httpx.HTTPStatusError as exc:
+        response = exc.response
+        if (
+            cfg.get("auth", {}).get("mode") == "client_secret"
+            and response is not None
+            and response.status_code == 403
+        ):
+            client.ensure_token()
+            return (
+                None,
+                "Access token acquired, but Microsoft Graph rejected GET /organization (403). "
+                "Continuing without tenant lookup. If this app should query tenant details, "
+                "grant admin consent for Organization.Read.All or re-run m365seed register.",
+            )
+        raise
+
+
+def _validate_user_lookup(client, upn: str) -> tuple[bool | None, str | None]:
+    """Check whether a configured user exists, distinguishing 404 from 403."""
+    try:
+        client.get(f"/users/{upn}", params={"$select": "id,userPrincipalName"})
+        return True, None
+    except httpx.HTTPStatusError as exc:
+        response = exc.response
+        if response is not None and response.status_code == 404:
+            return False, None
+        if response is not None and response.status_code == 403:
+            return None, "Graph denied the directory lookup (403)."
+        raise
+
+
 def _print_actions(actions: list[dict]) -> None:
     if not actions:
         console.print("[dim]No actions recorded.[/dim]")
@@ -267,24 +318,39 @@ def validate(
     # 2. Auth check
     client = _build_client(cfg, dry_run)
     try:
-        result = client.check_auth()
+        result, auth_warning = _validate_graph_auth(client, cfg)
         console.print("[green]✓[/green] Graph authentication succeeded.")
-        if isinstance(result, dict) and "value" in result:
+        if auth_warning:
+            console.print(f"  [yellow]⚠[/yellow] {auth_warning}")
+            logger.warning(auth_warning)
+        elif isinstance(result, dict) and "value" in result:
             org = result["value"][0] if result["value"] else {}
             console.print(f"  Tenant: {org.get('displayName', 'N/A')}")
     except Exception as exc:
-        console.print(f"[red]✗[/red] Auth check failed: {exc}")
+        console.print(f"[red]✗[/red] Auth check failed: {_format_http_error(exc)}")
         raise typer.Exit(1)
 
     # 3. User existence
     users = get_users(cfg)
     for u in users:
         upn = u["upn"]
-        exists = client.check_user_exists(upn)
-        mark = "[green]✓[/green]" if exists else "[red]✗[/red]"
-        console.print(f"  {mark} User {upn}")
-        if not exists:
+        try:
+            exists, warning = _validate_user_lookup(client, upn)
+        except Exception as exc:
+            detail = _format_http_error(exc)
+            console.print(f"  [yellow]⚠[/yellow] User {upn} — validation error: {detail}")
+            logger.warning("Could not validate user %s: %s", upn, detail)
+            continue
+
+        if exists is True:
+            console.print(f"  [green]✓[/green] User {upn}")
+        elif exists is False:
+            console.print(f"  [red]✗[/red] User {upn}")
             logger.warning("User %s not found in tenant.", upn)
+        else:
+            detail = warning or "insufficient permissions"
+            console.print(f"  [yellow]⚠[/yellow] User {upn} — could not verify ({detail})")
+            logger.warning("Could not verify user %s: %s", upn, detail)
 
     console.print("\n[bold]Validation complete.[/bold]")
     _print_log_path()

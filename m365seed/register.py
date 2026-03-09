@@ -10,6 +10,7 @@ from __future__ import annotations
 import json
 import os
 from pathlib import Path
+import shlex
 import shutil
 import subprocess
 import sys
@@ -40,16 +41,15 @@ CORE_PERMISSIONS: dict[str, str] = {
 
 EXTENDED_PERMISSIONS: dict[str, str] = {
     "Group.ReadWrite.All": "62a82d76-70ea-41e2-9197-370581804d09",
-    "Sites.Manage.All": "0c0bf378-bf22-4f51-be20-13571c76a2c4",
+    "Sites.Manage.All": "0c0bf378-bf22-4481-8f81-9e89a9b4960a",
     "Tasks.ReadWrite.All": "44e666d1-d276-445b-a5fc-8815eeb81d55",
 }
 
 TEAMS_PERMISSIONS: dict[str, str] = {
     "Chat.Create": "d9c48af6-9ad9-47ad-82c3-63757137b9af",
     "Chat.ReadWrite.All": "294ce7c9-31ba-490a-ad7d-97a7d075e4ed",
-    "Channel.Create": "f3a65bd4-b703-46df-8f7e-0174571a4049",
-    "Channel.Delete.All": "6a118a39-1227-45d4-b534-b9ce547f9313",
-    "ChannelMessage.Send": "7ab1d787-bae7-4d5d-8b12-37d448e0bdb4",
+    "Channel.Create": "f3a65bd4-b703-46df-8f7e-0174fea562aa",
+    "Channel.Delete.All": "6a118a39-1227-45d4-af0c-ea7b40d210bc",
 }
 
 
@@ -58,6 +58,7 @@ TEAMS_PERMISSIONS: dict[str, str] = {
 
 def _az(*args: str, capture: bool = True) -> subprocess.CompletedProcess:
     """Run an ``az`` CLI command, returning parsed output."""
+    _ensure_msal_cache_healthy()
     cmd = ["az", *args]
     if capture:
         cmd.extend(["--output", "json"])
@@ -125,6 +126,35 @@ def _clear_msal_http_cache() -> bool:
     return removed_any
 
 
+def _ensure_msal_cache_healthy() -> None:
+    """Remove Azure CLI's HTTP cache before invoking ``az``.
+
+    The workspace Python environment and Azure CLI can load different ``msal``
+    versions, so a pickle probe in this process is not reliable. Removing the
+    HTTP cache is safe and avoids Azure CLI crashes when the cache was written
+    by an incompatible ``msal`` version.
+    """
+    azure_dir = _get_azure_config_dir()
+    for cache_path in (
+        azure_dir / "msal_http_cache.bin",
+        azure_dir / "msal_http_cache.bin.lockfile",
+        azure_dir / "msal_http_cache.json",
+    ):
+        try:
+            if cache_path.exists():
+                cache_path.unlink()
+        except OSError:
+            pass
+
+
+def _format_env_export(var_name: str, value: str) -> str:
+    """Return a shell command that exports an environment variable safely."""
+    if sys.platform == "win32":
+        escaped = value.replace("'", "''")
+        return f"$env:{var_name} = '{escaped}'"
+    return f"export {var_name}={shlex.quote(value)}"
+
+
 def _is_logged_in(tenant_id: str) -> bool:
     """Return True if already logged into the target tenant."""
     probe = _az("account", "show")
@@ -164,13 +194,8 @@ def register_app(
         return None
 
     # ── 2. Login via device code ────────────────────────────
-    pre_probe = _az("account", "show")
-    pre_probe_text = f"{pre_probe.stdout}\n{pre_probe.stderr}"
-    if _is_msal_http_cache_error(pre_probe_text):
-        console.print(
-            "[yellow]⚠ Detected Azure CLI MSAL cache corruption; clearing cache before login.[/yellow]"
-        )
-        _clear_msal_http_cache()
+    # Proactively validate the MSAL binary cache before any az command.
+    _ensure_msal_cache_healthy()
 
     if not _is_logged_in(tenant_id):
         console.print(
@@ -373,10 +398,7 @@ def run_registration_wizard(tenant_id: str | None = None) -> dict[str, str] | No
         console.print(
             "\n  [bold]Set the client secret in your environment:[/bold]\n"
         )
-        if sys.platform == "win32":
-            console.print(f'    $env:M365SEED_CLIENT_SECRET = "{secret}"')
-        else:
-            console.print(f'    export M365SEED_CLIENT_SECRET="{secret}"')
+        console.print(f"    {_format_env_export('M365SEED_CLIENT_SECRET', secret)}")
         console.print(
             "\n  [yellow]⚠ Save this secret now — it cannot be retrieved later.[/yellow]"
         )

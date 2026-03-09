@@ -8,7 +8,10 @@ from unittest.mock import patch
 import yaml
 
 from m365seed.setup import (
+    _build_setup_graph_client,
     _guess_tenant_domain,
+    _run_az_command,
+    _create_missing_demo_users,
     _reset_demo_user_passwords,
     _discover_tenant_users,
     _match_default_users,
@@ -53,6 +56,45 @@ def test_guess_tenant_domain_returns_none_on_tenant_mismatch() -> None:
 def test_guess_tenant_domain_returns_none_when_az_missing() -> None:
     with patch("m365seed.setup.shutil.which", return_value=None):
         assert _guess_tenant_domain("2c627739-3b65-451a-ac0d-d3ecea353a55") is None
+
+
+def test_build_setup_graph_client_prefers_delegated() -> None:
+    delegated = object()
+    app_client = object()
+
+    with patch(
+        "m365seed.setup._build_setup_delegated_graph_client",
+        return_value=delegated,
+    ), patch(
+        "m365seed.setup._build_setup_app_graph_client",
+        return_value=app_client,
+    ):
+        client = _build_setup_graph_client(
+            "2c627739-3b65-451a-ac0d-d3ecea353a55",
+            "client-id",
+            "M365SEED_CLIENT_SECRET",
+        )
+
+    assert client is delegated
+
+
+def test_build_setup_graph_client_falls_back_to_app_client() -> None:
+    app_client = object()
+
+    with patch(
+        "m365seed.setup._build_setup_delegated_graph_client",
+        return_value=None,
+    ), patch(
+        "m365seed.setup._build_setup_app_graph_client",
+        return_value=app_client,
+    ):
+        client = _build_setup_graph_client(
+            "2c627739-3b65-451a-ac0d-d3ecea353a55",
+            "client-id",
+            "M365SEED_CLIENT_SECRET",
+        )
+
+    assert client is app_client
 
 
 def test_reset_demo_user_passwords_success() -> None:
@@ -105,6 +147,33 @@ def test_reset_demo_user_passwords_without_az_cli() -> None:
 
     assert success == 0
     assert failed == 1
+
+
+def test_create_missing_demo_users_success() -> None:
+    users = [{"upn": "a@contoso.com", "role": "User A"}]
+
+    with patch("m365seed.setup.shutil.which", return_value="/usr/bin/az"), patch(
+        "m365seed.setup.subprocess.run", return_value=_cp(0, stdout="{}")
+    ):
+        success, failed, created = _create_missing_demo_users(
+            users,
+            "TempPass!234",
+            force_change_next_sign_in=True,
+        )
+
+    assert success == 1
+    assert failed == 0
+    assert created == users
+
+
+def test_run_az_command_purges_http_cache() -> None:
+    with patch("m365seed.register._ensure_msal_cache_healthy") as ensure_healthy, patch(
+        "m365seed.setup.subprocess.run", return_value=_cp(0, stdout="{}")
+    ):
+        result = _run_az_command(["account", "show", "--output", "json"])
+
+    assert result.returncode == 0
+    ensure_healthy.assert_called_once()
 
 
 # ---------------------------------------------------------------------------

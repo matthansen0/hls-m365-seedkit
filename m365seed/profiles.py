@@ -2,7 +2,7 @@
 
 Uses ``PATCH /users/{upn}`` to set jobTitle, department, companyName,
 officeLocation, and (if possible) aboutMe so that the demo tenant users
-look like they actually belong to the themed organisation.
+look like they actually belong to the themed organization.
 
 All content is synthetic — no PHI, no PII.
 

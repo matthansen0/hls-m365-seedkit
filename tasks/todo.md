@@ -69,4 +69,9 @@
 - [x] Patch delegated token handling for Azure CLI single-scope behavior (`m365seed/graph.py`)
 - [x] Patch Teams channel existence to handle pagination (`m365seed/teams.py`)
 - [x] Patch chat seeding to app-only first, delegated fallback on auth boundary (`m365seed/chats.py`)
+- [x] Harden delegated Graph auth to purge Azure CLI HTTP cache before `AzureCliCredential` token requests (`m365seed/graph.py`)
+- [x] Relax `validate` so app-only `/organization` `403` is reported as a permission warning instead of a hard auth failure (`m365seed/cli.py`)
+- [x] Reroute live OneDrive file seeding to the provisioned admin personal site after `admin@M365CPI56568282.onmicrosoft.com` completed first-run SharePoint sign-in
 - [ ] Remaining tenant-side blocker: Teams/Chats posting authorization still not fully clean in app-only runs
+- [ ] Re-run live tenant validation after re-exporting `M365SEED_CLIENT_SECRET`
+- [ ] Provision AllanD OneDrive later if persona-specific file placement is still required

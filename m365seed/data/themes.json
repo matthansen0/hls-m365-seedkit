@@ -530,7 +530,7 @@
                                 "percent_complete": 50
                             },
                             {
-                                "title": "Analyse HCAHPS physician communication scores",
+                                "title": "Analyze HCAHPS physician communication scores",
                                 "priority": 5,
                                 "percent_complete": 50
                             }
@@ -1941,7 +1941,7 @@
                         "name": "To Do",
                         "tasks": [
                             {
-                                "title": "Analyse top 5 auto-adjudication fallout reasons",
+                                "title": "Analyze top 5 auto-adjudication fallout reasons",
                                 "priority": 3,
                                 "percent_complete": 0
                             },

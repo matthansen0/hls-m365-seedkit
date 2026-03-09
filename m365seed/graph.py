@@ -10,7 +10,6 @@ from typing import Any
 import httpx
 from azure.identity import (
     AzureCliCredential,
-    ChainedTokenCredential,
     ClientSecretCredential,
     DeviceCodeCredential,
     TokenCachePersistenceOptions,
@@ -25,14 +24,19 @@ GRAPH_V1 = f"{GRAPH_BASE}/v1.0"
 GRAPH_BETA = f"{GRAPH_BASE}/beta"
 SCOPES = ["https://graph.microsoft.com/.default"]
 
+# Azure CLI's public client application ID. Used as the delegated
+# device-code fallback when the configured app registration is
+# confidential-only and therefore cannot run a public client flow.
+AZURE_CLI_PUBLIC_CLIENT_ID = "04b07795-8ddb-461a-bbee-02f9e1bf7b46"
+
 # Delegated scopes requested explicitly for device-code fallback.
 # `.default` alone may not return dynamically-added delegated permissions
 # for public client flows.
 DELEGATED_SCOPES = [
-    "https://graph.microsoft.com/ChannelMessage.Send",
     "https://graph.microsoft.com/Chat.Create",
     "https://graph.microsoft.com/Chat.ReadWrite",
     "https://graph.microsoft.com/ChatMessage.Send",
+    "https://graph.microsoft.com/ChannelMessage.Send",
     "https://graph.microsoft.com/User.Read",
 ]
 
@@ -44,6 +48,116 @@ DEFAULT_RETRY_AFTER = 5  # seconds
 # ---------------------------------------------------------------------------
 # Auth helpers
 # ---------------------------------------------------------------------------
+
+
+class CacheSafeAzureCliCredential:
+    """Wrap ``AzureCliCredential`` and clear Azure CLI's HTTP cache first."""
+
+    def __init__(self, tenant_id: str) -> None:
+        self._credential = AzureCliCredential(tenant_id=tenant_id)
+
+    def get_token(self, *scopes: str, **kwargs: Any):
+        from m365seed.register import _ensure_msal_cache_healthy
+
+        _ensure_msal_cache_healthy()
+        return self._credential.get_token(*scopes, **kwargs)
+
+
+def _device_code_prompt(
+    verification_uri: str, user_code: str, expires_on: Any
+) -> None:
+    """Display device-code prompt prominently via stderr + logger."""
+    import sys
+
+    msg = (
+        f"\n{'=' * 60}\n"
+        f"  ACTION REQUIRED — Device Code Sign-In\n"
+        f"  Open:  {verification_uri}\n"
+        f"  Code:  {user_code}\n"
+        f"{'=' * 60}\n"
+    )
+    # Write to stderr to bypass Rich/tee buffering
+    sys.stderr.write(msg)
+    sys.stderr.flush()
+    logger.info(
+        "Device-code sign-in: open %s and enter code %s",
+        verification_uri, user_code,
+    )
+
+
+class DelegatedGraphCredential:
+    """Silently reuse cached delegated tokens, falling back to device-code."""
+
+    _CACHE_NAME = "m365seed-device-code-cache"
+
+    def __init__(self, tenant_id: str, device_code_client_id: str) -> None:
+        self._tenant_id = tenant_id
+        self._client_id = device_code_client_id
+
+        cache_opts = TokenCachePersistenceOptions(
+            name=self._CACHE_NAME,
+            allow_unencrypted_storage=True,
+        )
+        self._azure_cli = CacheSafeAzureCliCredential(tenant_id=tenant_id)
+        self._device_code = DeviceCodeCredential(
+            tenant_id=tenant_id,
+            client_id=device_code_client_id,
+            cache_persistence_options=cache_opts,
+            prompt_callback=_device_code_prompt,
+        )
+
+    def get_token(self, *scopes: str, **kwargs: Any):
+        """Try silent MSAL cache refresh first, then device-code flow."""
+        import msal
+
+        graph_default = ("https://graph.microsoft.com/.default",)
+        cache_path = self._resolve_cache_path()
+
+        if cache_path and cache_path.exists():
+            try:
+                cache = msal.SerializableTokenCache()
+                cache.deserialize(cache_path.read_text())
+                app = msal.PublicClientApplication(
+                    self._client_id,
+                    authority=f"https://login.microsoftonline.com/{self._tenant_id}",
+                    token_cache=cache,
+                )
+                accounts = app.get_accounts()
+                if accounts:
+                    result = app.acquire_token_silent(
+                        list(graph_default), account=accounts[0],
+                    )
+                    if result and "access_token" in result:
+                        logger.debug("Delegated token acquired silently from cache")
+                        # Persist any refreshed tokens back to cache
+                        if cache.has_state_changed:
+                            cache_path.write_text(cache.serialize())
+                        return type(
+                            "AccessToken",
+                            (),
+                            {
+                                "token": result["access_token"],
+                                "expires_on": int(time.time()) + result.get("expires_in", 3600),
+                            },
+                        )()
+            except Exception as exc:
+                logger.debug("Silent cache acquisition failed: %s", exc)
+
+        # Fall back to DeviceCodeCredential (will prompt if needed)
+        return self._device_code.get_token(*graph_default, **kwargs)
+
+    @staticmethod
+    def _resolve_cache_path():
+        """Return the Path to the MSAL persistent cache file."""
+        from pathlib import Path
+
+        cache_dir = Path.home() / ".IdentityService"
+        return cache_dir / f"{DelegatedGraphCredential._CACHE_NAME}.nocae"
+
+
+def build_azure_cli_credential(tenant_id: str) -> CacheSafeAzureCliCredential:
+    """Return a cache-safe Azure CLI credential for delegated Graph calls."""
+    return CacheSafeAzureCliCredential(tenant_id=tenant_id)
 
 
 def build_credential(cfg: dict[str, Any]):
@@ -88,25 +202,23 @@ def build_delegated_client(
     2) ``DeviceCodeCredential`` fallback if CLI token is unavailable
     """
     tenant_id = cfg["tenant"]["tenant_id"]
-    client_id = cfg["auth"]["client_id"]
-
-    cache_opts = TokenCachePersistenceOptions(
-        name="m365seed-device-code-cache",
-        allow_unencrypted_storage=True,
+    device_code_client_id = (
+        cfg["auth"].get("delegated_client_id")
+        or cfg["auth"]["client_id"]
     )
 
-    delegated_credential = ChainedTokenCredential(
-        DeviceCodeCredential(
-            tenant_id=tenant_id,
-            client_id=client_id,
-            cache_persistence_options=cache_opts,
-        ),
-        AzureCliCredential(tenant_id=tenant_id),
+    delegated_credential = DelegatedGraphCredential(
+        tenant_id=tenant_id,
+        device_code_client_id=device_code_client_id,
     )
 
     delegated_cfg = {
         **cfg,
-        "auth": {**cfg["auth"], "mode": "device_code"},
+        "auth": {
+            **cfg["auth"],
+            "mode": "device_code",
+            "client_id": device_code_client_id,
+        },
     }
     return GraphClient(
         delegated_cfg,
@@ -164,6 +276,10 @@ class GraphClient:
             "Authorization": f"Bearer {self._get_token()}",
             "Content-Type": "application/json",
         }
+
+    def ensure_token(self) -> str:
+        """Acquire and return an access token without issuing a Graph request."""
+        return self._get_token()
 
     # -- core request --------------------------------------------------------
 
