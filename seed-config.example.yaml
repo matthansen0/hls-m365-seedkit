@@ -20,7 +20,7 @@ targets:
     - upn: "dr.patel@m365x123456.onmicrosoft.com"
       role: "Care Manager — Dr. Donald Wilson"
     - upn: "care.coord@m365x123456.onmicrosoft.com"
-      role: "Care Manager — Dr. Mary Gonzalez"
+      role: "Care Manager — Dr. Daniel Rodriguez"
     - upn: "nurse.jones@m365x123456.onmicrosoft.com"
       role: "Nurse Manager"
     - upn: "compliance@m365x123456.onmicrosoft.com"

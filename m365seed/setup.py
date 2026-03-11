@@ -37,7 +37,7 @@ THEME_LABELS = {
 DEFAULT_USERS = [
     {"upn": "AllanD@{domain}", "role": "Clinical Ops Manager"},
     {"upn": "MeganB@{domain}", "role": "Care Manager — Dr. Donald Wilson"},
-    {"upn": "NestorW@{domain}", "role": "Care Manager — Dr. Mary Gonzalez"},
+    {"upn": "NestorW@{domain}", "role": "Care Manager — Dr. Daniel Rodriguez"},
     {"upn": "LeeG@{domain}", "role": "Nurse Manager"},
     {"upn": "JoniS@{domain}", "role": "Compliance Officer"},
 ]
@@ -809,6 +809,38 @@ def _discover_teams(
     return []
 
 
+def _add_az_login_user_to_group(group_id: str) -> None:
+    """Add the current ``az login`` user as an owner+member of *group_id*.
+
+    This prevents 403 errors later when the delegated user (the same
+    ``az login`` identity) tries to post Teams channel messages.
+    """
+    if shutil.which("az") is None:
+        return
+
+    try:
+        acct_result = _run_az_command(["ad", "signed-in-user", "show", "--query", "id", "-o", "tsv"])
+        if acct_result.returncode != 0 or not acct_result.stdout.strip():
+            return
+        user_id = acct_result.stdout.strip()
+        ref_body = json.dumps({
+            "@odata.id": f"https://graph.microsoft.com/v1.0/directoryObjects/{user_id}"
+        })
+        for role in ("owners", "members"):
+            _run_az_command([
+                "rest", "--method", "POST",
+                "--url", f"https://graph.microsoft.com/v1.0/groups/{group_id}/{role}/$ref",
+                "--body", ref_body,
+            ])
+        console.print(
+            f"  [green]✓[/green] Added az-login user as team owner/member."
+        )
+    except Exception as exc:
+        console.print(
+            f"  [yellow]⚠ Could not auto-add az-login user to team: {exc}[/yellow]"
+        )
+
+
 def _create_team_group(
     display_name: str,
     description: str = "",
@@ -877,6 +909,7 @@ def _create_team_group(
                 try:
                     graph_client.put(f"/groups/{group_id}/team", json_body={})
                     console.print("  [green]✓[/green] Team enabled on group.")
+                    _add_az_login_user_to_group(group_id)
                     return group_id
                 except Exception:
                     if attempt < 2:
@@ -937,6 +970,7 @@ def _create_team_group(
             )
             if team_result.returncode == 0:
                 console.print("  [green]✓[/green] Team enabled on group.")
+                _add_az_login_user_to_group(group_id)
                 return group_id
             if attempt < 4:
                 console.print(

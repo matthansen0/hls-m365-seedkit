@@ -269,7 +269,7 @@ def _cleanup_chats(
         return actions
 
     # Search for chats with our run_id tag in the topic
-    tag = f"DEMO-SEED:{run_id}"
+    tag = f"[{run_id}]"
     try:
         # List chats and filter client-side (Graph /chats doesn't support $filter on topic)
         resp = client.get(

@@ -92,6 +92,17 @@ Set these locally before opening the dev container:
 | `M365SEED_TENANT_ID` | Target tenant GUID | Optional (setup wizard) |
 | `M365SEED_CLIENT_ID` | App registration client ID | Optional (setup wizard) |
 
+### Azure CLI Login in Dev Containers
+
+The dev container has no browser, so you must use `--use-device-code`.
+M365-only tenants have no Azure subscription, so add `--allow-no-subscriptions`:
+
+```bash
+az login --tenant <TENANT_ID> --allow-no-subscriptions --use-device-code
+```
+
+This identity is used by the **delegated auth** path (Teams channel messages, Teams chats). The `m365seed setup` wizard automatically adds this user as an owner/member of newly created Teams so that `seed-teams` and `seed-chats` don't get 403 errors.
+
 ---
 
 ## Deployment Workflow
@@ -166,6 +177,41 @@ m365seed seed-all                 # Seed the tenant
 - After any correction or mistake, capture the pattern in `tasks/lessons.md`.
 - Plan before building — enter plan mode for non-trivial tasks.
 - Verify before declaring done — run tests, check outputs.
+
+### 6. Synthetic Persona Changes
+
+When requesting changes to patient/provider personas in the demo data, use this structured format:
+
+```
+PATIENT:       Name, age, location, language preference
+PROVIDER:      Name, specialty
+CLINICAL FOCUS: Condition, medications, key mechanism
+CONTENT TONE:  What kind of interactions (e.g., virtual rounding,
+               care coordination, discharge planning)
+EXCLUSIONS:    What NOT to generate (e.g., EHR/EMR clinical data)
+```
+
+When the user requests a persona change without using this format, respond with the template above and ask them to confirm or fill in any missing fields before proceeding. This ensures all content modules get the right clinical context.
+
+**Files affected by persona changes** (all must be updated together):
+
+| File | What to change |
+|------|---------------|
+| `m365seed/data/themes.json` | Roles, user_profiles, mail_threads, calendar_events, teams_channels, chat_conversations, sharepoint_sites, planner_plans |
+| `m365seed/templates/healthcare/*.j2` | discharge_planning, handoff_checklist, email_body templates |
+| `seed-config.yaml` | Role references, chat messages, teams post messages |
+| `seed-config.example.yaml` | Role reference |
+| `m365seed/setup.py` | DEFAULT_USERS role mapping |
+| `tests/test_profiles.py` | Profile assertions and test fixtures |
+
+**Active personas** (healthcare theme):
+
+| Role | Patient | Provider | Specialty |
+|------|---------|----------|-----------|
+| Care Manager — Dr. Donald Wilson | Jennifer Moore | Dr. Donald Wilson | General |
+| Care Manager — Dr. Daniel Rodriguez | Elizabeth Brown (age 62, Lansing MI, Spanish) | Dr. Daniel Rodriguez | Cardiology |
+
+After changes, always run `python -m pytest tests/ -v` to verify.
 
 ---
 

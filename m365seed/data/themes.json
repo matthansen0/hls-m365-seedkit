@@ -7,7 +7,7 @@
         "roles": [
             "Clinical Ops Manager",
             "Care Manager — Dr. Donald Wilson",
-            "Care Manager — Dr. Mary Gonzalez",
+            "Care Manager — Dr. Daniel Rodriguez",
             "Nurse Manager",
             "Compliance Officer"
         ],
@@ -29,12 +29,12 @@
                 "aboutMe": "Leads interdisciplinary rounding and documents care-management notes for Jennifer Moore and related synthetic care-coordination cases."
             },
             {
-                "role": "Care Manager — Dr. Mary Gonzalez",
+                "role": "Care Manager — Dr. Daniel Rodriguez",
                 "jobTitle": "Care Manager",
                 "department": "Care Management",
                 "companyName": "Contoso Health System",
-                "officeLocation": "Main Campus — Patient Services Wing",
-                "aboutMe": "Leads discharge-readiness documentation and follow-up planning for Margaret Hernandez and related synthetic transitional-care cases."
+                "officeLocation": "Main Campus — Cardiology Wing",
+                "aboutMe": "Leads virtual rounding, discharge-readiness documentation, and post-discharge follow-up planning for Elizabeth Brown (Cardiology, Spanish-speaking) and related synthetic transitional-care cases."
             },
             {
                 "role": "Nurse Manager",
@@ -110,7 +110,7 @@
                 "messages": 6,
                 "include_attachments": true,
                 "attachment_name": "Discharge_Planning_Summary.txt",
-                "attachment_content": "DISCHARGE PLANNING SUMMARY\n\nCase 1\nPatient: Jennifer Moore\nMRN: DEMO-001\nCare Manager: Dr. Donald Wilson\nAdmission Date: 2026-01-25\nTarget Discharge: 2026-02-01\n\nCase 2\nPatient: Margaret Hernandez\nMRN: DEMO-002\nCare Manager: Dr. Mary Gonzalez\nLanguage Preference: Spanish — patient prefers Spanish-speaking staff for all interactions\nAdmission Date: 2026-01-26\nTarget Discharge: 2026-02-02\n\nPRIMARY DIAGNOSIS: Community-acquired pneumonia\nCOMORBIDITIES: Type 2 DM, HTN, mild CHF (EF 45%)\n\nMEDICATION RECONCILIATION: Complete\n  - Amoxicillin-clavulanate 875mg BID x 5 days (new)\n  - Metformin 1000mg BID (continued)\n  - Lisinopril 10mg daily (continued)\n  - Furosemide 20mg daily (continued)\n  - Potassium 20mEq daily (continued — interaction reviewed)\n\nCARE MANAGER INTERACTIONS\n  - Dr. Donald Wilson rounded on Jennifer Moore during morning rounds and documented a progress note.\n  - Dr. Mary Gonzalez rounded on Margaret Hernandez and added a discharge readiness note.\n  - Dr. Donald Wilson sent a coordination message to nursing and pharmacy for Jennifer Moore.\n  - Dr. Mary Gonzalez sent follow-up instructions for Margaret Hernandez post-discharge outreach.\n  - NOTE: Margaret Hernandez prefers Spanish-speaking individuals for care interactions and discharge education.\n\nDISCHARGE CHECKLIST\n  ✓ Follow-up appointments scheduled\n  ✓ Home health referral submitted\n  ✓ DME delivery confirmed\n  ✓ Insurance pre-authorization obtained\n  ✓ Patient education teach-back documented\n\nDemo content — synthetic, no patient data."
+                "attachment_content": "DISCHARGE PLANNING SUMMARY\n\nCase 1\nPatient: Jennifer Moore\nMRN: DEMO-001\nCare Manager: Dr. Donald Wilson\nAdmission Date: 2026-01-25\nTarget Discharge: 2026-02-01\n\nCase 2\nPatient: Elizabeth Brown\nMRN: DEMO-002\nAge: 62 | Location: Lansing, MI\nCare Manager: Dr. Daniel Rodriguez\nSpecialty: Cardiology\nLanguage Preference: Spanish — patient prefers Spanish-speaking staff for all interactions\nAdmission Date: 2026-01-26\nTarget Discharge: 2026-02-02\n\nCARDIOLOGY NOTES (Case 2 — Elizabeth Brown)\n  Primary Concern: CHF exacerbation — missed Furosemide doses led to fluid retention\n  Weight Gain Mechanism: Missed Furosemide → fluid retention → 2-5 lb weight gain in days (ACC/AHA 2022)\n\nMEDICATION RECONCILIATION: Complete\n  - Furosemide 40mg daily (loop diuretic — resumed, critical for fluid management)\n  - Lisinopril 10mg daily (ACE inhibitor — continued)\n  - Metoprolol 25mg BID (beta blocker — continued)\n  - Potassium 20mEq daily (continued — interaction reviewed)\n\nCARE MANAGER INTERACTIONS\n  - Dr. Donald Wilson rounded on Jennifer Moore during morning rounds and documented a progress note.\n  - Dr. Daniel Rodriguez conducted virtual rounding on Elizabeth Brown and added a discharge readiness note.\n  - Dr. Donald Wilson sent a coordination message to nursing and pharmacy for Jennifer Moore.\n  - Dr. Daniel Rodriguez sent post-discharge outreach instructions for Elizabeth Brown — home health RN follow-up within 24 hours.\n  - NOTE: Elizabeth Brown prefers Spanish-speaking individuals for care interactions and discharge education.\n  - NOTE: Home care team should include Spanish-speaking staff for medication counselling and weight monitoring instructions.\n\nDISCHARGE CHECKLIST\n  ✓ Follow-up appointments scheduled (Cardiology within 7 days)\n  ✓ Home health referral submitted\n  ✓ Daily weight monitoring instructions provided (in Spanish)\n  ✓ Insurance pre-authorization obtained\n  ✓ Patient education teach-back documented — weight gain warning signs reviewed\n\nDemo content — synthetic, no patient data."
             },
             {
                 "thread_id": "clinical-ops-review-001",
@@ -142,7 +142,7 @@
                 "recurrence": "weekly",
                 "duration_minutes": 30,
                 "is_online_meeting": true,
-                "body": "Weekly review of active care coordination cases, including Jennifer Moore (care manager Dr. Donald Wilson) and Margaret Hernandez (care manager Dr. Mary Gonzalez), with rounding notes, care-manager messages, discharge status, and post-discharge follow-up outcomes."
+                "body": "Weekly review of active care coordination cases, including Jennifer Moore (care manager Dr. Donald Wilson) and Elizabeth Brown (care manager Dr. Daniel Rodriguez, Cardiology), with virtual rounding notes, care-manager messages, discharge status, and post-discharge follow-up outcomes."
             },
             {
                 "event_id": "compliance-review-001",
@@ -177,8 +177,8 @@
                 "posts": [
                     "Welcome to Care Updates. Use this channel for discharge planning coordination, care transition alerts, and interdisciplinary communication.",
                     "Updated discharge protocols are now effective. Key changes: follow-up appointments must be confirmed within 48 hours of discharge order.",
-                    "Case update: Dr. Donald Wilson rounded on Jennifer Moore this morning and documented a progress note. Dr. Mary Gonzalez completed Margaret Hernandez's discharge readiness assessment. Both notes are in the care coordination tracker — please review before end of shift.",
-                    "This week's care coordination wins: Jennifer Moore (care manager Dr. Donald Wilson) is on track for discharge — follow-up appointments confirmed and home health referral submitted. Margaret Hernandez (care manager Dr. Mary Gonzalez) completed teach-back and med-rec review. 0 readmissions from Monday cohort. Great work, team.",
+                    "Case update: Dr. Donald Wilson rounded on Jennifer Moore this morning and documented a progress note. Dr. Daniel Rodriguez completed a virtual rounding session with Elizabeth Brown and updated her discharge readiness assessment. Both notes are in the care coordination tracker — please review before end of shift.",
+                    "This week's care coordination wins: Jennifer Moore (care manager Dr. Donald Wilson) is on track for discharge — follow-up appointments confirmed and home health referral submitted. Elizabeth Brown (care manager Dr. Daniel Rodriguez, Cardiology) completed teach-back on daily weight monitoring and med-rec review — Furosemide adherence plan confirmed. 0 readmissions from Monday cohort. Great work, team.",
                     "Heads-up: We've identified a gap in medication reconciliation at discharge. Please double-check the med list against the discharge summary before patient leaves.",
                     "New post-discharge phone call protocol starts next Monday. Care coordinators will call patients within 24 hours (was 48). Script document is in the Clinical Ops folder."
                 ]
@@ -228,7 +228,7 @@
                     "Night shift handoff: Patient in room 302 is hemodynamically stable but needs vitals check at 06:00. IV fluids running at 75ml/hr.",
                     "Acknowledged. I'll review the chart and labs before morning rounds. Any new admissions overnight?",
                     "Two new admissions — room 308 (CHF exacerbation, on BiPAP) and room 315 (cellulitis, started on IV antibiotics at 02:00).",
-                    "Thanks for the detailed handoff. I'll prioritize 308 for early rounding. Also — Dr. Donald Wilson left a progress note for Jennifer Moore in room 401, and Dr. Mary Gonzalez updated Margaret Hernandez's discharge plan in room 402. Discharge planning for 310 is ready — paperwork needs physician sign-off.",
+                    "Thanks for the detailed handoff. I'll prioritize 308 for early rounding. Also — Dr. Donald Wilson left a progress note for Jennifer Moore in room 401, and Dr. Daniel Rodriguez conducted a virtual rounding session with Elizabeth Brown in room 402 — updated her discharge plan and confirmed daily weight monitoring instructions (Spanish-language materials provided). Discharge planning for 310 is ready — paperwork needs physician sign-off.",
                     "One more thing — room 302's family requested a care conference. I let them know we'd schedule it for tomorrow afternoon. Can you confirm with the attending?"
                 ]
             },
@@ -249,10 +249,10 @@
                 "messages": [
                     "Room 310 discharge: Insurance pre-auth confirmed for home health. PT recommends 3x/week for 4 weeks. Separately — Dr. Donald Wilson sent a coordination message to nursing and pharmacy regarding Jennifer Moore's medication follow-up.",
                     "Med rec is complete. Patient is on 7 medications — I've flagged a potential interaction between lisinopril and the newly added potassium supplement.",
-                    "Good catch. I'll reach out to the attending for a reconciliation note. DME delivery is confirmed for tomorrow morning. Also, Dr. Mary Gonzalez rounded on Margaret Hernandez and added a discharge readiness note — her target discharge is confirmed for tomorrow.",
+                    "Good catch. I'll reach out to the attending for a reconciliation note. DME delivery is confirmed for tomorrow morning. Also, Dr. Daniel Rodriguez conducted a virtual rounding session with Elizabeth Brown and added a discharge readiness note — her Furosemide has been resumed, fluid status is improving, and target discharge is confirmed for tomorrow. Spanish-language home care instructions are prepared.",
                     "Patient education done via teach-back. She can name her warning signs and knows to call the office if weight gain exceeds 3 lbs in 24 hours.",
                     "Follow-up PCP appointment scheduled for Thursday. Discharge summary will be faxed to Dr. Patel's office. We're clear to discharge once the attending signs off.",
-                    "Attending signed the order at 10:15. Transport notified. Room 310 should be departing by 11:00. Dr. Mary Gonzalez sent post-discharge outreach instructions for Margaret Hernandez — home health RN follow-up within 24 hours."
+                    "Attending signed the order at 10:15. Transport notified. Room 310 should be departing by 11:00. Dr. Daniel Rodriguez sent post-discharge outreach instructions for Elizabeth Brown — home health RN follow-up within 24 hours, Spanish-speaking staff requested for medication counselling and daily weight monitoring."
                 ]
             },
             {
@@ -278,7 +278,7 @@
                     },
                     {
                         "title": "Discharge Planning Process",
-                        "content": "<h2>Discharge Planning Process</h2><p>Effective discharge planning begins at admission. Follow this structured process to ensure safe, timely patient transitions.</p><h3>Active Synthetic Care-Manager Cases</h3><ul><li><strong>Jennifer Moore</strong> — care manager: <strong>Dr. Donald Wilson</strong>; latest interaction: morning rounding note and medication follow-up message.</li><li><strong>Margaret Hernandez</strong> — care manager: <strong>Dr. Mary Gonzalez</strong>; latest interaction: discharge readiness note and post-discharge outreach message.</li></ul><h3>Process Steps</h3><ol><li><strong>Admission Assessment</strong> — Identify anticipated discharge needs within 24 hours of admission</li><li><strong>Interdisciplinary Planning</strong> — Coordinate with pharmacy, social work, PT/OT, and case management</li><li><strong>Patient Education</strong> — Verify teach-back on medications, warning signs, and follow-up plan</li><li><strong>Discharge Order</strong> — Physician completes discharge summary and medication reconciliation</li><li><strong>Post-Discharge Follow-up</strong> — Care coordinator confirms follow-up within 48 hours</li></ol><h3>Key Metrics</h3><ul><li>Target discharge turnaround: 4 hours or less from order to departure</li><li>30-day readmission target: 12% or less</li><li>Follow-up appointment compliance: 95% or more</li></ul>"
+                        "content": "<h2>Discharge Planning Process</h2><p>Effective discharge planning begins at admission. Follow this structured process to ensure safe, timely patient transitions.</p><h3>Active Synthetic Care-Manager Cases</h3><ul><li><strong>Jennifer Moore</strong> — care manager: <strong>Dr. Donald Wilson</strong>; latest interaction: morning rounding note and medication follow-up message.</li><li><strong>Elizabeth Brown</strong> (age 62, Lansing MI, Spanish-speaking) — care manager: <strong>Dr. Daniel Rodriguez</strong> (Cardiology); latest interaction: virtual rounding session, discharge readiness note, and post-discharge outreach message. Daily weight monitoring instructions provided in Spanish.</li></ul><h3>Process Steps</h3><ol><li><strong>Admission Assessment</strong> — Identify anticipated discharge needs within 24 hours of admission</li><li><strong>Interdisciplinary Planning</strong> — Coordinate with pharmacy, social work, PT/OT, and case management</li><li><strong>Patient Education</strong> — Verify teach-back on medications, warning signs, and follow-up plan</li><li><strong>Discharge Order</strong> — Physician completes discharge summary and medication reconciliation</li><li><strong>Post-Discharge Follow-up</strong> — Care coordinator confirms follow-up within 48 hours</li></ol><h3>Key Metrics</h3><ul><li>Target discharge turnaround: 4 hours or less from order to departure</li><li>30-day readmission target: 12% or less</li><li>Follow-up appointment compliance: 95% or more</li></ul>"
                     },
                     {
                         "title": "Escalation Procedures",
@@ -304,7 +304,7 @@
                     {
                         "filename": "Care_Coordination_Toolkit.txt",
                         "folder": "Care Coordination",
-                        "content": "CARE COORDINATION TOOLKIT — 2026\nContoso Health System (Synthetic)\n\nACTIVE SYNTHETIC CARE-MANAGER CASES\n  - Jennifer Moore — care manager Dr. Donald Wilson\n    * Interaction: rounded on patient and documented morning note\n    * Interaction: sent care-coordination message to nursing/pharmacy\n  - Margaret Hernandez — care manager Dr. Mary Gonzalez\n    * Interaction: rounded on patient and documented discharge readiness note\n    * Interaction: sent post-discharge follow-up message\n\n1. DISCHARGE PLANNING CHECKLIST\n  □ Anticipated discharge date set within 24h of admission\n  □ Interdisciplinary team notified (PT/OT, pharmacy, social work)\n  □ Insurance pre-authorization obtained\n  □ DME ordered and delivery confirmed\n  □ Home health referral submitted (if applicable)\n  □ Medication reconciliation completed\n  □ Patient/family education — teach-back documented\n  □ Follow-up appointment confirmed (PCP within 7 days)\n  □ Discharge summary sent to PCP\n\n2. HANDOFF COMMUNICATION (SBAR)\n  S — Situation: Brief statement of the clinical situation\n  B — Background: Relevant clinical history and context\n  A — Assessment: Your professional assessment of the situation\n  R — Recommendation: What you need from the receiver\n\n3. READMISSION PREVENTION\n  - Post-discharge phone call within 24 hours\n  - Medication adherence check at 72 hours\n  - Transition clinic visit within 7 days for high-risk patients\n\nDemo content — synthetic, no patient data."
+                        "content": "CARE COORDINATION TOOLKIT — 2026\nContoso Health System (Synthetic)\n\nACTIVE SYNTHETIC CARE-MANAGER CASES\n  - Jennifer Moore — care manager Dr. Donald Wilson\n    * Interaction: rounded on patient and documented morning note\n    * Interaction: sent care-coordination message to nursing/pharmacy\n  - Elizabeth Brown (age 62, Lansing MI, Spanish-speaking) — care manager Dr. Daniel Rodriguez (Cardiology)\n    * Interaction: virtual rounding session — reviewed fluid status and Furosemide adherence\n    * Interaction: sent post-discharge outreach instructions (Spanish-language materials)\n    * Interaction: coordinated home care team to include Spanish-speaking staff for weight monitoring\n\n1. DISCHARGE PLANNING CHECKLIST\n  □ Anticipated discharge date set within 24h of admission\n  □ Interdisciplinary team notified (PT/OT, pharmacy, social work)\n  □ Insurance pre-authorization obtained\n  □ DME ordered and delivery confirmed\n  □ Home health referral submitted (if applicable)\n  □ Medication reconciliation completed\n  □ Patient/family education — teach-back documented\n  □ Follow-up appointment confirmed (PCP within 7 days)\n  □ Discharge summary sent to PCP\n\n2. HANDOFF COMMUNICATION (SBAR)\n  S — Situation: Brief statement of the clinical situation\n  B — Background: Relevant clinical history and context\n  A — Assessment: Your professional assessment of the situation\n  R — Recommendation: What you need from the receiver\n\n3. READMISSION PREVENTION\n  - Post-discharge phone call within 24 hours\n  - Medication adherence check at 72 hours\n  - Transition clinic visit within 7 days for high-risk patients\n\nDemo content — synthetic, no patient data."
                     }
                 ]
             },
@@ -375,7 +375,7 @@
                                 "percent_complete": 0
                             },
                             {
-                                "title": "Dr. Mary Gonzalez rounded on Margaret Hernandez — discharge note review",
+                                "title": "Dr. Daniel Rodriguez virtual rounding on Elizabeth Brown — discharge note review",
                                 "priority": 5,
                                 "percent_complete": 0
                             }
@@ -430,7 +430,7 @@
                         "name": "Triage",
                         "tasks": [
                             {
-                                "title": "Review handoff notes for Jennifer Moore and Margaret Hernandez care-manager interactions",
+                                "title": "Review handoff notes for Jennifer Moore and Elizabeth Brown care-manager interactions",
                                 "priority": 3,
                                 "percent_complete": 0
                             },
@@ -450,7 +450,7 @@
                         "name": "Active",
                         "tasks": [
                             {
-                                "title": "Coordinate post-discharge follow-up messages for Jennifer Moore and Margaret Hernandez",
+                                "title": "Coordinate post-discharge follow-up messages for Jennifer Moore and Elizabeth Brown",
                                 "priority": 3,
                                 "percent_complete": 50
                             },

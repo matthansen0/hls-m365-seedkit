@@ -62,7 +62,7 @@ def _create_chat(
     if topic and chat_type == "group":
         # Teams chat topics cannot contain ':' characters
         safe_topic = topic.replace(":", "-")
-        payload["topic"] = f"[DEMO-SEED-{run_id}] {safe_topic}"
+        payload["topic"] = f"[{run_id}] {safe_topic}"
 
     resp = client.post("/chats", json_body=payload, base=GRAPH_BETA)
     return resp.json()

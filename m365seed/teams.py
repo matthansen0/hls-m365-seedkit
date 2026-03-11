@@ -178,6 +178,7 @@ def seed_teams(
     auth_mode = cfg.get("auth", {}).get("mode", "")
     app_only = auth_mode == "client_secret"
     msg_client: GraphClient | None = None  # lazy-init delegated client
+    _delegated_user_added = False  # track if we added delegated user to team
 
     channels = teams_cfg.get("channels", [])
 
@@ -295,6 +296,27 @@ def seed_teams(
                         msg_client = build_delegated_client(cfg, dry_run=client.dry_run)
                         # Warm the token so the device-code prompt appears now
                         msg_client._get_token()
+                        # Ensure the delegated (az login) user is a team
+                        # member — posting requires membership.
+                        if not client.dry_run and not _delegated_user_added:
+                            try:
+                                me_resp = msg_client.get(
+                                    "/me",
+                                    params={"$select": "id,userPrincipalName"},
+                                )
+                                me_data = me_resp.json()
+                                me_upn = me_data.get("userPrincipalName", "")
+                                if me_upn:
+                                    _ensure_team_members(client, team_id, [me_upn])
+                                    _delegated_user_added = True
+                                    logger.info(
+                                        "Ensured delegated user %s is a team member.",
+                                        me_upn,
+                                    )
+                            except Exception as exc:
+                                logger.warning(
+                                    "Could not add delegated user to team: %s", exc,
+                                )
                     except Exception as exc:
                         logger.warning(
                             "Could not obtain delegated credentials — "

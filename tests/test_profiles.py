@@ -23,7 +23,7 @@ class TestBuildProfileMap:
         pmap = _build_profile_map("healthcare")
         assert "Clinical Ops Manager" in pmap
         assert "Care Manager — Dr. Donald Wilson" in pmap
-        assert "Care Manager — Dr. Mary Gonzalez" in pmap
+        assert "Care Manager — Dr. Daniel Rodriguez" in pmap
         assert "Nurse Manager" in pmap
         assert "Compliance Officer" in pmap
         assert pmap["Clinical Ops Manager"]["companyName"] == "Contoso Health System"
@@ -138,7 +138,7 @@ class TestSeedProfilesDryRun:
                 "users": [
                     {"upn": "allan@test.com", "role": "Clinical Ops Manager"},
                     {"upn": "megan@test.com", "role": "Care Manager — Dr. Donald Wilson"},
-                    {"upn": "nestor@test.com", "role": "Care Manager — Dr. Mary Gonzalez"},
+                    {"upn": "nestor@test.com", "role": "Care Manager — Dr. Daniel Rodriguez"},
                 ]
             }
         }
