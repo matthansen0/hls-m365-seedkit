@@ -28,23 +28,23 @@ def _cp(returncode: int, stdout: str = "", stderr: str = "") -> subprocess.Compl
 
 
 def test_guess_tenant_domain_from_matching_az_context() -> None:
-    tenant_id = "2c627739-3b65-451a-ac0d-d3ecea353a55"
+    tenant_id = "00000000-1111-2222-3333-444444444444"
     payload = (
-        '{"tenantId":"2c627739-3b65-451a-ac0d-d3ecea353a55",'
-        '"tenantDefaultDomain":"M365x06303451.onmicrosoft.com"}'
+        '{"tenantId":"00000000-1111-2222-3333-444444444444",'
+        '"tenantDefaultDomain":"contoso.onmicrosoft.com"}'
     )
 
     with patch("m365seed.setup.shutil.which", return_value="/usr/bin/az"), patch(
         "m365seed.setup.subprocess.run", return_value=_cp(0, stdout=payload)
     ):
-        assert _guess_tenant_domain(tenant_id) == "m365x06303451.onmicrosoft.com"
+        assert _guess_tenant_domain(tenant_id) == "contoso.onmicrosoft.com"
 
 
 def test_guess_tenant_domain_returns_none_on_tenant_mismatch() -> None:
-    tenant_id = "2c627739-3b65-451a-ac0d-d3ecea353a55"
+    tenant_id = "00000000-1111-2222-3333-444444444444"
     payload = (
-        '{"tenantId":"19a1b89f-a9ba-4694-ae2b-bd1dc0ee369b",'
-        '"tenantDefaultDomain":"contoso.onmicrosoft.com"}'
+        '{"tenantId":"aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",'
+        '"tenantDefaultDomain":"othertenant.onmicrosoft.com"}'
     )
 
     with patch("m365seed.setup.shutil.which", return_value="/usr/bin/az"), patch(
@@ -55,7 +55,7 @@ def test_guess_tenant_domain_returns_none_on_tenant_mismatch() -> None:
 
 def test_guess_tenant_domain_returns_none_when_az_missing() -> None:
     with patch("m365seed.setup.shutil.which", return_value=None):
-        assert _guess_tenant_domain("2c627739-3b65-451a-ac0d-d3ecea353a55") is None
+        assert _guess_tenant_domain("00000000-1111-2222-3333-444444444444") is None
 
 
 def test_build_setup_graph_client_prefers_delegated() -> None:
@@ -70,7 +70,7 @@ def test_build_setup_graph_client_prefers_delegated() -> None:
         return_value=app_client,
     ):
         client = _build_setup_graph_client(
-            "2c627739-3b65-451a-ac0d-d3ecea353a55",
+            "00000000-1111-2222-3333-444444444444",
             "client-id",
             "M365SEED_CLIENT_SECRET",
         )
@@ -89,7 +89,7 @@ def test_build_setup_graph_client_falls_back_to_app_client() -> None:
         return_value=app_client,
     ):
         client = _build_setup_graph_client(
-            "2c627739-3b65-451a-ac0d-d3ecea353a55",
+            "00000000-1111-2222-3333-444444444444",
             "client-id",
             "M365SEED_CLIENT_SECRET",
         )

@@ -61,7 +61,7 @@ def test_register_retries_login_after_cache_error() -> None:
             _cp(1, stderr=cache_error),           # retry login also fails
         ],
     ) as az_cmd:
-        result = register_app("2c627739-3b65-451a-ac0d-d3ecea353a55")
+        result = register_app("00000000-1111-2222-3333-444444444444")
 
     assert result is None
     assert az_cmd.call_count == 3
@@ -90,7 +90,7 @@ def test_register_clears_cache_before_login_on_probe_error() -> None:
             {"id": "sp"},
             {"password": "s"},
         ]
-        result = register_app("2c627739-3b65-451a-ac0d-d3ecea353a55")
+        result = register_app("00000000-1111-2222-3333-444444444444")
 
     assert result is not None
     ensure_healthy.assert_called_once()

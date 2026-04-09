@@ -181,6 +181,20 @@ After adding permissions, click **Grant admin consent** for the tenant.
 
 ---
 
+## Known Issues
+
+### OneDrive Provisioning Requirement
+
+Microsoft 365 does not provision a user's OneDrive personal site until that user (or an admin) accesses it for the first time. If the `seed-files` command returns a `404` for a user's drive, the target user must sign in to OneDrive (or SharePoint) at least once before file seeding will work.
+
+**Workarounds:**
+- Sign in as the target user at `https://<tenant>-my.sharepoint.com/` to trigger provisioning
+- Or use `m365seed setup` — the wizard lets you pick a user whose OneDrive is already provisioned
+
+See [Microsoft Learn — OneDrive provisioning](https://learn.microsoft.com/en-us/sharepoint/troubleshoot/administration/personal-site-not-created) for details.
+
+---
+
 ## Idempotency Strategy
 
 The tool uses **deterministic tagging** to ensure reruns are safe:
@@ -328,11 +342,6 @@ HLS-M365-Seed/
 │   ├── test_sharepoint.py
 │   ├── test_planner.py
 │   └── test_cleanup.py
-├── tasks/
-│   ├── todo.md
-│   └── lessons.md
-└── prompt/
-    └── copilot_m365_demo_tenant_seeding_prompt.md
 ```
 
 ---
