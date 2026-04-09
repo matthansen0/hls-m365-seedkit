@@ -298,7 +298,7 @@ pytest --cov=m365seed --cov-report=term-missing
 ## Project Structure
 
 ```
-HLS-M365-Seed/
+hls-m365-seedkit/
 ├── .devcontainer/
 │   ├── Dockerfile           # Python 3.12 + Azure CLI + all deps
 │   ├── devcontainer.json    # VS Code dev-container config

@@ -1,5 +1,5 @@
 # ──────────────────────────────────────────────────────────────
-# HLS-M365-Seed Dev Container
+# hls-m365-seedkit Dev Container
 # All deployment dependencies pre-installed for CLI-driven seeding.
 # ──────────────────────────────────────────────────────────────
 FROM mcr.microsoft.com/devcontainers/python:1-3.12-bookworm

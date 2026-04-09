@@ -1,5 +1,5 @@
 {
-  "name": "HLS-M365-Seed",
+  "name": "hls-m365-seedkit",
   "build": {
     "dockerfile": "Dockerfile",
     "context": ".."

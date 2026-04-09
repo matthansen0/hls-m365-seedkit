@@ -7,7 +7,7 @@
 
 ## Project Identity
 
-**M365 Demo Tenant Seeding Tool (HLS-M365-Seed)**
+**M365 Demo Tenant Seeding Tool (hls-m365-seedkit)**
 
 A safe, idempotent seeding tool for Microsoft 365 demo tenants with synthetic, theme-aware content across four HLS verticals (Healthcare, Pharma, MedTech, Payor). Supports Work IQ, Foundry IQ, and Fabric IQ demonstrations in Healthcare and Life Sciences.
 
@@ -16,7 +16,7 @@ A safe, idempotent seeding tool for Microsoft 365 demo tenants with synthetic, t
 ## Architecture Overview
 
 ```
-HLS-M365-Seed/
+hls-m365-seedkit/
 ├── .devcontainer/          # Containerised dev environment
 │   ├── Dockerfile          # Python 3.12 + Azure CLI + all deps
 │   ├── devcontainer.json   # VS Code dev-container config

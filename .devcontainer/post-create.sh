@@ -6,7 +6,7 @@
 set -euo pipefail
 
 echo "──────────────────────────────────────────────────"
-echo "  HLS-M365-Seed — Post-Create Setup"
+echo "  hls-m365-seedkit — Post-Create Setup"
 echo "──────────────────────────────────────────────────"
 
 # ── Install the project in editable mode ─────────────────────
