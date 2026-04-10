@@ -1619,6 +1619,13 @@ def run_setup(config_path: str = "seed-config.yaml") -> None:
     for key, label, default in CONTENT_SECTIONS:
         sections[key] = Confirm.ask(f"    {label}?", default=default)
 
+    if sections.get("files"):
+        console.print(
+            "\n  [yellow]⚠ OneDrive note:[/yellow] Each user's OneDrive must be accessed at least once\n"
+            "  before files can be uploaded. If seed-files returns a 404, sign in as the\n"
+            "  target user at [bold]https://<tenant>-my.sharepoint.com/[/bold] to provision their drive."
+        )
+
     # ── Step 8: Teams / Planner IDs ─────────────────────────
     team_id = ""
     group_id = ""
