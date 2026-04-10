@@ -448,7 +448,7 @@ def _match_default_users(
     domain: str,
     tenant_users: list[dict[str, str]],
 ) -> list[dict[str, str]]:
-    """Match CDX default user aliases against actual tenant users.
+    """Match default demo user aliases against actual tenant users.
 
     Returns a list of dicts with 'upn', 'role', and 'matched' keys.
     If a default user is found in the tenant, their real UPN is used.
@@ -507,7 +507,7 @@ def _ask_users(domain: str, graph_client: Any | None = None) -> list[dict[str, s
     """Let the user accept defaults or enter custom UPNs.
 
     Queries Azure CLI to discover actual tenant users and matches
-    default CDX aliases against them.  Missing users are flagged.
+    default demo aliases against them.  Missing users are flagged.
     """
     # Discover real users in the tenant
     console.print("\n  [dim]Querying tenant for existing users…[/dim]")
@@ -521,7 +521,7 @@ def _ask_users(domain: str, graph_client: Any | None = None) -> list[dict[str, s
         found = [u for u in matched if u["matched"] == "true"]
         missing = [u for u in matched if u["matched"] == "false"]
 
-        console.print("\n  [bold]Default demo users[/bold] (MDX/CDX standard):")
+        console.print("\n  [bold]Default demo users[/bold]:")
         for u in matched:
             if u["matched"] == "true":
                 console.print(
@@ -539,7 +539,7 @@ def _ask_users(domain: str, graph_client: Any | None = None) -> list[dict[str, s
             )
             if not found:
                 console.print(
-                    "  [yellow]  None of the CDX defaults exist. "
+                    "  [yellow]  None of the defaults exist. "
                     "You can create them later in setup or choose different users now.[/yellow]"
                 )
 
@@ -596,7 +596,7 @@ def _ask_users(domain: str, graph_client: Any | None = None) -> list[dict[str, s
         defaults = [
             {**u, "upn": u["upn"].format(domain=domain)} for u in DEFAULT_USERS
         ]
-        console.print("\n  [bold]Default demo users[/bold] (MDX/CDX standard):")
+        console.print("\n  [bold]Default demo users[/bold]:")
         for u in defaults:
             console.print(f"    • {u['upn']}  ({u['role']})")
 

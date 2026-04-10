@@ -6,16 +6,18 @@ Built for **Work IQ** demonstrations across four HLS verticals: Health Provider,
 
 ## What It Seeds
 
-| Content | What gets created |
-|---------|-------------------|
-| **User Profiles** | jobTitle, department, companyName branded to your theme |
-| **Email** | Multi-message threads with clinical attachments |
-| **OneDrive Files** | SOPs, discharge plans, compliance docs, quality reports |
-| **Calendar** | Recurring meetings with Teams join links |
-| **Teams Channels** | Care Updates, Quality Improvement, Nursing Ops, Announcements |
-| **Teams Chats** | 1:1 and group chats (shift handoffs, discharge planning, staffing) |
-| **SharePoint Sites** | Clinical Ops Hub, Compliance Portal, Patient Safety Center |
-| **Planner** | Sprint boards with buckets and tasks |
+| Content | What gets created | Status |
+|---------|-------------------|--------|
+| **User Profiles** | jobTitle, department, companyName branded to your theme | GA |
+| **Email** | Multi-message threads with clinical attachments | GA |
+| **OneDrive Files** | SOPs, discharge plans, compliance docs, quality reports | GA |
+| **Calendar** | Recurring meetings with Teams join links | GA |
+| **Teams Channels** | Care Updates, Quality Improvement, Nursing Ops, Announcements | Beta* |
+| **Teams Chats** | 1:1 and group chats (shift handoffs, discharge planning, staffing) | Beta* |
+| **SharePoint Sites** | Clinical Ops Hub, Compliance Portal, Patient Safety Center | GA |
+| **Planner** | Sprint boards with buckets and tasks | GA |
+
+*\*Beta modules use Microsoft Graph beta endpoints and require `--enable-beta-teams`.*
 
 All content is theme-aware — switch between `healthcare`, `pharma`, `medtech`, or `payor` and every module adapts.
 
