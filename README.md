@@ -1,6 +1,6 @@
 # Health & Life Sciences M365 Seedkit
 
-Populate a Microsoft 365 demo tenant with synthetic Healthcare and Life Sciences content — emails, files, calendar events, Teams channels, chats, SharePoint sites, and Planner boards — in minutes.
+Populate a Microsoft 365 demo tenant with synthetic Healthcare and Life Sciences content - emails, files, calendar events, Teams channels, chats, SharePoint sites, and Planner boards. minutes.
 
 Built for **Work IQ** demonstrations across four HLS verticals: Health Provider, Pharma/Life Science, MedTech, and Health Payor. All content is synthetic. No real patient data, no PHI.
 
