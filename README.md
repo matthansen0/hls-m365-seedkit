@@ -1,8 +1,8 @@
-# hls-m365-seedkit
+# Health & Life Sciences M365 Seedkit
 
 Populate a Microsoft 365 demo tenant with synthetic Healthcare and Life Sciences content — emails, files, calendar events, Teams channels, chats, SharePoint sites, and Planner boards — in minutes.
 
-Built for **Work IQ**, **Foundry IQ**, and **Fabric IQ** demonstrations across four HLS verticals: Health Provider, Pharma/Life Science, MedTech, and Health Payor. All content is synthetic. No real patient data, no PHI.
+Built for **Work IQ** demonstrations across four HLS verticals: Health Provider, Pharma/Life Science, MedTech, and Health Payor. All content is synthetic. No real patient data, no PHI.
 
 ## What It Seeds
 
@@ -21,7 +21,9 @@ All content is theme-aware — switch between `healthcare`, `pharma`, `medtech`,
 
 ## Getting Started
 
-You need VS Code, Docker, and a Microsoft 365 demo tenant. That's it.
+You need [VS Code](https://code.visualstudio.com/) (with the [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)) or [GitHub Codespaces](https://github.com/features/codespaces), and a Microsoft 365 demo tenant. The project is designed to run entirely inside the included dev container — no local Python or dependency setup required.
+
+> **Tenant permissions:** The setup wizard can auto-create an Entra ID app registration for you, but this requires **Global Administrator** access to the demo tenant. The app uses Microsoft Graph application permissions (e.g., `Mail.Send`, `Files.ReadWrite.All`, `Calendars.ReadWrite`). See [docs/REFERENCE.md](docs/REFERENCE.md) for the full permissions table. This tool is intended for demo/dev tenants only — do not run against production.
 
 **1. Open in Dev Container**
 
@@ -38,6 +40,8 @@ m365seed setup
 ```
 
 The wizard handles everything: tenant connection, app registration (auto-creates via Azure CLI), theme selection, user discovery, and config generation. It produces a `seed-config.yaml` tailored to your tenant.
+
+![Setup wizard running in the terminal](docs/images/tool.png)
 
 **3. Seed**
 
